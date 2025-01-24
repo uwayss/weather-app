@@ -1,9 +1,9 @@
 import { View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
-import SearchSection from "../components/HomeScreen/SearchSection/SearchSection";
-import ForecastSection from "../components/HomeScreen/ForecastSection/ForecastSection";
-import WeatherContextProvider from "../context/useWeatherContext";
+import SearchSection from "../components/SearchSection/SearchSection";
+import ForecastSection from "../components/ForecastSection";
+import WeatherContextProvider from "../context/weatherContext";
+import SearchBarContextProvider from "../context/searchBarContext";
 
 const HomeScreen = () => {
   return (
@@ -16,7 +16,9 @@ const HomeScreen = () => {
           resizeMode="cover"
         />
         <View className="flex-1">
-          <SearchSection />
+          <SearchBarContextProvider>
+            <SearchSection />
+          </SearchBarContextProvider>
           <ForecastSection />
         </View>
         <StatusBar style="light" />
