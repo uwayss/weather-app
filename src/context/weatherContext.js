@@ -1,9 +1,27 @@
-import { createContext, useState } from "react";
-export const WeatherContext = createContext();
+import { createContext, useEffect, useState } from "react";
 import { defaultWeather } from "../constants/weather";
+import { readWeatherData, storeWeatherData } from "../helpers/asyncStorage";
+import { isWithinLast30Minutes } from "../helpers/time";
 
+export const WeatherContext = createContext();
 export default function WeatherContextProvider({ children }) {
   const [weather, setWeather] = useState(defaultWeather);
+
+  useEffect(() => {
+    const funcc = async () => {
+      const previousWeatherData = await readWeatherData();
+      if (
+        previousWeatherData &&
+        !isWithinLast30Minutes(previousWeatherData.current.time)
+      ) {
+        setWeather(previousWeatherData);
+      } else {
+        // Using defaultWeather as a fallback
+        setWeather(defaultWeather);
+      }
+    };
+    funcc();
+  }, []);
   return (
     <WeatherContext.Provider
       value={{
