@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { defaultWeather } from "../constants/weather";
-import { readWeatherData, storeWeatherData } from "../helpers/asyncStorage";
+import { readWeatherData, resetWeatherData } from "../helpers/asyncStorage";
 import { isWithinLast30Minutes } from "../helpers/time";
 
 export const WeatherContext = createContext();
@@ -14,9 +14,11 @@ export default function WeatherContextProvider({ children }) {
         previousWeatherData &&
         !isWithinLast30Minutes(previousWeatherData.current.time)
       ) {
+        console.log("Using previous weather data");
         setWeather(previousWeatherData);
       } else {
         // Using defaultWeather as a fallback
+        console.log("Using defaultWeather as fallback");
         setWeather(defaultWeather);
       }
     };

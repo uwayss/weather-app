@@ -3,7 +3,7 @@ import { getEndpoint } from "../constants/api.js";
 import { storeWeatherData } from "../helpers/asyncStorage.js";
 
 export default async function FetchWeather(location = defaultLocation) {
-  const endpoint = getEndpoint(location.lat, location.lon, 3);
+  const endpoint = getEndpoint(location.lat, location.lon);
   const response = await fetch(endpoint);
   const data = await response.json();
   const name = location.name;

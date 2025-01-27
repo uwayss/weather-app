@@ -16,3 +16,10 @@ export const readWeatherData = async () => {
     throw new Error("Error reading data from AsyncStorage");
   }
 };
+export const resetWeatherData = async () => {
+  try {
+    await AsyncStorage.removeItem("weather");
+  } catch (e) {
+    throw new Error("Error resetting weather data");
+  }
+};

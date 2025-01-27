@@ -53,15 +53,23 @@ export default function SearchBar() {
 
   return (
     <View
-      className={`mx-4 rounded-3xl overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16 opacity-70 ${
-        showSearch ? "bg-gray-300" : ""
+      className={`mx-4 rounded-3xl overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16 ${
+        showSearch ? "bg-gray-300/70" : ""
       }`}
     >
+      <Icon
+        name="map-pin"
+        size={28}
+        color={"black"}
+        className="mr-2"
+        style={{ display: !showSearch ? "none" : null }}
+      />
       <TextInput
-        className="w-full text-lg"
+        className="text-lg h-full pl-1 w-full"
+        textAlignVertical="center"
         placeholder="Search City"
         placeholderTextColor={"black"}
-        style={{ display: !showSearch ? "none" : null }}
+        style={{ display: !showSearch ? "none" : null, width: "90%" }}
         onChangeText={setSearchText}
         value={searchText}
       />
@@ -74,7 +82,7 @@ export default function SearchBar() {
         }}
         className="rounded-full p-3"
       >
-        <Icon name="search" size={28} color="#000" />
+        <Icon name="search" size={28} color="black" />
       </TouchableOpacity>
     </View>
   );

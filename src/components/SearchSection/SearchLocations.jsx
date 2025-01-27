@@ -16,7 +16,7 @@ export default function SearchLocations() {
       {locations.slice(0, 3).map((location, index) => (
         <TouchableOpacity
           key={index}
-          className="flex-row items-center"
+          className="flex-row items-center opacity-100"
           onPress={() => handleLocationChange(location)}
         >
           <View className="w-full h-full bg-gray-600 px-5 py-5">

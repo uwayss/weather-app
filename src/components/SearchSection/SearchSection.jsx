@@ -7,7 +7,7 @@ import { SearchBarContext } from "../../context/searchBarContext";
 export default function SearchSection() {
   const { locations, showSearch } = useContext(SearchBarContext);
   return (
-    <SafeAreaView className="h-full gap-5 mt-2 absolute z-10 w-full">
+    <SafeAreaView className="h-fit w-full gap-5 mt-2 z-10 absolute">
       <SearchBar />
       {locations.length > 0 && showSearch && <SearchLocations />}
     </SafeAreaView>

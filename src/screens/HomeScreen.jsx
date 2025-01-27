@@ -1,7 +1,7 @@
 import { View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import SearchSection from "../components/SearchSection/SearchSection";
-import ForecastSection from "../components/ForecastSection";
+import ForecastSection from "../components/ForecastSection/ForecastSection";
 import WeatherContextProvider from "../context/weatherContext";
 import SearchBarContextProvider from "../context/searchBarContext";
 
@@ -10,9 +10,10 @@ const HomeScreen = () => {
     <WeatherContextProvider>
       <View className="flex-1 relative">
         <Image
-          source={require("../../assets/sample_bg.jpg")}
+          source={require("../../assets/icons/clear_day.jpg")}
           className="w-full h-full absolute"
-          blurRadius={100}
+          blurRadius={5}
+          fadeDuration={0}
           resizeMode="cover"
         />
         <View className="flex-1">
