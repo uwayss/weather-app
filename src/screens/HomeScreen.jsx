@@ -1,11 +1,11 @@
-import { View, Image } from "react-native";
+import { View, Image, KeyboardAvoidingView, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import SearchSection from "../components/SearchSection/SearchSection";
 import ForecastSection from "../components/ForecastSection/ForecastSection";
 import WeatherContextProvider from "../context/weatherContext";
 import SearchBarContextProvider from "../context/searchBarContext";
-
 const HomeScreen = () => {
+  // TODO: fix the ui messing up when keyboard is on
   return (
     <WeatherContextProvider>
       <View className="flex-1 relative">
@@ -13,7 +13,7 @@ const HomeScreen = () => {
           source={require("../../assets/icons/clear_day.jpg")}
           className="w-full h-full absolute"
           blurRadius={5}
-          fadeDuration={0}
+          fadeDuration={50}
           resizeMode="cover"
         />
         <View className="flex-1">

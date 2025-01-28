@@ -1,16 +1,13 @@
-import defaultLocation from "../constants/weather.js";
 import { getEndpoint } from "../constants/api.js";
 import { storeWeatherData } from "../helpers/asyncStorage.js";
 
-export default async function FetchWeather(location = defaultLocation) {
+export default async function FetchWeather(location) {
   const endpoint = getEndpoint(location.lat, location.lon);
   const response = await fetch(endpoint);
   const data = await response.json();
   const name = location.name;
-  const displayName = location.display_name;
-  const countryName = location.address.country;
-  const weatherData = { ...data, name, displayName, countryName };
+  const weatherData = { ...data, name, countryName };
   storeWeatherData(weatherData);
-  console.warn("saved weather data!!");
+  console.log("Saved weather data into storage");
   return weatherData;
 }

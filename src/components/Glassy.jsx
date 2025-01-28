@@ -3,8 +3,8 @@ import { View, Text } from "react-native";
 export const GlassyText = ({
   className,
   children,
-  theme = "light",
   centered = true,
+  theme = "light",
 }) => {
   return (
     <Text
@@ -17,12 +17,24 @@ export const GlassyText = ({
   );
 };
 
-export const GlassyView = ({ children, className, theme = "light" }) => {
+export const GlassyView = ({
+  children,
+  className,
+  theme = "light",
+  rounded = true,
+  transparency = "60",
+}) => {
+  let bgColor =
+    theme == "trans"
+      ? "bg-transparent"
+      : theme == "light"
+      ? "bg-slate-300"
+      : "bg-slate-700";
   return (
     <View
       className={`${
-        theme == "light" ? "bg-slate-300/60" : "bg-slate-700/60"
-      } rounded-2xl ${className}`}
+        theme == "trans" ? "bg-transparent" : bgColor + "/" + transparency
+      } ${rounded ? "rounded-2xl" : ""} ${className}`}
     >
       {children}
     </View>

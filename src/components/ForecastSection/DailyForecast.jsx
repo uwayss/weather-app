@@ -43,17 +43,14 @@ function DailyWeatherItem({ data }) {
   return (
     <GlassyView
       theme={theme}
-      className="flex-col gap-4 items-center px-4 py-4 mr-5 w-40"
+      className="flex-col gap-4 items-center pb-2 mr-2 w-32"
     >
       {/* TODO: implement the icons!!! */}
       <Image
         source={{
           uri: weatherCodeToImageURL(data.weather_code),
         }}
-        style={{
-          height: 80,
-          width: 80,
-        }}
+        className="w-32 h-32 bg-white/55 rounded-t-2xl"
       ></Image>
       <GlassyText theme={theme} className="text-2xl font-bold tracking-widest">
         {weekDay}
@@ -87,14 +84,14 @@ function ForecastList({ forecastData }) {
   const { theme } = useContext(themeContext);
   if (!forecastData.length) {
     return (
-      <View className="px-5 py-8">
+      <View className="p-4">
         <GlassyText theme={theme}>No forecast data available</GlassyText>
       </View>
     );
   }
 
   return (
-    <ScrollView className="px-5 py-8" horizontal>
+    <ScrollView className="p-4" horizontal>
       {forecastData.map((item) => (
         <DailyWeatherItem key={item.time} data={item} />
       ))}
