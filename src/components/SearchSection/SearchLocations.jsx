@@ -5,10 +5,12 @@ import FetchWeather from "../../hooks/useFetchWeather";
 import { WeatherContext } from "../../context/weatherContext";
 import { GlassyView, GlassyText } from "../Glassy";
 import { themeContext } from "../../context/themeContext";
+
 export default function SearchLocations() {
   const { locations } = useContext(SearchBarContext);
   const { setWeather } = useContext(WeatherContext);
   const { theme } = useContext(themeContext);
+
   async function handleLocationChange(location) {
     const newWeather = await FetchWeather(location);
     setWeather(newWeather);

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { WeatherContext } from "../../context/weatherContext";
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, FlatList } from "react-native";
 import { FontAwesome6 } from "react-native-vector-icons";
 import { processDailyWeatherData } from "../../helpers/processDailyWeatherData";
 import weatherDescriptions from "../../constants/descriptions";
@@ -28,7 +28,7 @@ function weatherCodeToImageURL(code) {
   return weatherDescriptions[code].day.image;
 }
 
-function DailyWeatherItem({ data }) {
+function DailyWeatherItem({ data, last }) {
   const { theme } = useContext(themeContext);
   // Safely handle missing properties
   const condition = data.weather_code
@@ -41,47 +41,43 @@ function DailyWeatherItem({ data }) {
     : "Unknown";
 
   return (
-    <GlassyView
+    <View
       theme={theme}
-      className="flex-col gap-4 items-center pb-2 mr-2 w-32"
+      className={`flex-col gap-2 items-center w-32 h-52 bg-slate-700/60 overflow-hidden rounded-xl`}
     >
       {/* TODO: implement the icons!!! */}
       <Image
         source={{
           uri: weatherCodeToImageURL(data.weather_code),
         }}
-        className="w-32 h-32 bg-white/55 rounded-t-2xl"
+        className="w-32 h-32 bg-white/55"
       ></Image>
-      <GlassyText theme={theme} className="text-2xl font-bold tracking-widest">
+      <GlassyText theme={theme} className="text-xl font-bold tracking-widest">
         {weekDay}
       </GlassyText>
       <TemperatureDisplay
         min={data.temperature_2m_min}
         max={data.temperature_2m_max}
       />
-    </GlassyView>
+    </View>
   );
 }
 
 function Header() {
   const { theme } = useContext(themeContext);
   return (
-    <View className="flex-row justify-start items-center gap-4 px-4">
-      <GlassyView
-        theme={theme}
-        className="flex-row justify-start items-center gap-4 px-6 p-4"
-      >
-        <FontAwesome6 name="calendar-days" color="white" size={18} />
-        <GlassyText theme={theme} className="text-2xl font-bold">
-          Next Days
-        </GlassyText>
-      </GlassyView>
+    <View className="flex-row justify-center items-center gap-4 px-6">
+      <FontAwesome6 name="calendar-days" color="white" size={18} />
+      <GlassyText theme={theme} className="text-2xl font-bold">
+        Next Days
+      </GlassyText>
     </View>
   );
 }
 
 function ForecastList({ forecastData }) {
   const { theme } = useContext(themeContext);
+
   if (!forecastData.length) {
     return (
       <View className="p-4">
@@ -91,15 +87,25 @@ function ForecastList({ forecastData }) {
   }
 
   return (
-    <ScrollView className="p-4" horizontal>
-      {forecastData.map((item) => (
-        <DailyWeatherItem key={item.time} data={item} />
-      ))}
-    </ScrollView>
+    <FlatList
+      className="my-2 gap-4 mx-4 flex-row"
+      horizontal
+      data={forecastData}
+      keyExtractor={(item) => item.time}
+      renderItem={({ item, index }) => (
+        <DailyWeatherItem
+          data={item}
+          last={index + 1 === forecastData.length}
+        />
+      )}
+      contentContainerStyle={{
+        gap: 10,
+      }}
+    />
   );
 }
 
-function TemperatureDisplay({ min, max, stylesExtra = "" }) {
+function TemperatureDisplay({ min, max, className = "" }) {
   const { theme } = useContext(themeContext);
   const minTemp = Math.round(min);
   const maxTemp = Math.round(max);
@@ -107,13 +113,13 @@ function TemperatureDisplay({ min, max, stylesExtra = "" }) {
     <View className="flex-row gap-1 items-center">
       <GlassyText
         theme={theme}
-        className={"tacking-wide font-bold text-lg" + stylesExtra}
+        className={"tacking-wide font-bold text-lg" + className}
       >
         {maxTemp ?? "--"}°C /
       </GlassyText>
       <GlassyText
         theme={theme}
-        className={"tacking-wide font-thin" + stylesExtra}
+        className={"tacking-wide font-thin" + className}
       >
         {minTemp ?? "--"}°C
       </GlassyText>
@@ -145,16 +151,16 @@ export default function DailyForecast() {
   // Show loading state while waiting for data
   if (!weather) {
     return (
-      <View className="p-4">
+      <GlassyView theme={theme} className="m-4 flex-col h-fit w-full">
         <GlassyText theme={theme}>Loading weather forecast...</GlassyText>
-      </View>
+      </GlassyView>
     );
   }
 
   return (
-    <View className="flex-col h-fit w-full">
+    <GlassyView theme={theme} className="m-4 flex-col w-11/12 h-fit py-4 gap-4">
       <Header />
       <ForecastList forecastData={dailyForecast} />
-    </View>
+    </GlassyView>
   );
 }

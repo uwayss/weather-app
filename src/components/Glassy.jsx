@@ -34,7 +34,7 @@ export const GlassyView = ({
     <View
       className={`${
         theme == "trans" ? "bg-transparent" : bgColor + "/" + transparency
-      } ${rounded ? "rounded-2xl" : ""} ${className}`}
+      } ${rounded ? "rounded-xl" : ""} ${className}`}
     >
       {children}
     </View>

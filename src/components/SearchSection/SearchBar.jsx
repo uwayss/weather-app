@@ -67,7 +67,9 @@ export default function SearchBar() {
         style={{ display: !showSearch ? "none" : null }}
       />
       <TextInput
-        className="text-lg h-full pl-1 w-full"
+        className={`text-lg h-full pl-1 w-full text-${
+          theme == "light" ? "black" : "white"
+        }`}
         textAlignVertical="center"
         placeholder="Search City"
         placeholderTextColor={theme == "light" ? "black" : "white"}
