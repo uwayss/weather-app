@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { SearchBarContext } from "../../context/searchBarContext";
-import { GlassyText, GlassyView } from "../Glassy";
+import { GlassyView } from "../Glassy";
 import { themeContext } from "../../context/themeContext";
+import fetchLocations from "../../hooks/useFetchLocations";
+
 export default function SearchBar() {
   const { showSearch, toggleSearch, setLocations } =
     useContext(SearchBarContext);
@@ -15,7 +17,7 @@ export default function SearchBar() {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(searchText);
-    }, 500); // Wait 500ms before updating `debouncedSearch`
+    }, 1000); // Wait for one second before updating `debouncedSearch`
 
     return () => clearTimeout(handler); // Cleanup on unmount or input change
   }, [searchText]);
@@ -24,34 +26,15 @@ export default function SearchBar() {
   useEffect(() => {
     async function getLocations() {
       if (!debouncedSearch.trim()) return;
-
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=3&q=${encodeURIComponent(
-            debouncedSearch
-          )}`,
-          {
-            headers: {
-              "User-Agent":
-                "MuhammedsWeatherApp/1.0 (mamipromax1513@gmail.com)",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          console.error("HTTP Error:", response.status, response.statusText);
-          return;
-        }
-
-        const body = await response.json();
-        setLocations(body);
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
+      const newLocations = await fetchLocations(
+        encodeURIComponent(debouncedSearch)
+      );
+      setLocations(newLocations);
     }
 
     getLocations();
   }, [debouncedSearch]);
+
   return (
     <GlassyView
       theme={theme}

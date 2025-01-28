@@ -1,0 +1,6 @@
+Update the weather fetching logic
+Add a details screen that opens when you click a next day forecast card
+Add the precipitation details somewhere
+Implement day/night logic
+Implement Better theme logic
+Organize your helper functions
