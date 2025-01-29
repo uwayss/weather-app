@@ -5,6 +5,7 @@ import FetchWeather from "../../hooks/useFetchWeather";
 import { WeatherContext } from "../../context/weatherContext";
 import { GlassyView, GlassyText } from "../Glassy";
 import { themeContext } from "../../context/themeContext";
+import { storeWeatherData } from "../../helpers/asyncStorage";
 
 export default function SearchLocations() {
   const { locations } = useContext(SearchBarContext);
@@ -13,6 +14,8 @@ export default function SearchLocations() {
 
   async function handleLocationChange(location) {
     const newWeather = await FetchWeather(location);
+    storeWeatherData(newWeather)
+    console.log("Saved weather data into storage");
     setWeather(newWeather);
   }
   return (

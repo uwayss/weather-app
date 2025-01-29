@@ -24,7 +24,6 @@ export default function Stats() {
   const temp = currentWeather.temperature_2m;
   const tempUnit = currentWeather.units?.temperature_2m; // Optional chaining for units
   const weatherCode = currentWeather.weather_code;
-  console.warn(weatherCode)
   const humidity = currentWeather.relative_humidity_2m;
   const windSpeed = currentWeather.wind_speed_10m;
   const windUnit = currentWeather.units?.wind_speed_10m; // Optional chaining for units
@@ -38,7 +37,7 @@ export default function Stats() {
       </GlassyText>
       <View>
         <GlassyText theme={theme} className="text-8xl font-bold ml-6 mr-5">
-          {temp + tempUnit}
+          {Math.round(temp) + tempUnit}
         </GlassyText>
         <GlassyText theme={theme} className="text-xl tracking-widest">
           {typeof weatherCode == "number" ? weatherCodeToCondition(weatherCode) : "Loading Condition..."}

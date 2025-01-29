@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { defaultWeather } from "../constants/weather";
-import { readWeatherData, resetWeatherData } from "../helpers/asyncStorage";
+import { storeWeatherData, readWeatherData, resetWeatherData } from "../helpers/asyncStorage";
 import { isWithinLast30Minutes } from "../helpers/time";
 import getPublicIP from "../helpers/getPublicIP";
 import getLocationFromIP from "../helpers/getLocationFromIP";
@@ -14,18 +13,16 @@ export default function WeatherContextProvider({ children }) {
   // Fetch weather data only when the component mounts or when the weather data is outdated
   useEffect(() => {
     const fetchWeatherData = async () => {
-      resetWeatherData();
       try {
         const previousWeatherData = await readWeatherData();
         if (
           previousWeatherData &&
-          previousWeatherData.currentWeather && // Check if previousWeatherData.current exists
+          previousWeatherData.currentWeather &&
           !isWithinLast30Minutes(previousWeatherData.currentWeather.time)
         ) {
           console.log("Using previous weather data");
           setWeather(previousWeatherData);
         } else {
-          // Using defaultWeather as a fallback
           console.log("Generating new data based on public IP address");
           const publicIP = await getPublicIP();
           const locationData = await getLocationFromIP(publicIP);
@@ -40,6 +37,8 @@ export default function WeatherContextProvider({ children }) {
                 country,
               },
             });
+            storeWeatherData(newWeatherData);
+            console.log("Saved weather data into storage");
             setWeather(newWeatherData);
           } else {
             // Handle case where locationData is null (IP lookup failed)
