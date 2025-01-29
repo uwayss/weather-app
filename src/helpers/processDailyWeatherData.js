@@ -1,35 +1,26 @@
-export function processDailyWeatherData(apiResponse) {
-  const dailyData = apiResponse.daily;
+export function processDailyWeatherData(dailyForecast) { // Changed parameter to dailyForecast, expecting an array
+  // No longer expecting apiResponse.daily, directly using dailyForecast
+
+  if (!dailyForecast || !Array.isArray(dailyForecast)) { // Check if dailyForecast is a valid array
+    console.error(
+      "Error: Invalid input to processDailyWeatherData. Expected an array of daily forecast objects."
+    );
+    return null;
+  }
+
+  if (dailyForecast.length === 0) {
+    console.warn("Warning: Empty dailyForecast array provided.");
+    return []; // Return empty array if the forecast is empty, not null
+  }
+
   const result = [];
 
-  if (!dailyData || !dailyData.time) {
-    console.error(
-      "Error: Daily data or 'time' property is missing in the API response."
-    );
-    return null; // Or return an empty array [] if you prefer in case of error
-  }
-
-  const dailyTimes = dailyData.time;
-  const numDays = dailyTimes.length;
-
-  // Check if all daily data arrays have the same length as 'time' for consistency
-  for (const key in dailyData) {
-    if (Array.isArray(dailyData[key]) && dailyData[key].length !== numDays) {
-      console.error(
-        `Error: Daily data property '${key}' has an inconsistent length.`
-      );
-      return null; // Or return an empty array []
+  for (const dayData of dailyForecast) { // Iterate directly over the array of dayData objects
+    if (!dayData || typeof dayData !== 'object' || !dayData.time) { // Basic check for each dayData object
+      console.error("Error: Invalid day data object within dailyForecast:", dayData);
+      continue; // Skip invalid day data and continue processing other days
     }
-  }
-
-  for (let i = 0; i < numDays; i++) {
-    const dayData = {}; // Create an empty object for each day
-    for (const key in dailyData) {
-      if (Array.isArray(dailyData[key])) {
-        dayData[key] = dailyData[key][i]; // Get the value at index 'i' for each property
-      }
-    }
-    result.push(dayData);
+    result.push(dayData); // Directly push the dayData object as it's already in the desired format
   }
 
   return result;

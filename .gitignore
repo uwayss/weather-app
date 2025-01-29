@@ -3,7 +3,7 @@
 # dependencies
 node_modules/
 android/
-api.txt
+codebase/
 # Expo
 .expo/
 dist/

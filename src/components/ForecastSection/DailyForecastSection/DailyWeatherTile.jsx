@@ -3,17 +3,22 @@ import { GlassyText } from "../../Glassy";
 import weatherDescriptions from "../../../constants/descriptions";
 
 function weatherCodeToImageURL(code) {
-  if (!code) {
-    throw new Error("WeatherCodeToCondition: Weather code is null or empty");
+  if (!code) { // Handle null or undefined code
+    console.warn("WeatherCodeToImageURL: Weather code is null or undefined");
+    return null; // Or a default image URL
   }
-  return weatherDescriptions[code].day.image;
+  return weatherDescriptions[code]?.day?.image; // Optional chaining
 }
 
 function ConditionImage({ weatherCode }) {
+  const imageUri = weatherCodeToImageURL(weatherCode);
+  if (!imageUri) {
+    return null; // Or a placeholder image if you have one
+  }
   return (
     <Image
       source={{
-        uri: weatherCodeToImageURL(weatherCode),
+        uri: imageUri,
       }}
       className="w-32 h-32 bg-white/55"
     ></Image>
@@ -23,8 +28,8 @@ function ConditionImage({ weatherCode }) {
 function WeekdayText({ theme, time }) {
   const weekday = time
     ? new Date(time).toLocaleDateString("en-UK", {
-        weekday: "long",
-      })
+      weekday: "long",
+    })
     : "Unknown";
   return (
     <GlassyText theme={theme} className="text-xl font-bold tracking-widest">
@@ -45,19 +50,19 @@ function TemperatureText({ theme, min, max }) {
     </View>
   );
 }
+
 export default function DailyWeatherItem({ data, theme }) {
   return (
     <View
       theme={theme}
       className={`flex-col gap-2 items-center w-32 h-52 bg-slate-700/60 overflow-hidden rounded-xl`}
     >
-      {/* TODO: implement the icons!!! */}
       <ConditionImage weatherCode={data.weather_code} />
       <WeekdayText theme={theme} time={data.time} />
       <TemperatureText
         theme={theme}
-        min={data.temperature_2m_min}
-        max={data.temperature_2m_max}
+        min={data.minTemperature}
+        max={data.maxTemperature}
       />
     </View>
   );

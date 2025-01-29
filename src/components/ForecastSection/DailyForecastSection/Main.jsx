@@ -10,7 +10,7 @@ import DailyWeatherTile from "./DailyWeatherTile";
 function ForecastList({ forecastData }) {
   const { theme } = useContext(themeContext);
 
-  if (!forecastData.length) {
+  if (!forecastData || forecastData.length === 0) {
     return (
       <View className="p-4">
         <GlassyText theme={theme}>No forecast data available</GlassyText>
@@ -33,28 +33,41 @@ function ForecastList({ forecastData }) {
 }
 
 export default function DailyForecast() {
-  const { weather } = useContext(WeatherContext);
+  const { dailyWeather } = useContext(WeatherContext);
   const { theme } = useContext(themeContext);
   const [dailyForecast, setDailyForecast] = useState([]);
 
-  // Process weather data whenever it changes
   useEffect(() => {
-    if (!weather || !weather.daily) {
-      setDailyForecast([]); // Reset if no data
+    if (!dailyWeather || dailyWeather === null) { // Explicit null check
+      setDailyForecast([]);
       return;
     }
-
+    if (!dailyWeather.forecast) { // Check for forecast property specifically
+      setDailyForecast([]);
+      return;
+    }
     try {
-      const processedData = processDailyWeatherData(weather);
-      setDailyForecast(processedData);
+
+
+      if (!dailyWeather.forecast || typeof dailyWeather.forecast !== 'object') { // More robust check
+        console.error("Error: dailyWeather.forecast is not a valid object:", dailyWeather.forecast);
+        setDailyForecast([]);
+        return; // Exit the useEffect if it's invalid
+      }
+      const processedData = processDailyWeatherData(dailyWeather.forecast);
+      if (processedData) { // Check if processDailyWeatherData returns a valid result
+        setDailyForecast(processedData);
+      } else {
+        console.error("processDailyWeatherData returned null or undefined.");
+        setDailyForecast([]); // Set to empty array in case of processing error
+      }
     } catch (error) {
       console.error("Error processing weather data:", error);
       setDailyForecast([]);
     }
-  }, [weather]); // Re-run when weather changes
+  }, [dailyWeather]);
 
-  // Show loading state while waiting for data
-  if (!weather) {
+  if (!dailyWeather) {
     return (
       <GlassyView theme={theme} className="m-4 flex-col w-11/12 ">
         <GlassyText className="text-2xl py-8" theme={theme}>

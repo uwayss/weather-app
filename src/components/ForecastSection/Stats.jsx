@@ -8,29 +8,40 @@ import { themeContext } from "../../context/themeContext";
 import getPreciseTime from "../../helpers/getPreciseTime";
 
 export default function Stats() {
-  const {
-    temp,
-    tempUnit,
-    weatherCode,
-    humidity,
-    windSpeed,
-    windUnit,
-    currentTime,
-    weather,
-  } = useContext(WeatherContext);
+  const { currentWeather, weatherName } = useContext(WeatherContext); // Destructure from context
   const { theme } = useContext(themeContext);
+
+  if (!currentWeather) { // Check currentWeather for null
+    return (
+      <GlassyView theme={theme} className="items-center py-6 gap-6 w-11/12">
+        <GlassyText theme={theme} className="text-center text-xl">
+          Weather data unavailable. Please try again later.
+        </GlassyText>
+      </GlassyView>
+    );
+  }
+
+  const temp = currentWeather.temperature_2m;
+  const tempUnit = currentWeather.units?.temperature_2m; // Optional chaining for units
+  const weatherCode = currentWeather.weather_code;
+  console.warn(weatherCode)
+  const humidity = currentWeather.relative_humidity_2m;
+  const windSpeed = currentWeather.wind_speed_10m;
+  const windUnit = currentWeather.units?.wind_speed_10m; // Optional chaining for units
+  const currentTime = currentWeather.time;
+  const locationName = weatherName; // Use weatherName from context
 
   return (
     <GlassyView theme={theme} className="items-center py-6 gap-6 w-11/12">
       <GlassyText theme={theme} className="text-2xl font-bold w-full h-fit">
-        {weather.name}
+        {locationName}
       </GlassyText>
       <View>
         <GlassyText theme={theme} className="text-8xl font-bold ml-6 mr-5">
           {temp + tempUnit}
         </GlassyText>
         <GlassyText theme={theme} className="text-xl tracking-widest">
-          {weatherCode ? weatherCodeToCondition(weatherCode) : ""}
+          {typeof weatherCode == "number" ? weatherCodeToCondition(weatherCode) : "Loading Condition..."}
         </GlassyText>
       </View>
       <View className="flex-row justify-around px-6 flex-wrap gap-4">

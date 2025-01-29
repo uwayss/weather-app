@@ -7,75 +7,70 @@ import getLocationFromIP from "../helpers/getLocationFromIP";
 import FetchWeather from "../hooks/useFetchWeather";
 
 export const WeatherContext = createContext();
+
+
 export default function WeatherContextProvider({ children }) {
-  const [weather, setWeather] = useState(defaultWeather);
+  const [weather, setWeather] = useState(undefined);
   // Fetch weather data only when the component mounts or when the weather data is outdated
   useEffect(() => {
-    const funcc = async () => {
-      const previousWeatherData = await readWeatherData();
-      if (
-        previousWeatherData &&
-        !isWithinLast30Minutes(previousWeatherData.current.time)
-      ) {
-        console.log("Using previous weather data");
-        setWeather(previousWeatherData);
-      } else {
-        // Using defaultWeather as a fallback
-        console.log("Generating new data based on public IP address");
-        const { lat, lon, city, regionName, country } = await getLocationFromIP(
-          await getPublicIP()
-        );
-        const newWeatherData = await FetchWeather({
-          lat,
-          lon,
-          name: city,
-          display_name: `${city}, ${regionName}, ${country}`,
-          address: {
-            country,
-          },
-        });
-        setWeather(newWeatherData);
+    const fetchWeatherData = async () => {
+      resetWeatherData();
+      try {
+        const previousWeatherData = await readWeatherData();
+        if (
+          previousWeatherData &&
+          previousWeatherData.currentWeather && // Check if previousWeatherData.current exists
+          !isWithinLast30Minutes(previousWeatherData.currentWeather.time)
+        ) {
+          console.log("Using previous weather data");
+          setWeather(previousWeatherData);
+        } else {
+          // Using defaultWeather as a fallback
+          console.log("Generating new data based on public IP address");
+          const publicIP = await getPublicIP();
+          const locationData = await getLocationFromIP(publicIP);
+          if (locationData) {
+            const { lat, lon, city, regionName, country } = locationData;
+            const newWeatherData = await FetchWeather({
+              lat,
+              lon,
+              name: city,
+              display_name: `${city}, ${regionName}, ${country}`,
+              address: {
+                country,
+              },
+            });
+            setWeather(newWeatherData);
+          } else {
+            // Handle case where locationData is null (IP lookup failed)
+            console.warn("Could not get location from IP. Weather data might be unavailable.");
+            setWeather(null); // Or set to a specific error state if needed
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+        setWeather(null); // Set weather to null in case of any error
       }
     };
-    funcc();
+    fetchWeatherData();
   }, []);
-  if (weather.current) {
-    return (
-      <WeatherContext.Provider
-        value={{
-          temp: weather.current.temperature_2m
-            ? Math.round(weather.current.temperature_2m)
-            : "",
-          tempUnit: weather.current_units.temperature_2m,
-          weatherCode: weather.current.weather_code,
-          humidity: weather.current.relative_humidity_2m,
-          windSpeed: weather.current.wind_speed_10m,
-          windUnit: weather.current_units.wind_speed_10m,
-          currentTime: weather.current.time,
-          weather,
-          setWeather,
-        }}
-      >
-        {children}
-      </WeatherContext.Provider>
-    );
-  } else {
-    return (
-      <WeatherContext.Provider
-        value={{
-          temp: "N/A",
-          tempUnit: "",
-          weatherCode: 0,
-          humidity: "Unavailable",
-          windSpeed: "Unavailable",
-          windUnit: "Unavailable",
-          currentTime: "Unavailable",
-          weather: "Unavailable",
-          setWeather,
-        }}
-      >
-        {children}
-      </WeatherContext.Provider>
-    );
-  }
+  // Conditionally provide context values based on whether weather data is available
+  const weatherContextValue = weather
+    ? {
+      currentWeather: weather.currentWeather,
+      dailyWeather: weather.dailyWeather,
+      weatherName: weather.name, // Added name to context
+      setWeather,
+    }
+    : {
+      currentWeather: null,
+      dailyWeather: null,
+      weatherName: null, // Added name to context
+      setWeather,
+    };
+  return (
+    <WeatherContext.Provider value={weatherContextValue}>
+      {children}
+    </WeatherContext.Provider>
+  );
 }
