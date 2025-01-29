@@ -33,7 +33,6 @@ def generate_codebase_dump():
                 dirs[:] = [d for d in dirs if d not in exclude_dirs]
 
             current_path = Path(root).relative_to(project_root)
-            print(f"Processing: {current_path}")
             if current_path != Path('.'):
                 f_out.write(f'\n// DIRECTORY: {current_path}\n')
 

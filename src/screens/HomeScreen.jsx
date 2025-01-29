@@ -1,7 +1,7 @@
 import { View, Image, KeyboardAvoidingView, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import SearchSection from "../components/SearchSection/Main";
-import ForecastSection from "../components/ForecastSection/Main";
+import SearchSection from "../components/SearchSection/SearchSection";
+import ForecastSection from "../components/ForecastSection/ForecastSection";
 import WeatherContextProvider from "../context/weatherContext";
 import SearchBarContextProvider from "../context/searchBarContext";
 const HomeScreen = () => {
@@ -22,7 +22,7 @@ const HomeScreen = () => {
           </SearchBarContextProvider>
           <ForecastSection />
         </View>
-        <StatusBar style="light" />
+        <StatusBar style="auto" />
       </View>
     </WeatherContextProvider>
   );
