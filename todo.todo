@@ -5,3 +5,4 @@ Implement day/night logic
 Find better condition images
 Add dynamic background images asap
 Refactor common styling patterns in GlassyView and GlassyText into reusable utility classes or explore styled-components to reduce prop drilling and style repetition
+Make better loading states. check out react-native-blurhash

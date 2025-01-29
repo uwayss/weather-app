@@ -1,4 +1,22 @@
-const THIRTY_MINUTES_IN_MS = 30 * 60 * 1000
+
+const THIRTY_MINUTES_IN_MS = 30 * 60 * 1000;
+export function isWithinLast30Minutes(dateString) {
+  if (!dateString) {
+    return false; // Or handle null/undefined date strings as needed
+  }
+  const date = new Date(dateString);
+  const now = Date.now(); // Get current timestamp in milliseconds
+  const dateTimestamp = date.getTime(); // Get timestamp of the input date
+
+  if (isNaN(dateTimestamp)) {
+    console.warn("Invalid date string provided to isWithinLast30Minutes:", dateString);
+    return false; // Handle invalid date strings
+  }
+
+  const thirtyMinutesAgo = now - THIRTY_MINUTES_IN_MS;
+
+  return dateTimestamp >= thirtyMinutesAgo && dateTimestamp <= now;
+}
 const WEEKDAYS = [
   "Sunday",
   "Monday",
@@ -8,11 +26,6 @@ const WEEKDAYS = [
   "Friday",
   "Saturday",
 ]
-export function isWithinLast30Minutes(date) {
-  const now = new Date();
-  const thirtyMinutesAgo = new Date(now.getTime() - THIRTY_MINUTES_IN_MS); // Subtract 30 minutes in milliseconds
-  return date >= thirtyMinutesAgo && date <= now;
-}
 export function dateToWeekday(date = new Date().getDay()) {
   return WEEKDAYS[date - 1];
 }

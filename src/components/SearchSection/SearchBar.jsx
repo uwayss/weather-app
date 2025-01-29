@@ -11,7 +11,7 @@ export default function SearchBar() {
     useContext(SearchBarContext);
   const [searchText, setSearchText] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { theme } = useTheme();
+  const { themeName, theme } = useTheme();
 
   // Debounce the search input
   useEffect(() => {
@@ -37,36 +37,33 @@ export default function SearchBar() {
 
   return (
     <GlassyView
-      className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16 ${!showSearch ? "bg-transparent" : ""
-        }`}
+      className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16`} transparency={!showSearch ? 0 : 50}
     >
       <Icon
         name="map-pin"
         size={28}
-        color={theme == "dark" ? "black" : "white"}
+        color={theme.other}
         className="mr-2"
         style={{ display: !showSearch ? "none" : null }}
       />
       <TextInput
-        className={`text-lg h-full pl-1 w-full text-${theme == "light" ? "black" : "white"
-          }`}
+        className={`text-lg h-full pl-1 w-[90%] text-${theme.other} ${!showSearch ? "hidden" : ""}`}
         textAlignVertical="center"
         placeholder="Search City"
-        placeholderTextColor={theme == "light" ? "black" : "white"}
-        style={{ display: !showSearch ? "none" : null, width: "90%" }}
+        placeholderTextColor={theme.other}
         onChangeText={setSearchText}
         returnKeyType="search"
         value={searchText}
       />
       <TouchableOpacity onPress={() => toggleSearch(!showSearch)}>
-        <GlassyView className={"p-3 rounded-full"}>
+        <GlassyView className="p-3 rounded-full" transparent={showSearch ? 0 : 50}>
           <Icon
             name="search"
             size={28}
-            color={theme == "dark" ? "black" : "white"}
+            color={theme.other}
           />
         </GlassyView>
       </TouchableOpacity>
-    </GlassyView>
+    </GlassyView >
   );
 }

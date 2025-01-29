@@ -5,13 +5,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "custom-white": "rgba(255,255,255,0.2)",
+        "custom-white": "rgba(255,255,255,0.2)", // Example - keep your custom colors
       },
-      backdropBlur: {
+      backdropBlur: { // Ensure this section is present
         sm: "4px",
         DEFAULT: "8px",
         md: "12px",
         lg: "16px",
+        // You can add more sizes if needed
       },
     },
   },
