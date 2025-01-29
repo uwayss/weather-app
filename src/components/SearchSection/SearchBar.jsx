@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { SearchBarContext } from "../../context/searchBarContext";
 import { GlassyView } from "../Glassy";
-import { themeContext } from "../../context/themeContext";
+import { useTheme } from "../../context/themeContext";
 import fetchLocations from "../../hooks/useFetchLocations";
 
 export default function SearchBar() {
@@ -11,7 +11,7 @@ export default function SearchBar() {
     useContext(SearchBarContext);
   const [searchText, setSearchText] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { theme } = useContext(themeContext);
+  const { theme } = useTheme();
 
   // Debounce the search input
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function SearchBar() {
         value={searchText}
       />
       <TouchableOpacity onPress={() => toggleSearch(!showSearch)}>
-        <GlassyView className={"p-3 rounded-full"} theme={"trans"}>
+        <GlassyView className={"p-3 rounded-full"}>
           <Icon
             name="search"
             size={28}

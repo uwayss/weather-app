@@ -21,7 +21,7 @@ export const GlassyView = ({
   className,
   rounded = true,
 }) => {
-  const { theme } = useTheme(); // Use the hook to get the theme
+  const { theme } = useTheme();
   return (
     <View
       className={`${theme.background} ${rounded ? "rounded-xl" : ""} ${className}`}

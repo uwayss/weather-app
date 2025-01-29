@@ -3,13 +3,10 @@ import { WeatherContext } from "../../../context/weatherContext";
 import { View, FlatList } from "react-native";
 import { processDailyWeatherData } from "../../../helpers/weather";
 import { GlassyText, GlassyView } from "../../Glassy";
-import { themeContext } from "../../../context/themeContext";
 import Header from "./Header";
 import DailyWeatherTile from "./DailyWeatherTile";
 
 function ForecastList({ forecastData }) {
-  const { theme } = useContext(themeContext);
-
   if (!forecastData || forecastData.length === 0) {
     return (
       <View className="p-4">
@@ -34,7 +31,6 @@ function ForecastList({ forecastData }) {
 
 export default function DailyForecast() {
   const { dailyWeather } = useContext(WeatherContext);
-  const { theme } = useContext(themeContext);
   const [dailyForecast, setDailyForecast] = useState([]);
 
   useEffect(() => {

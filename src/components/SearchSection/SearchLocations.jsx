@@ -1,16 +1,14 @@
 import { useContext } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { SearchBarContext } from "../../context/searchBarContext";
 import FetchWeather from "../../hooks/useFetchWeather";
 import { WeatherContext } from "../../context/weatherContext";
 import { GlassyView, GlassyText } from "../Glassy";
-import { themeContext } from "../../context/themeContext";
 import { storeWeatherData } from "../../helpers/storage";
 
 export default function SearchLocations() {
   const { locations } = useContext(SearchBarContext);
   const { setWeather } = useContext(WeatherContext);
-  const { theme } = useContext(themeContext);
 
   async function handleLocationChange(location) {
     const newWeather = await FetchWeather(location);

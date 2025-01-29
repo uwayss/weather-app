@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import SearchBar from "./SearchBar";
 import SearchLocations from "./SearchLocations";
 import { SafeAreaView } from "react-native-safe-area-context";

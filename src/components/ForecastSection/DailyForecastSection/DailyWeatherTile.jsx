@@ -1,5 +1,5 @@
 import { View, Image } from "react-native";
-import { GlassyText } from "../../Glassy";
+import { GlassyText, GlassyView } from "../../Glassy";
 import weatherDescriptions from "../../../constants/descriptions";
 
 function weatherCodeToImageURL(code) {
@@ -16,16 +16,18 @@ function ConditionImage({ weatherCode }) {
     return null; // Or a placeholder image if you have one
   }
   return (
-    <Image
-      source={{
-        uri: imageUri,
-      }}
-      className="w-32 h-32 bg-white/55"
-    ></Image>
+    <View className="bg-slate-700/60">
+      <Image
+        source={{
+          uri: imageUri,
+        }}
+        className="w-32 h-32 bg-white/55"
+      ></Image>
+    </View>
   );
 }
 
-function WeekdayText({ theme, time }) {
+function WeekdayText({ time }) {
   const weekday = time
     ? new Date(time).toLocaleDateString("en-UK", {
       weekday: "long",
@@ -38,7 +40,7 @@ function WeekdayText({ theme, time }) {
   );
 }
 
-function TemperatureText({ theme, min, max }) {
+function TemperatureText({ min, max }) {
   return (
     <View className="flex-row gap-1 items-center">
       <GlassyText className={"tacking-wide font-bold text-lg"}>
@@ -51,10 +53,10 @@ function TemperatureText({ theme, min, max }) {
   );
 }
 
-export default function DailyWeatherItem({ data, theme }) {
+export default function DailyWeatherItem({ data }) {
   return (
-    <View
-      className={`flex-col gap-2 items-center w-32 h-52 bg-slate-700/60 overflow-hidden rounded-xl`}
+    <GlassyView
+      className={`flex-col gap-2 items-center w-32 h-52 overflow-hidden rounded-xl`}
     >
       <ConditionImage weatherCode={data.weather_code} />
       <WeekdayText time={data.time} />
@@ -62,6 +64,6 @@ export default function DailyWeatherItem({ data, theme }) {
         min={data.minTemperature}
         max={data.maxTemperature}
       />
-    </View>
+    </GlassyView>
   );
 }
