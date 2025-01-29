@@ -23,7 +23,7 @@ function ForecastList({ forecastData }) {
       keyExtractor={(item) => item.time}
       renderItem={({ item }) => <DailyWeatherTile data={item} />}
       contentContainerStyle={{
-        gap: 10,
+        gap: 8,
       }}
     />
   );
@@ -65,7 +65,7 @@ export default function DailyForecast() {
 
   if (!dailyWeather) {
     return (
-      <GlassyView className="m-4 flex-col w-11/12 ">
+      <GlassyView className="m-2 flex-col w-11/12 ">
         <GlassyText className="text-2xl py-8">
           Loading weather forecast...
         </GlassyText>
@@ -74,7 +74,7 @@ export default function DailyForecast() {
   }
 
   return (
-    <GlassyView className="m-4 flex-col w-11/12 h-fit py-4 gap-4">
+    <GlassyView className="m-2 flex-col w-11/12 h-fit  ">
       <Header />
       <ForecastList forecastData={dailyForecast} />
     </GlassyView>

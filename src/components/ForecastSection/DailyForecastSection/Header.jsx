@@ -4,9 +4,9 @@ import { FontAwesome6 } from "react-native-vector-icons";
 
 export default function Header() {
   return (
-    <View className="flex-row justify-center items-center gap-4 px-6">
+    <View className="flex-row justify-start items-center gap-4 px-8 mb-1 mt-2">
       <FontAwesome6 name="calendar-days" color="white" size={18} />
-      <GlassyText className="text-2xl font-bold">
+      <GlassyText className="text-xl font-bold">
         Next Days
       </GlassyText>
     </View>

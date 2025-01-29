@@ -12,7 +12,7 @@ const HomeScreen = () => {
         <Image
           source={require("../../assets/backgrounds/clear_day.jpg")}
           className="w-full h-full absolute"
-          blurRadius={5}
+          // blurRadius={5}
           fadeDuration={50}
           resizeMode="cover"
         />

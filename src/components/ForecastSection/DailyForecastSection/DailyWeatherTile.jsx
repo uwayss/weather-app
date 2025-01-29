@@ -21,7 +21,7 @@ function ConditionImage({ weatherCode }) {
         source={{
           uri: imageUri,
         }}
-        className="w-32 h-32 bg-white/55"
+        className="w-32 24 h-24 bg-white/55"
       ></Image>
     </View>
   );
@@ -56,7 +56,7 @@ function TemperatureText({ min, max }) {
 export default function DailyWeatherItem({ data }) {
   return (
     <GlassyView
-      className={`flex-col gap-2 items-center w-32 h-52 overflow-hidden rounded-xl`}
+      className={`flex-col gap-1 items-center w-32 h-44 overflow-hidden rounded-xl `}
     >
       <ConditionImage weatherCode={data.weather_code} />
       <WeekdayText time={data.time} />

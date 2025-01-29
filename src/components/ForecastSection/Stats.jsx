@@ -10,7 +10,7 @@ export default function Stats() {
 
   if (!currentWeather) { // Check currentWeather for null
     return (
-      <GlassyView className="items-center py-6 gap-6 w-11/12">
+      <GlassyView className="items-center py-3 gap-3 w-11/12">
         <GlassyText className="text-center text-xl">
           Weather data unavailable. Please try again later.
         </GlassyText>
@@ -25,37 +25,37 @@ export default function Stats() {
   const windSpeed = currentWeather.wind_speed_10m;
   const windUnit = currentWeather.units?.wind_speed_10m; // Optional chaining for units
   const currentTime = currentWeather.time;
-  const locationName = weatherName; // Use weatherName from context
+  const locationName = weatherName;
 
   return (
-    <GlassyView className="items-center py-6 gap-6 w-11/12">
+    <GlassyView className="items-center py-4 gap-5 w-11/12">
       <GlassyText className="text-2xl font-bold w-full h-fit">
         {locationName}
       </GlassyText>
       <View>
-        <GlassyText className="text-8xl font-bold ml-6 mr-5">
+        <GlassyText className="text-7xl font-bold mx-6">
           {Math.round(temp) + tempUnit}
         </GlassyText>
         <GlassyText className="text-xl tracking-widest">
           {typeof weatherCode == "number" ? weatherCodeToCondition(weatherCode) : "Loading Condition..."}
         </GlassyText>
       </View>
-      <View className="flex-row justify-around px-6 flex-wrap gap-4">
+      <View className="flex-row justify-around px-6 flex-wrap gap-6">
         <View className="flex-row gap-2 items-center">
           <FontAwesome6 name="droplet" size={24} color="white" />
-          <GlassyText className=" text-lg font-light">
+          <GlassyText className="text-base font-light">
             {humidity}%
           </GlassyText>
         </View>
         <View className="flex-row gap-2 items-center">
           <FontAwesome6 name="wind" size={24} color="white" />
-          <GlassyText className=" text-lg font-light">
+          <GlassyText className="text-base font-light">
             {Math.round(windSpeed)} {windUnit}
           </GlassyText>
         </View>
         <View className="flex-row gap-2 items-center">
           <FontAwesome6 name="clock" size={24} color="white" />
-          <GlassyText className=" text-lg font-light">
+          <GlassyText className="text-base font-light">
             {new Date(currentTime).toLocaleTimeString("en-UK", {
               hour12: false,
               hour: "2-digit",
