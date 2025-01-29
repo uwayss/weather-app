@@ -1,14 +1,17 @@
 import weatherDescriptions from "../constants/descriptions";
 
-export function weatherCodeToCondition(code) {
+export function weatherCodeToCondition(code, isDay) {
     // TODO: implement day/night logic
     // For simplicity, we'll assume daytime for now
     // In a real-world application, you'd need to check the sunrise and sunset times to determine if it's day or night
-
     if (typeof code !== "number") {
         throw new Error("WeatherCodeToCondition: Weather code is null or empty");
     }
-    return weatherDescriptions[code].day.description;
+    if (isDay) {
+        return weatherDescriptions[code].day.description;
+    } else {
+        return weatherDescriptions[code].night.description;
+    }
 }
 export function processDailyWeatherData(dailyForecast) { // Changed parameter to dailyForecast, expecting an array
     // No longer expecting apiResponse.daily, directly using dailyForecast

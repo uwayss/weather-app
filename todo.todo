@@ -1,8 +1,6 @@
-Add a details screen that opens when you click a next day forecast card
-Add the snappyness feature to the next day forecast list
-Add the precipitation details somewhere
-Implement day/night logic
-Find better condition images
-Add dynamic background images asap
-Refactor common styling patterns in GlassyView and GlassyText into reusable utility classes or explore styled-components to reduce prop drilling and style repetition
-Make better loading states. check out react-native-blurhash
+1- Add a details screen that opens when you click a next day forecast card
+2- Add the snappyness feature to the next day forecast list
+3- Add the precipitation details somewhere +
+5- Find better condition images
+6- Add dynamic background images asap +
+7- Make better loading states. check out react-native-blurhash

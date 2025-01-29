@@ -1,10 +1,10 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
 export const SearchBarContext = createContext({
   locations: [],
-  setLocations: () => {},
+  setLocations: () => { },
   showSearch: false,
-  toggleSearch: () => {},
+  toggleSearch: () => { },
 });
 
 export default function SearchBarContextProvider({ children }) {
@@ -23,3 +23,4 @@ export default function SearchBarContextProvider({ children }) {
     </SearchBarContext.Provider>
   );
 }
+export const useSearchBar = () => useContext(SearchBarContext); // Create a custom hook

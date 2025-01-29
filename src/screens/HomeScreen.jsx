@@ -1,27 +1,32 @@
-import { View, Image, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import SearchSection from "../components/SearchSection/SearchSection";
-import ForecastSection from "../components/ForecastSection/ForecastSection";
+import SearchSection from "../components/Homescreen/SearchSection/SearchSection";
+import DailyForecastSection from "../components/Homescreen/DailyForecastSection/DailyForecastSection";
 import WeatherContextProvider from "../context/weatherContext";
 import SearchBarContextProvider from "../context/searchBarContext";
+import Stats from "../components/Homescreen/Stats";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 const HomeScreen = () => {
   // TODO: fix the ui messing up when keyboard is on
   return (
     <WeatherContextProvider>
-      <View className="flex-1 relative">
+      <View className="flex-1">
         <Image
           source={require("../../assets/backgrounds/clear_day.jpg")}
           className="w-full h-full absolute"
-          // blurRadius={5}
           fadeDuration={50}
-          resizeMode="cover"
+          resizeMode="stretch"
         />
-        <View className="flex-1">
+        <ScrollView className="flex-1 w-full">
           <SearchBarContextProvider>
             <SearchSection />
           </SearchBarContextProvider>
-          <ForecastSection />
-        </View>
+          <SafeAreaView className="justify-end items-center mt-24 w-full">
+            <Stats />
+            <DailyForecastSection />
+          </SafeAreaView>
+        </ScrollView>
         <StatusBar style="auto" />
       </View>
     </WeatherContextProvider>

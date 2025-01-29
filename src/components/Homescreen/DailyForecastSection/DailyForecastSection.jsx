@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import { WeatherContext } from "../../../context/weatherContext";
 import { View, FlatList } from "react-native";
+import { WeatherContext } from "../../../context/weatherContext";
 import { processDailyWeatherData } from "../../../helpers/weather";
 import { GlassyText, GlassyView } from "../../Glassy";
 import Header from "./Header";
@@ -74,7 +74,7 @@ export default function DailyForecast() {
   }
 
   return (
-    <GlassyView className="m-2 flex-col w-11/12 h-fit  ">
+    <GlassyView className="m-2 flex-col w-11/12 h-fit">
       <Header />
       <ForecastList forecastData={dailyForecast} />
     </GlassyView>

@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
 import SearchBar from "./SearchBar";
 import SearchLocations from "./SearchLocations";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SearchBarContext } from "../../context/searchBarContext";
+import { useSearchBar } from "../../../context/searchBarContext";
 
 export default function SearchSection() {
-  const { locations, showSearch } = useContext(SearchBarContext);
+  const { locations, showSearch } = useSearchBar();
   return (
     <SafeAreaView className="h-fit w-full gap-5 mt-2 z-10 absolute">
       <SearchBar />

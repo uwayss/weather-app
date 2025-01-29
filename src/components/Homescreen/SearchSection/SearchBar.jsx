@@ -1,14 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
-import { SearchBarContext } from "../../context/searchBarContext";
-import { GlassyView } from "../Glassy";
-import { useTheme } from "../../context/themeContext";
-import fetchLocations from "../../hooks/useFetchLocations";
+import { useSearchBar } from "../../../context/searchBarContext";
+import { GlassyView } from "../../Glassy";
+import { useTheme } from "../../../context/themeContext";
+import fetchLocations from "../../../hooks/useFetchLocations";
 
 export default function SearchBar() {
-  const { showSearch, toggleSearch, setLocations } =
-    useContext(SearchBarContext);
+  const { showSearch, toggleSearch, setLocations } = useSearchBar();
   const [searchText, setSearchText] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const { themeName, theme } = useTheme();

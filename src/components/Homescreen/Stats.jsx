@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { useContext } from "react";
 import { weatherCodeToCondition } from "../../helpers/weather";
 import { WeatherContext } from "../../context/weatherContext";
-import { GlassyText, GlassyView } from "../Glassy";
+import { GlassyText, GlassyView } from "./../Glassy";
 import { FontAwesome6 } from "react-native-vector-icons";
 
 export default function Stats() {
@@ -38,7 +38,7 @@ export default function Stats() {
           {Math.round(temp) + tempUnit}
         </GlassyText>
         <GlassyText className="text-lg tracking-wider">
-          {typeof weatherCode == "number" ? weatherCodeToCondition(weatherCode) : "Loading Condition..."}
+          {typeof weatherCode == "number" ? weatherCodeToCondition(weatherCode, isDay) : "Loading Condition..."}
         </GlassyText>
       </View>
       <View className="flex-row flex-wrap gap-2 justify-center pl-6">
