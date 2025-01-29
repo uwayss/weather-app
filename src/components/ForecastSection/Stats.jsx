@@ -4,8 +4,6 @@ import { weatherCodeToCondition } from "../../helpers/weather";
 import { WeatherContext } from "../../context/weatherContext";
 import { GlassyText, GlassyView } from "../Glassy";
 import { FontAwesome6 } from "react-native-vector-icons";
-import { themeContext } from "../../context/themeContext";
-import { getPreciseTime } from "../../helpers/time";
 
 export default function Stats() {
   const { currentWeather, weatherName } = useContext(WeatherContext); // Destructure from context
@@ -58,7 +56,11 @@ export default function Stats() {
         <View className="flex-row gap-2 items-center">
           <FontAwesome6 name="clock" size={24} color="white" />
           <GlassyText className=" text-lg font-light">
-            {getPreciseTime(currentTime)}
+            {new Date(currentTime).toLocaleTimeString("en-UK", {
+              hour12: false,
+              hour: "2-digit",
+              minute: "2-digit"
+            })}
           </GlassyText>
         </View>
       </View>
