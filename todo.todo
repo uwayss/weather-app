@@ -1,4 +1,3 @@
-Update the weather fetching logic
 Add a details screen that opens when you click a next day forecast card
 Add the precipitation details somewhere
 Implement day/night logic
@@ -6,3 +5,4 @@ Implement Better theme logic
 Organize your helper functions
 Find better condition images
 Add dynamic background images asap
+Refactor common styling patterns in GlassyView and GlassyText into reusable utility classes or explore styled-components to reduce prop drilling and style repetition

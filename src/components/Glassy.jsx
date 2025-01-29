@@ -1,16 +1,15 @@
 import { View, Text } from "react-native";
+import { useTheme } from "../context/themeContext";
 
 export const GlassyText = ({
   className,
   children,
   centered = true,
-  theme = "light",
 }) => {
+  const { theme } = useTheme()
   return (
     <Text
-      className={`${theme == "light" ? "text-slate-900" : "text-white"} ${
-        centered ? "text-center" : ""
-      } ${className}`}
+      className={`${theme.text} ${centered ? "text-center" : ""} ${className}`}
     >
       {children}
     </Text>
@@ -20,21 +19,12 @@ export const GlassyText = ({
 export const GlassyView = ({
   children,
   className,
-  theme = "light",
   rounded = true,
-  transparency = "60",
 }) => {
-  let bgColor =
-    theme == "trans"
-      ? "bg-transparent"
-      : theme == "light"
-      ? "bg-slate-300"
-      : "bg-slate-700";
+  const { theme } = useTheme(); // Use the hook to get the theme
   return (
     <View
-      className={`${
-        theme == "trans" ? "bg-transparent" : bgColor + "/" + transparency
-      } ${rounded ? "rounded-xl" : ""} ${className}`}
+      className={`${theme.background} ${rounded ? "rounded-xl" : ""} ${className}`}
     >
       {children}
     </View>

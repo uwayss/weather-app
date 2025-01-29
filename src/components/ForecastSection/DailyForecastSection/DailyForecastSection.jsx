@@ -13,7 +13,7 @@ function ForecastList({ forecastData }) {
   if (!forecastData || forecastData.length === 0) {
     return (
       <View className="p-4">
-        <GlassyText theme={theme}>No forecast data available</GlassyText>
+        <GlassyText>No forecast data available</GlassyText>
       </View>
     );
   }
@@ -24,7 +24,7 @@ function ForecastList({ forecastData }) {
       horizontal
       data={forecastData}
       keyExtractor={(item) => item.time}
-      renderItem={({ item }) => <DailyWeatherTile theme={theme} data={item} />}
+      renderItem={({ item }) => <DailyWeatherTile data={item} />}
       contentContainerStyle={{
         gap: 10,
       }}
@@ -69,8 +69,8 @@ export default function DailyForecast() {
 
   if (!dailyWeather) {
     return (
-      <GlassyView theme={theme} className="m-4 flex-col w-11/12 ">
-        <GlassyText className="text-2xl py-8" theme={theme}>
+      <GlassyView className="m-4 flex-col w-11/12 ">
+        <GlassyText className="text-2xl py-8">
           Loading weather forecast...
         </GlassyText>
       </GlassyView>
@@ -78,7 +78,7 @@ export default function DailyForecast() {
   }
 
   return (
-    <GlassyView theme={theme} className="m-4 flex-col w-11/12 h-fit py-4 gap-4">
+    <GlassyView className="m-4 flex-col w-11/12 h-fit py-4 gap-4">
       <Header />
       <ForecastList forecastData={dailyForecast} />
     </GlassyView>

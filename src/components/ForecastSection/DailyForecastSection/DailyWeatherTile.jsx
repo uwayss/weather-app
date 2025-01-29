@@ -32,7 +32,7 @@ function WeekdayText({ theme, time }) {
     })
     : "Unknown";
   return (
-    <GlassyText theme={theme} className="text-xl font-bold tracking-widest">
+    <GlassyText className="text-xl font-bold tracking-widest">
       {weekday}
     </GlassyText>
   );
@@ -41,10 +41,10 @@ function WeekdayText({ theme, time }) {
 function TemperatureText({ theme, min, max }) {
   return (
     <View className="flex-row gap-1 items-center">
-      <GlassyText theme={theme} className={"tacking-wide font-bold text-lg"}>
+      <GlassyText className={"tacking-wide font-bold text-lg"}>
         {Math.round(max) ?? "--"}°C /
       </GlassyText>
-      <GlassyText theme={theme} className={"tacking-wide font-thin"}>
+      <GlassyText className={"tacking-wide font-thin"}>
         {Math.round(min) ?? "--"}°C
       </GlassyText>
     </View>
@@ -54,13 +54,11 @@ function TemperatureText({ theme, min, max }) {
 export default function DailyWeatherItem({ data, theme }) {
   return (
     <View
-      theme={theme}
       className={`flex-col gap-2 items-center w-32 h-52 bg-slate-700/60 overflow-hidden rounded-xl`}
     >
       <ConditionImage weatherCode={data.weather_code} />
-      <WeekdayText theme={theme} time={data.time} />
+      <WeekdayText time={data.time} />
       <TemperatureText
-        theme={theme}
         min={data.minTemperature}
         max={data.maxTemperature}
       />

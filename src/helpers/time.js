@@ -16,6 +16,18 @@ export function isWithinLast30Minutes(date) {
 export function dateToWeekday(date = new Date().getDay()) {
   return WEEKDAYS[date - 1];
 }
+/**
+ * Calculates and returns a more precise time string based on the given time.
+ * It attempts to adjust the time to be more accurate by considering the current minute
+ * and potentially adding an interval to align with 15-minute increments.
+ *
+ * @param {string} time - An ISO 8601 time string representing the base time.
+ * @returns {string} A formatted time string in "HH:mm" (24-hour) format, potentially adjusted for precision.
+ *
+ * @example
+ * // If current minute is 22 and time is '2025-01-29T16:00', it might return a time close to 16:15 or 16:30
+ * getPreciseTime('2025-01-29T16:00');
+ */
 export function getPreciseTime(time) {
   const currentMinute = new Date().getMinutes();
   let interval = 0;

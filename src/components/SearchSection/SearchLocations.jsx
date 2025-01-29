@@ -21,7 +21,6 @@ export default function SearchLocations() {
   return (
     <GlassyView
       className="flex-col h-fit mx-4 gap-0.5 overflow-hidden items-center"
-      theme={theme}
     >
       {locations.slice(0, 3).map((location) => (
         <TouchableOpacity
@@ -31,10 +30,9 @@ export default function SearchLocations() {
         >
           <GlassyView
             className="w-full h-full p-4"
-            theme={theme}
             rounded={false}
           >
-            <GlassyText theme={theme}>{location.display_name}</GlassyText>
+            <GlassyText >{location.display_name}</GlassyText>
           </GlassyView>
         </TouchableOpacity>
       ))}

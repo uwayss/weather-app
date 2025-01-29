@@ -37,10 +37,8 @@ export default function SearchBar() {
 
   return (
     <GlassyView
-      theme={theme}
-      className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16 ${
-        !showSearch ? "bg-transparent" : ""
-      }`}
+      className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16 ${!showSearch ? "bg-transparent" : ""
+        }`}
     >
       <Icon
         name="map-pin"
@@ -50,9 +48,8 @@ export default function SearchBar() {
         style={{ display: !showSearch ? "none" : null }}
       />
       <TextInput
-        className={`text-lg h-full pl-1 w-full text-${
-          theme == "light" ? "black" : "white"
-        }`}
+        className={`text-lg h-full pl-1 w-full text-${theme == "light" ? "black" : "white"
+          }`}
         textAlignVertical="center"
         placeholder="Search City"
         placeholderTextColor={theme == "light" ? "black" : "white"}
