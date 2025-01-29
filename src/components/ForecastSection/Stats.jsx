@@ -25,10 +25,11 @@ export default function Stats() {
   const windSpeed = currentWeather.wind_speed_10m;
   const windUnit = currentWeather.units?.wind_speed_10m; // Optional chaining for units
   const currentTime = currentWeather.time;
+  const isDay = currentWeather.is_day;
   const locationName = weatherName;
 
   return (
-    <GlassyView className="items-center py-4 gap-5 w-11/12">
+    <GlassyView className="items-center py-3 gap-4 w-11/12">
       <GlassyText className="text-2xl font-bold w-full h-fit">
         {locationName}
       </GlassyText>
@@ -36,24 +37,24 @@ export default function Stats() {
         <GlassyText className="text-7xl font-bold mx-6">
           {Math.round(temp) + tempUnit}
         </GlassyText>
-        <GlassyText className="text-xl tracking-widest">
+        <GlassyText className="text-lg tracking-wider">
           {typeof weatherCode == "number" ? weatherCodeToCondition(weatherCode) : "Loading Condition..."}
         </GlassyText>
       </View>
-      <View className="flex-row justify-around px-6 flex-wrap gap-6">
-        <View className="flex-row gap-2 items-center">
+      <View className="flex-row flex-wrap gap-2 justify-center pl-6">
+        <View className="w-[35%] flex-row gap-2 items-center">
           <FontAwesome6 name="droplet" size={24} color="white" />
           <GlassyText className="text-base font-light">
             {humidity}%
           </GlassyText>
         </View>
-        <View className="flex-row gap-2 items-center">
+        <View className="w-[35%] flex-row gap-2 items-center">
           <FontAwesome6 name="wind" size={24} color="white" />
           <GlassyText className="text-base font-light">
             {Math.round(windSpeed)} {windUnit}
           </GlassyText>
         </View>
-        <View className="flex-row gap-2 items-center">
+        <View className="w-[35%] flex-row gap-2 items-center">
           <FontAwesome6 name="clock" size={24} color="white" />
           <GlassyText className="text-base font-light">
             {new Date(currentTime).toLocaleTimeString("en-UK", {
@@ -61,6 +62,12 @@ export default function Stats() {
               hour: "2-digit",
               minute: "2-digit"
             })}
+          </GlassyText>
+        </View>
+        <View className="w-[35%] flex-row gap-2 items-center">
+          <FontAwesome6 name={isDay ? "sun" : "moon"} size={24} color="white" />
+          <GlassyText className="text-base font-light">
+            {isDay ? "Daytime" : "Nighttime"}
           </GlassyText>
         </View>
       </View>

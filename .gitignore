@@ -39,3 +39,4 @@ yarn-error.*
 # custom
 codebase/
 todo.todo
+exampleJson.json
