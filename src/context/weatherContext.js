@@ -1,11 +1,14 @@
-import { createContext, useEffect, useState } from "react";
-import { storeWeatherData, readWeatherData, resetWeatherData } from "../helpers/storage";
+import { createContext, useEffect, useState, useContext } from "react";
+import {
+  storeWeatherData,
+  readWeatherData,
+  resetWeatherData,
+} from "../helpers/storage";
 import { isWithinLast30Minutes } from "../helpers/time";
 import { getPublicIP, getLocationFromIP } from "../helpers/location";
 import FetchWeather from "../hooks/useFetchWeather";
 
 export const WeatherContext = createContext();
-
 
 export default function WeatherContextProvider({ children }) {
   const [weather, setWeather] = useState(undefined);
@@ -41,7 +44,9 @@ export default function WeatherContextProvider({ children }) {
             setWeather(newWeatherData);
           } else {
             // Handle case where locationData is null (IP lookup failed)
-            console.warn("Could not get location from IP. Weather data might be unavailable.");
+            console.warn(
+              "Could not get location from IP. Weather data might be unavailable."
+            );
             setWeather(null); // Or set to a specific error state if needed
           }
         }
@@ -55,20 +60,23 @@ export default function WeatherContextProvider({ children }) {
   // Conditionally provide context values based on whether weather data is available
   const weatherContextValue = weather
     ? {
-      currentWeather: weather.currentWeather,
-      dailyWeather: weather.dailyWeather,
-      weatherName: weather.name, // Added name to context
-      setWeather,
-    }
+        currentWeather: weather.currentWeather,
+        dailyWeather: weather.dailyWeather,
+        weatherName: weather.name, // Added name to context
+        setWeather,
+      }
     : {
-      currentWeather: null,
-      dailyWeather: null,
-      weatherName: null, // Added name to context
-      setWeather,
-    };
+        currentWeather: null,
+        dailyWeather: null,
+        weatherName: null, // Added name to context
+        setWeather,
+      };
   return (
     <WeatherContext.Provider value={weatherContextValue}>
       {children}
     </WeatherContext.Provider>
   );
+}
+export function useWeather() {
+  return useContext(WeatherContext);
 }

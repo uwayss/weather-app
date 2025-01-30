@@ -1,17 +1,10 @@
 import { View, Image } from "react-native";
 import { GlassyText, GlassyView } from "../../Glassy";
-import weatherDescriptions from "../../../constants/descriptions";
-
-function weatherCodeToImageURL(code) {
-  if (!code) { // Handle null or undefined code
-    console.warn("WeatherCodeToImageURL: Weather code is null or undefined");
-    return null; // Or a default image URL
-  }
-  return weatherDescriptions[code]?.day?.image; // Optional chaining
-}
+import { weatherCodeToImageURL } from "../../../helpers/weather"
+import { useWeather } from "../../../context/weatherContext"
 
 function ConditionImage({ weatherCode }) {
-  const imageUri = weatherCodeToImageURL(weatherCode);
+  const imageUri = weatherCodeToImageURL(weatherCode, useWeather().currentWeather?.is_day);
   if (!imageUri) {
     return null; // Or a placeholder image if you have one
   }

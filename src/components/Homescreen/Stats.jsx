@@ -1,12 +1,11 @@
 import { View } from "react-native";
-import { useContext } from "react";
 import { weatherCodeToCondition } from "../../helpers/weather";
-import { WeatherContext } from "../../context/weatherContext";
+import { useWeather } from "../../context/weatherContext";
 import { GlassyText, GlassyView } from "./../Glassy";
 import { FontAwesome6 } from "react-native-vector-icons";
 
 export default function Stats() {
-  const { currentWeather, weatherName } = useContext(WeatherContext); // Destructure from context
+  const { currentWeather, weatherName } = useWeather(); // Destructure from context
 
   if (!currentWeather) { // Check currentWeather for null
     return (

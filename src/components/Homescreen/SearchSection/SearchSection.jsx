@@ -8,7 +8,7 @@ export default function SearchSection() {
   return (
     <SafeAreaView className="h-fit w-full gap-5 mt-2 z-10 absolute">
       <SearchBar />
-      {locations.length > 0 && showSearch && <SearchLocations />}
+      {locations?.length > 0 && showSearch && <SearchLocations />}
     </SafeAreaView>
   );
 }

@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { View, FlatList } from "react-native";
-import { WeatherContext } from "../../../context/weatherContext";
+import { useWeather } from "../../../context/weatherContext";
 import { processDailyWeatherData } from "../../../helpers/weather";
 import { GlassyText, GlassyView } from "../../Glassy";
 import Header from "./Header";
@@ -30,7 +30,7 @@ function ForecastList({ forecastData }) {
 }
 
 export default function DailyForecast() {
-  const { dailyWeather } = useContext(WeatherContext);
+  const { dailyWeather } = useWeather();
   const [dailyForecast, setDailyForecast] = useState([]);
 
   useEffect(() => {

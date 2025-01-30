@@ -11,7 +11,7 @@ export const GlassyText = ({ className, children, centered = true }) => {
   );
 };
 
-export const GlassyView = ({ children, className, rounded = true, transparency = 50 }) => {
+export const GlassyView = ({ children, className, rounded = true, transparency = 65 }) => {
   const { themeName } = useTheme();
   return (
     <BlurView intensity={transparency} tint={themeName} className={`overflow-hidden ${className} ${rounded ? "rounded-xl" : ""}`}>

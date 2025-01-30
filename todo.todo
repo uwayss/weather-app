@@ -4,3 +4,5 @@
 5- Find better condition images
 6- Add dynamic background images asap +
 7- Make better loading states. check out react-native-blurhash
+8- Make styling consistent throughout the application
+9- Improve the location fetching logic
