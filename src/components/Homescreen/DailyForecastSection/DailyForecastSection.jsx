@@ -5,6 +5,7 @@ import { processDailyWeatherData } from "../../../helpers/weather";
 import { GlassyText, GlassyView } from "../../Glassy";
 import Header from "./Header";
 import DailyWeatherTile from "./DailyWeatherTile";
+import PrecipitationGraph from "./PrecipitationGraph";
 
 function ForecastList({ forecastData }) {
   if (!forecastData || forecastData.length === 0) {
@@ -18,9 +19,12 @@ function ForecastList({ forecastData }) {
   return (
     <FlatList
       className="my-2 gap-4 mx-4 flex-row"
-      horizontal
+      horizontal={true}
       data={forecastData}
       keyExtractor={(item) => item.time}
+      snapToInterval={240} // Width of DailyWeatherTile (w-48)
+      decelerationRate="fast"
+      snapToAlignment="start"
       renderItem={({ item }) => <DailyWeatherTile data={item} />}
       contentContainerStyle={{
         gap: 8,
@@ -74,9 +78,10 @@ export default function DailyForecast() {
   }
 
   return (
-    <GlassyView className="m-2 flex-col w-11/12 h-fit">
+    <GlassyView className="m-2 flex-col w-11/12 h-fit align-center">
       <Header />
       <ForecastList forecastData={dailyForecast} />
+      <PrecipitationGraph />
     </GlassyView>
   );
 }
