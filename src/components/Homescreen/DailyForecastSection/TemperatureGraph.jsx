@@ -19,11 +19,18 @@ function Graph({ data }) {
             maxValue={Math.max(...maxTemps) + 2}
             mostNegativeValue={!(Math.min(...minTemps) >= 0) ? Math.min(...minTemps) : 0}
             barWidth={24}
-            showValuesAsTopLabel
-            topLabelTextStyle={{ color: "white", fontWeight: "bold" }}
             yAxisLabelWidth={0}
             initialSpacing={10}
             endSpacing={15}
+            barInnerComponent={({ value }) => {
+                return (
+                    <GlassyView rounded={false} >
+                        <GlassyText className="text-white font-bold">
+                            {Math.round(value)}
+                        </GlassyText>
+                    </GlassyView>
+                );
+            }}
             spacing={14}
             noOfSections={5}
             showGradient
@@ -32,7 +39,6 @@ function Graph({ data }) {
             yAxisTextStyle={{ color: 'white' }}
             xAxisLabelTextStyle={{ color: 'white' }}
             labelWidth={40}
-            // showLine={true}
             lineConfig={{
                 shiftY: 15,
                 color: '#F29C6E',
