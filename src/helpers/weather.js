@@ -60,3 +60,50 @@ export function processDailyWeatherData(dailyForecast) {
 
   return result;
 }
+export function processPrecipitationData(data) {
+  if (!Array.isArray(data)) {
+    throw new Error("Input must be an array.");
+  }
+
+  return data.map((item) => {
+    if (
+      typeof item !== "object" ||
+      item === null ||
+      !item.day ||
+      item.precipitation === null ||
+      item.precipitation === undefined
+    ) {
+      throw new Error(
+        "Invalid data format in array. Each object must have 'day' and 'precipitation' properties."
+      );
+    }
+    return {
+      label: item.day,
+      value: item.precipitation,
+    };
+  });
+}
+export function transformWeatherDataToChartData(weatherData) {
+  const chartData = [];
+  // Hardcoded colors:
+  const maxTempFrontColor = "#006DFF"; // Blue for Max Temp (same as your example)
+  const maxTempGradientColor = "lightblue"; // Lighter Blue
+  const minTempFrontColor = "#FFA500"; // Orange for Min Temp
+  const minTempGradientColor = "gold"; // Lighter Orange
+  weatherData.forEach((dayData, index) => {
+    chartData.push({
+      value: dayData.maxTemp,
+      frontColor: maxTempFrontColor,
+      gradientColor: maxTempGradientColor,
+      spacing: 6,
+      label: dayData.day, // Label only for the first in the pair
+    });
+    chartData.push({
+      value: dayData.minTemp,
+      frontColor: minTempFrontColor,
+      gradientColor: minTempGradientColor,
+    });
+  });
+
+  return chartData;
+}

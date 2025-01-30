@@ -6,6 +6,8 @@ import { GlassyText, GlassyView } from "../../Glassy";
 import Header from "./Header";
 import DailyWeatherTile from "./DailyWeatherTile";
 import PrecipitationGraph from "./PrecipitationGraph";
+import TemperatureGraph from "./TemperatureGraph";
+
 
 function ForecastList({ forecastData }) {
   if (!forecastData || forecastData.length === 0) {
@@ -22,7 +24,7 @@ function ForecastList({ forecastData }) {
       horizontal={true}
       data={forecastData}
       keyExtractor={(item) => item.time}
-      snapToInterval={240} // Width of DailyWeatherTile (w-48)
+      snapToInterval={120} // Width of DailyWeatherTile (w-48)
       decelerationRate="fast"
       snapToAlignment="start"
       renderItem={({ item }) => <DailyWeatherTile data={item} />}
@@ -82,6 +84,7 @@ export default function DailyForecast() {
       <Header />
       <ForecastList forecastData={dailyForecast} />
       <PrecipitationGraph />
+      <TemperatureGraph />
     </GlassyView>
   );
 }

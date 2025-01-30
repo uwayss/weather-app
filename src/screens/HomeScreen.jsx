@@ -16,6 +16,7 @@ const HomeScreen = () => {
           source={require("../../assets/backgrounds/clear_day.jpg")}
           className="w-full h-full absolute"
           fadeDuration={50}
+          blurRadius={15}
           resizeMode="stretch"
         />
         <ScrollView className="flex-1 w-full">

@@ -9,14 +9,12 @@ function ConditionImage({ weatherCode }) {
     return null; // Or a placeholder image if you have one
   }
   return (
-    <View className="bg-slate-700/60">
-      <Image
-        source={{
-          uri: imageUri,
-        }}
-        className="w-32 24 h-24 bg-white/55"
-      ></Image>
-    </View>
+    <Image
+      source={{
+        uri: imageUri,
+      }}
+      className="w-32 24 h-24 bg-transparent"
+    ></Image>
   );
 }
 
