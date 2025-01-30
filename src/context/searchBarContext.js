@@ -2,12 +2,12 @@ import { createContext, useState, useContext } from "react";
 
 export const SearchBarContext = createContext({
   locations: [],
-  setLocations: () => { },
+  setLocations: () => {},
   showSearch: false,
-  toggleSearch: () => { },
+  toggleSearch: () => {},
 });
 
-export default function SearchBarContextProvider({ children }) {
+export default function SearchBarProvider({ children }) {
   const [locations, setLocations] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
   return (

@@ -10,7 +10,7 @@ import FetchWeather from "../hooks/useFetchWeather";
 
 export const WeatherContext = createContext();
 
-export default function WeatherContextProvider({ children }) {
+export default function WeatherProvider({ children }) {
   const [weather, setWeather] = useState(undefined);
   // Fetch weather data only when the component mounts or when the weather data is outdated
   useEffect(() => {

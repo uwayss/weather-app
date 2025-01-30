@@ -31,7 +31,7 @@ function Graph({ data }) {
     )
 }
 
-export default function TemperatureGraph() {
+export default function PrecipitationGraph() {
     const { dailyWeather } = useWeather();
     if (!dailyWeather || !dailyWeather.forecast) {
         return (

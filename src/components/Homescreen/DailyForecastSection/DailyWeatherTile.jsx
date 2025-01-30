@@ -44,7 +44,7 @@ function TemperatureText({ min, max }) {
   );
 }
 
-export default function DailyWeatherItem({ data }) {
+export default function DailyWeatherTile({ data }) {
   return (
     <GlassyView className="flex-col gap-1 items-center w-32 h-44 overflow-hidden rounded-xl" transparency={30}>
       < ConditionImage weatherCode={data.weather_code} />

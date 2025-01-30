@@ -1,6 +1,4 @@
 1- Add a details screen that opens when you click a next day forecast card
-2- Add the snappyness feature to the next day forecast list
-3- Improve precipitation details (integrate LineChart)
 5- Find better condition images
 6- Add dynamic background images asap +
 7- Make better loading states. check out react-native-blurhash
