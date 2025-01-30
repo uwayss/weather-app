@@ -86,22 +86,22 @@ export function processPrecipitationData(data) {
 export function transformWeatherDataToChartData(weatherData) {
   const chartData = [];
   // Hardcoded colors:
-  const maxTempFrontColor = "#006DFF"; // Blue for Max Temp (same as your example)
-  const maxTempGradientColor = "lightblue"; // Lighter Blue
-  const minTempFrontColor = "#FFA500"; // Orange for Min Temp
+  const maxTempFrontColor = "lightblue"; // Blue for Max Temp (same as your example)
+  const maxTempGradientColor = "#1E90FF"; // Lighter Blue
+  const minTempFrontColor = "orange"; // Orange for Min Temp
   const minTempGradientColor = "gold"; // Lighter Orange
   weatherData.forEach((dayData, index) => {
     chartData.push({
-      value: dayData.maxTemp,
-      frontColor: maxTempFrontColor,
-      gradientColor: maxTempGradientColor,
+      value: Math.round(dayData.maxTemp),
+      frontColor: minTempFrontColor,
+      gradientColor: minTempGradientColor,
       spacing: 6,
       label: dayData.day, // Label only for the first in the pair
     });
     chartData.push({
-      value: dayData.minTemp,
-      frontColor: minTempFrontColor,
-      gradientColor: minTempGradientColor,
+      value: Math.round(dayData.minTemp),
+      frontColor: maxTempFrontColor,
+      gradientColor: maxTempGradientColor,
     });
   });
 

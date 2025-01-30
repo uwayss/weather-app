@@ -1,36 +1,33 @@
-import { View, ScrollView, Text } from 'react-native'
 import { GlassyText, GlassyView } from '../../Glassy'
 import { useWeather } from '../../../context/weatherContext';
-import { BarChart, LineChart } from "react-native-gifted-charts";
+import { LineChart } from "react-native-gifted-charts";
 import { processPrecipitationData } from "../../../helpers/weather";
 
 
 function Graph({ data }) {
     const currentData = processPrecipitationData(data)
     return (
-        <ScrollView horizontal>
-            <LineChart
-                areaChart
-                data={currentData}
-                dataPointsColor='lightblue'
-                dataPointsShape=''
-                lineGradient={true}
-                lineGradientStartColor='white'
-                lineGradientEndColor='lightblue'
-                thickness={2}
-                startOpacity={1}
-                endOpacity={0}
-                initialSpacing={15}
-                endSpacing={0}
-                noOfSections={6}
-                yAxisThickness={0}
-                rulesType="solid"
-                rulesColor="white"
-                yAxisTextStyle={{ color: 'white' }}
-                xAxisLabelTextStyle={{ color: 'white' }}
-                xAxisThickness={0}
-            />
-        </ScrollView>
+        <LineChart
+            areaChart
+            data={currentData}
+            dataPointsColor='lightblue'
+            dataPointsShape=''
+            lineGradient={true}
+            lineGradientStartColor='white'
+            lineGradientEndColor='lightblue'
+            thickness={2}
+            startOpacity={1}
+            endOpacity={0}
+            initialSpacing={15}
+            endSpacing={-40}
+            noOfSections={6}
+            yAxisThickness={0}
+            rulesType="solid"
+            rulesColor="white"
+            yAxisTextStyle={{ color: 'white' }}
+            xAxisLabelTextStyle={{ color: 'white' }}
+            xAxisThickness={0}
+        />
     )
 }
 

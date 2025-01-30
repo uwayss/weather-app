@@ -5,24 +5,36 @@ import { transformWeatherDataToChartData } from "../../../helpers/weather";
 
 
 function Graph({ data }) {
-
+    const minTemps = []
+    data.TemperatureData.forEach(element => {
+        minTemps.push(Math.round(element.minTemp) || 0)
+    });
+    const maxTemps = []
+    data.TemperatureData.forEach(element => {
+        maxTemps.push(Math.round(element.maxTemp) || 0)
+    });
     return (
         <BarChart
             data={transformWeatherDataToChartData(data.TemperatureData)}
-            barWidth={16}
+            maxValue={Math.max(...maxTemps) + 2}
+            mostNegativeValue={!(Math.min(...minTemps) >= 0) ? Math.min(...minTemps) : 0}
+            barWidth={24}
+            showValuesAsTopLabel
+            topLabelTextStyle={{ color: "white", fontWeight: "bold" }}
+            yAxisLabelWidth={0}
             initialSpacing={10}
+            endSpacing={15}
             spacing={14}
-            barBorderRadius={4}
+            noOfSections={5}
             showGradient
             yAxisThickness={0}
-            xAxisType={'dashed'}
-            xAxisColor={'lightgray'}
-            yAxisTextStyle={{ color: 'white', fontWeight: 'bold' }}
-            xAxisLabelTextStyle={{ color: 'white', fontWeight: 'bold' }}
-            noOfSections={8}
+            xAxisThickness={0}
+            yAxisTextStyle={{ color: 'white' }}
+            xAxisLabelTextStyle={{ color: 'white' }}
             labelWidth={40}
-            showLine={true}
+            // showLine={true}
             lineConfig={{
+                shiftY: 15,
                 color: '#F29C6E',
                 thickness: 3,
                 hideDataPoints: true,
@@ -32,7 +44,7 @@ function Graph({ data }) {
     );
 }
 
-export default function PrecipitationGraph() {
+export default function TemperatureGraph() {
     const { dailyWeather } = useWeather();
     if (!dailyWeather || !dailyWeather.forecast) {
         return (
