@@ -17,7 +17,6 @@ function ForecastList({ forecastData }) {
       </View>
     );
   }
-
   return (
     <FlatList
       className="my-2 gap-4 mx-4 flex-row"
@@ -38,7 +37,6 @@ function ForecastList({ forecastData }) {
 export default function DailyForecast() {
   const { dailyWeather } = useWeather();
   const [dailyForecast, setDailyForecast] = useState([]);
-
   useEffect(() => {
     if (!dailyWeather || dailyWeather === null) { // Explicit null check
       setDailyForecast([]);

@@ -7,7 +7,11 @@ const RootLayout = () => {
                 headerShown: false
             }}>
                 <Stack.Screen name="index" />
-                <Stack.Screen name="nextDays" />
+                <Stack.Screen name="dayDetails"
+                    options={{
+                        animation: "slide_from_right",
+                    }}
+                />
             </Stack>
         </ThemeProvider>
     )

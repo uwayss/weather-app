@@ -18,7 +18,7 @@ export default function ThemeProvider({ children }) {
         const storedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
         if (storedTheme) {
           setThemeName(storedTheme); // Use stored theme if available
-          console.warn("Loaded theme from AsyncStorage");
+          console.log("Loaded theme from AsyncStorage");
         }
       } catch (e) {
         console.error("Error loading theme from AsyncStorage:", e);
@@ -32,7 +32,7 @@ export default function ThemeProvider({ children }) {
     const saveTheme = async () => {
       try {
         await AsyncStorage.setItem(THEME_STORAGE_KEY, themeName);
-        console.warn("Saved theme into AsyncStorage");
+        console.log("Saved theme into AsyncStorage");
       } catch (e) {
         console.error("Error saving theme to AsyncStorage:", e);
       }

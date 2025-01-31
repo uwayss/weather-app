@@ -3,11 +3,9 @@ import { makeWeatherRequest } from "../helpers/api";
 export default async function FetchWeather(location) {
   try {
     const data = await makeWeatherRequest(location.lat, location.lon);
-
     const name = location.name;
     const countryName = location.address.country;
     const locationName = `${name}, ${countryName}`;
-
     const restructuredWeatherData = {
       name: locationName,
       timezone: data.timezone,
@@ -27,6 +25,7 @@ export default async function FetchWeather(location) {
             ? data.daily.wind_speed_10m_max[index]
             : null,
         })),
+        units: data.daily_units,
       },
     };
 

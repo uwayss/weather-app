@@ -51,7 +51,7 @@ export default function DailyWeatherTile({ data }) {
     <GlassyView className="flex-col gap-1 items-center w-32 h-44 overflow-hidden rounded-xl" transparency={30} onPress={() => {
       console.log("Data being passed:", JSON.stringify(data));
       router.push({
-        pathname: "nextDays",
+        pathname: "dayDetails",
         params: { // Passing individual parameters instead of nested object
           time: data.time,
           weather_code: data.weather_code,

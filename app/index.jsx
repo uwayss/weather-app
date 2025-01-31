@@ -1,9 +1,9 @@
 import { View, Image, ScrollView } from "react-native";
-import SearchSection from "../components/Homescreen/SearchSection/SearchSection";
-import DailyForecastSection from "../components/Homescreen/DailyForecastSection/DailyForecastSection";
+import SearchSection from "../components/Home/SearchSection/SearchSection";
+import DailyForecastSection from "../components/Home/DailyForecastSection/DailyForecastSection";
 import WeatherProvider from "../context/weatherContext";
 import SearchBarProvider from "../context/searchBarContext";
-import Stats from "../components/Homescreen/Stats";
+import Stats from "../components/Home/Stats";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../global.css"
 import { StatusBar } from "expo-status-bar";

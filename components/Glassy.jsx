@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../context/themeContext";
 import { BlurView } from 'expo-blur';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const GlassyText = ({ className, children, centered = true }) => {
   const { theme } = useTheme()
@@ -11,25 +12,60 @@ export const GlassyText = ({ className, children, centered = true }) => {
   );
 };
 
-export const GlassyView = ({ children, className, rounded = true, transparency = 65, debug = false, onPress = null }) => {
-  const { themeName } = useTheme();
-  if (debug) {
-    return (<View intensity={0} className={`overflow-hidden ${className} ${rounded ? "rounded-xl" : ""} bg-red-500`
-    }>
-      {children}
-    </View >)
-  } else if (onPress) {
-    return (
-      <TouchableOpacity onPress={onPress}>
-        <BlurView intensity={transparency} tint={themeName} className={`overflow-hidden ${className} ${rounded ? "rounded-xl" : ""}`}>
-          {children}
-        </BlurView>
-      </TouchableOpacity>
-    )
+export const GlassyView = ({ children, className, rounded = true, transparency = 65, debug = false, onPress = null, safe = false, trans = false, opaque = false }) => {
+  const { theme, themeName } = useTheme();
+
+  const baseClassNames = `overflow-hidden ${rounded ? "rounded-xl" : ""} ${className}`;
+  let content;
+
+  if (trans) {
+    content = (
+      <View className={`${baseClassNames} bg-transparent`}>
+        {children}
+      </View>
+    );
+  } else if (debug) {
+    content = (
+      <View intensity={0} className={`${baseClassNames} bg-red-500`}>
+        {children}
+      </View>
+    );
+  } else if (typeof opaque === 'string') {
+    content = (
+      <View className={`${baseClassNames} ${opaque}`} >
+        {children}
+      </View>
+    );
+  } else if (opaque) {
+    content = (
+      <View className={`${baseClassNames} ${theme.background}`}>
+        {children}
+      </View>
+    );
   }
-  return (
-    <BlurView intensity={transparency} tint={themeName} className={`overflow-hidden ${className} ${rounded ? "rounded-xl" : ""}`}>
-      {children}
-    </BlurView>
-  );
+  else {
+    content = (
+      <BlurView intensity={transparency} tint={themeName} className={baseClassNames}>
+        {children}
+      </BlurView>
+    );
+  }
+
+  if (safe) {
+    content = (
+      <SafeAreaView>
+        {content}
+      </SafeAreaView>
+    );
+  }
+
+  if (onPress) {
+    content = (
+      <TouchableOpacity onPress={onPress}>
+        {content}
+      </TouchableOpacity>
+    );
+  }
+
+  return content;
 };

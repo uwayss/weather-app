@@ -1,11 +1,14 @@
 import weatherDescriptions from "../constants/descriptions";
 
-export function weatherCodeToCondition(code, isDay) {
+export function weatherCodeToCondition(code = undefined, isDay = undefined) {
   // TODO: implement day/night logic
   // For simplicity, we'll assume daytime for now
   // In a real-world application, you'd need to check the sunrise and sunset times to determine if it's day or night
-  if (typeof code !== "number") {
+  if (typeof code == undefined) {
     throw new Error("WeatherCodeToCondition: Weather code is null or empty");
+  }
+  if (typeof isDay == undefined) {
+    return weatherDescriptions[code].day.description;
   }
   if (isDay) {
     return weatherDescriptions[code].day.description;

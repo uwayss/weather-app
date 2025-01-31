@@ -1,5 +1,6 @@
-1- Add a details screen that opens when you click a next day forecast card
-5- Find better condition images
-6- Add dynamic background images asap +
-7- Make better loading states. check out react-native-blurhash
-8- Make styling consistent throughout the application
+Add a details screen that opens when you click a next day forecast card
+Find better condition images
+Add dynamic background images asap +
+Make better loading states. check out react-native-blurhash
+Make styling consistent throughout the application
+Make encapsulation better

@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { weatherCodeToCondition } from "../../helpers/weather";
 import { useWeather } from "../../context/weatherContext";
-import { GlassyText, GlassyView } from "./../Glassy";
+import { GlassyText, GlassyView } from "../Glassy";
 import { FontAwesome6 } from "react-native-vector-icons";
 
 export default function Stats() {
