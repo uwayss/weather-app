@@ -5,9 +5,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage"; // Import 
 import themes from "./theme"; // Import the themes object we just created
 
 export const themeContext = createContext();
-const THEME_STORAGE_KEY = 'app_theme'; // Key to store theme in AsyncStorage
+const THEME_STORAGE_KEY = "app_theme"; // Key to store theme in AsyncStorage
 
-export default function ThemeContextProvider({ children }) {
+export default function ThemeProvider({ children }) {
   const systemColorScheme = useColorScheme();
   const [themeName, setThemeName] = useState(systemColorScheme); // Initialize with system theme
 
@@ -18,7 +18,7 @@ export default function ThemeContextProvider({ children }) {
         const storedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
         if (storedTheme) {
           setThemeName(storedTheme); // Use stored theme if available
-          console.warn("Loaded theme from AsyncStorage")
+          console.warn("Loaded theme from AsyncStorage");
         }
       } catch (e) {
         console.error("Error loading theme from AsyncStorage:", e);
@@ -32,7 +32,7 @@ export default function ThemeContextProvider({ children }) {
     const saveTheme = async () => {
       try {
         await AsyncStorage.setItem(THEME_STORAGE_KEY, themeName);
-        console.warn("Saved theme into AsyncStorage")
+        console.warn("Saved theme into AsyncStorage");
       } catch (e) {
         console.error("Error saving theme to AsyncStorage:", e);
       }
@@ -42,9 +42,11 @@ export default function ThemeContextProvider({ children }) {
 
   // System Appearance Change Listener
   useEffect(() => {
-    const appearanceListener = Appearance.addChangeListener(({ colorScheme }) => {
-      setThemeName(colorScheme); // Update theme state when system theme changes
-    });
+    const appearanceListener = Appearance.addChangeListener(
+      ({ colorScheme }) => {
+        setThemeName(colorScheme); // Update theme state when system theme changes
+      }
+    );
 
     return () => {
       appearanceListener.remove(); // Clean up listener on unmount
