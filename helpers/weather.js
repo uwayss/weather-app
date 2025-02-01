@@ -16,12 +16,13 @@ export function weatherCodeToCondition(code = undefined, isDay = undefined) {
     return weatherDescriptions[code].night.description;
   }
 }
-export function weatherCodeToImageURL(code, isDay) {
-  // TODO: fix this and add logic
-  if (!code) {
-    // Handle null or undefined code
-    console.warn("WeatherCodeToImageURL: Weather code is null or undefined");
+export function weatherCodeToImageURL(code = undefined, isDay = undefined) {
+  if (typeof code == undefined) {
+    console.warn("WeatherCodeToImageURL: Weather code is undefined");
     return null; // Or a default image URL
+  }
+  if (typeof isDay == undefined) {
+    return weatherDescriptions[code].day.image;
   }
   if (isDay) {
     return weatherDescriptions[code].day.image;

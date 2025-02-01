@@ -23,9 +23,6 @@ function ForecastList({ forecastData }) {
       horizontal={true}
       data={forecastData}
       keyExtractor={(item) => item.time}
-      snapToInterval={120} // Width of DailyWeatherTile (w-48)
-      decelerationRate="fast"
-      snapToAlignment="start"
       renderItem={({ item }) => <DailyWeatherTile data={item} />}
       contentContainerStyle={{
         gap: 8,
