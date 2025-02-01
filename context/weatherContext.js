@@ -62,12 +62,14 @@ export default function WeatherProvider({ children }) {
     ? {
         currentWeather: weather.currentWeather,
         dailyWeather: weather.dailyWeather,
+        hourlyWeather: weather.hourlyWeather,
         weatherName: weather.name, // Added name to context
         setWeather,
       }
     : {
         currentWeather: null,
         dailyWeather: null,
+        hourlyWeather: null,
         weatherName: null, // Added name to context
         setWeather,
       };

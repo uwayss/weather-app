@@ -1,13 +1,13 @@
 import { View } from "react-native";
-import { weatherCodeToCondition } from "../../helpers/weather";
-import { useWeather } from "../../context/weatherContext";
-import { GlassyText, GlassyView } from "../Glassy";
+import { weatherCodeToCondition } from "../../../helpers/weather";
+import { useWeather } from "../../../context/weatherContext";
+import { GlassyText, GlassyView } from "../../Glassy";
 import { FontAwesome6 } from "react-native-vector-icons";
 
 export default function Stats() {
-  const { currentWeather, weatherName } = useWeather(); // Destructure from context
+  const { currentWeather, weatherName } = useWeather();
 
-  if (!currentWeather) { // Check currentWeather for null
+  if (!currentWeather) {
     return (
       <GlassyView className="items-center py-3 gap-3 w-11/12">
         <GlassyText className="text-center text-xl">
@@ -18,11 +18,11 @@ export default function Stats() {
   }
 
   const temp = currentWeather.temperature_2m;
-  const tempUnit = currentWeather.units?.temperature_2m; // Optional chaining for units
+  const tempUnit = currentWeather.units?.temperature_2m;
   const weatherCode = currentWeather.weather_code;
   const humidity = currentWeather.relative_humidity_2m;
   const windSpeed = currentWeather.wind_speed_10m;
-  const windUnit = currentWeather.units?.wind_speed_10m; // Optional chaining for units
+  const windUnit = currentWeather.units?.wind_speed_10m;
   const currentTime = currentWeather.time;
   const isDay = currentWeather.is_day;
   const locationName = weatherName;

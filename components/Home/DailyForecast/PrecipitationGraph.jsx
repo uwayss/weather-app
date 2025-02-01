@@ -42,7 +42,7 @@ export default function PrecipitationGraph() {
     }
     const precipitationData = dailyWeather.forecast.map(day => ({
         day: new Date(day.time).toLocaleDateString('en-UK', { weekday: 'short' }),
-        precipitation: day.precipitation_probability_max || 0,
+        precipitation: day.rainProbability || 0,
     }));
 
     return (

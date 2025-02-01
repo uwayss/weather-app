@@ -1,35 +1,11 @@
 import { useState, useEffect } from "react";
-import { View, FlatList } from "react-native";
 import { useWeather } from "../../../context/weatherContext";
 import { processDailyWeatherData } from "../../../helpers/weather";
 import { GlassyText, GlassyView } from "../../Glassy";
 import Header from "./Header";
-import DailyWeatherTile from "./DailyWeatherTile";
 import PrecipitationGraph from "./PrecipitationGraph";
 import TemperatureGraph from "./TemperatureGraph";
-
-
-function ForecastList({ forecastData }) {
-  if (!forecastData || forecastData.length === 0) {
-    return (
-      <View className="p-4">
-        <GlassyText>No forecast data available</GlassyText>
-      </View>
-    );
-  }
-  return (
-    <FlatList
-      className="my-2 gap-4 mx-4 flex-row"
-      horizontal={true}
-      data={forecastData}
-      keyExtractor={(item) => item.time}
-      renderItem={({ item }) => <DailyWeatherTile data={item} />}
-      contentContainerStyle={{
-        gap: 8,
-      }}
-    />
-  );
-}
+import ForecastList from "./NextDays/ForecastList";
 
 export default function DailyForecast() {
   const { dailyWeather } = useWeather();

@@ -1,15 +1,13 @@
-// src/context/theme.js (or src/theme/theme.js)
-
 export const lightTheme = {
-  background: "bg-slate-300", // Example: light glassy background
-  text: "text-slate-900", // Example: dark text for light mode
-  other: "black",
+  background: "bg-slate-300",
+  text: "text-slate-900",
+  accent: "black",
 };
 
 export const darkTheme = {
-  background: "bg-slate-700", // Example: dark glassy background
-  text: "text-white", // Example: white text for dark mode
-  other: "white", // Example: white
+  background: "bg-slate-700",
+  text: "text-white",
+  accent: "white",
 };
 
 const themes = {

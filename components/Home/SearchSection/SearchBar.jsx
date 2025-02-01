@@ -41,15 +41,15 @@ export default function SearchBar() {
       <Icon
         name="map-pin"
         size={28}
-        color={theme.other}
+        color={theme.accent}
         className="mr-2"
         style={{ display: !showSearch ? "none" : null }}
       />
       <TextInput
-        className={`text-lg h-full pl-1 w-[90%] text-${theme.other} ${!showSearch ? "hidden" : ""}`}
+        className={`text-lg h-full pl-1 w-[90%] text-${theme.accent} ${!showSearch ? "hidden" : ""}`}
         textAlignVertical="center"
         placeholder="Search City"
-        placeholderTextColor={theme.other}
+        placeholderTextColor={theme.accent}
         onChangeText={setSearchText}
         returnKeyType="search"
         value={searchText}
@@ -59,7 +59,7 @@ export default function SearchBar() {
           <Icon
             name="search"
             size={28}
-            color={theme.other}
+            color={theme.accent}
           />
         </GlassyView>
       </TouchableOpacity>
