@@ -1,11 +1,15 @@
 import { View, Image } from "react-native";
 import { GlassyText, GlassyView } from "../../../Glassy";
-import { weatherCodeToImageURL } from "../../../../helpers/weather"
-import { useWeather } from "../../../../context/weatherContext"
-import { useRouter } from 'expo-router';
+import { weatherCodeToImageURL } from "../../../../helpers/weather";
+import { useWeather } from "../../../../context/weatherContext";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
 
 function ConditionImage({ weatherCode }) {
-  const imageUri = weatherCodeToImageURL(weatherCode, useWeather().currentWeather?.is_day);
+  const imageUri = weatherCodeToImageURL(
+    weatherCode,
+    useWeather().currentWeather?.is_day
+  );
   if (!imageUri) {
     return null; // Or a placeholder image if you have one
   }
@@ -22,8 +26,8 @@ function ConditionImage({ weatherCode }) {
 function WeekdayText({ time }) {
   const weekday = time
     ? new Date(time).toLocaleDateString("en-UK", {
-      weekday: "long",
-    })
+        weekday: "long",
+      })
     : "Unknown";
   return (
     <GlassyText className="text-xl font-bold tracking-widest">
@@ -48,25 +52,26 @@ function TemperatureText({ min, max }) {
 export default function DailyWeatherTile({ data }) {
   const router = useRouter();
   return (
-    <GlassyView className="flex-col gap-1 items-center w-32 h-44 overflow-hidden rounded-xl" transparency={30} onPress={() => {
-      router.push({
-        pathname: "dayDetails",
-        params: {
-          time: data.time,
-          weather_code: data.weather_code,
-          maxTemperature: data.maxTemperature,
-          minTemperature: data.minTemperature,
-          rainProbability: data.rainProbability,
-          windSpeed: data.windSpeed,
-        }
-      });
-    }}>
-      < ConditionImage weatherCode={data.weather_code} />
+    <GlassyView
+      className="flex-col gap-1 items-center w-32 h-44 overflow-hidden rounded-xl"
+      transparency={30}
+      onPress={() => {
+        router.push({
+          pathname: "DayDetails",
+          params: {
+            time: data.time,
+            weather_code: data.weather_code,
+            maxTemperature: data.maxTemperature,
+            minTemperature: data.minTemperature,
+            rainProbability: data.rainProbability,
+            windSpeed: data.windSpeed,
+          },
+        });
+      }}
+    >
+      <ConditionImage weatherCode={data.weather_code} />
       <WeekdayText time={data.time} />
-      <TemperatureText
-        min={data.minTemperature}
-        max={data.maxTemperature}
-      />
-    </GlassyView >
+      <TemperatureText min={data.minTemperature} max={data.maxTemperature} />
+    </GlassyView>
   );
 }

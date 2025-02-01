@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
+import Feather from "@expo/vector-icons/Feather";
 import { useSearchBar } from "../../../context/searchBarContext";
 import { GlassyView } from "../../Glassy";
 import { useTheme } from "../../../context/themeContext";
@@ -36,9 +36,10 @@ export default function SearchBar() {
 
   return (
     <GlassyView
-      className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16`} transparency={!showSearch ? 0 : 50}
+      className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16`}
+      transparency={!showSearch ? 0 : 50}
     >
-      <Icon
+      <Feather
         name="map-pin"
         size={28}
         color={theme.accent}
@@ -46,7 +47,9 @@ export default function SearchBar() {
         style={{ display: !showSearch ? "none" : null }}
       />
       <TextInput
-        className={`text-lg h-full pl-1 w-[90%] text-${theme.accent} ${!showSearch ? "hidden" : ""}`}
+        className={`text-lg h-full pl-1 w-[90%] text-${theme.accent} ${
+          !showSearch ? "hidden" : ""
+        }`}
         textAlignVertical="center"
         placeholder="Search City"
         placeholderTextColor={theme.accent}
@@ -55,14 +58,13 @@ export default function SearchBar() {
         value={searchText}
       />
       <TouchableOpacity onPress={() => toggleSearch(!showSearch)}>
-        <GlassyView className="p-3 rounded-full" transparent={showSearch ? 0 : 50}>
-          <Icon
-            name="search"
-            size={28}
-            color={theme.accent}
-          />
+        <GlassyView
+          className="p-3 rounded-full"
+          transparent={showSearch ? 0 : 50}
+        >
+          <Feather name="search" size={28} color={theme.accent} />
         </GlassyView>
       </TouchableOpacity>
-    </GlassyView >
+    </GlassyView>
   );
 }

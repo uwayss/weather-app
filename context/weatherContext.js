@@ -20,7 +20,7 @@ export default function WeatherProvider({ children }) {
         if (
           previousWeatherData &&
           previousWeatherData.currentWeather &&
-          !isWithinLast30Minutes(previousWeatherData.currentWeather.time)
+          isWithinLast30Minutes(previousWeatherData.currentWeather.time)
         ) {
           console.log("Using previous weather data");
           setWeather(previousWeatherData);

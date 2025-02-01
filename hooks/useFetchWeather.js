@@ -41,7 +41,6 @@ export default async function FetchWeather(location) {
         untis: data.hourly_units,
       },
     };
-
     return restructuredWeatherData;
   } catch (error) {
     console.error("Error fetching weather from API:", error);

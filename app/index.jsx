@@ -5,7 +5,7 @@ import WeatherProvider from "../context/weatherContext";
 import SearchBarProvider from "../context/searchBarContext";
 import Stats from "../components/Home/Stats/Stats";
 import { SafeAreaView } from "react-native-safe-area-context";
-import "../global.css"
+import "../global.css";
 import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = () => {

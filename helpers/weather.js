@@ -64,28 +64,48 @@ export function processDailyWeatherData(dailyForecast) {
 
   return result;
 }
-export function processPrecipitationData(data) {
+export function processPrecipitationData(data, type = "daily") {
   if (!Array.isArray(data)) {
     throw new Error("Input must be an array.");
   }
-
-  return data.map((item) => {
-    if (
-      typeof item !== "object" ||
-      item === null ||
-      !item.day ||
-      item.precipitation === null ||
-      item.precipitation === undefined
-    ) {
-      throw new Error(
-        "Invalid data format in array. Each object must have 'day' and 'precipitation' properties."
-      );
-    }
-    return {
-      label: item.day,
-      value: item.precipitation,
-    };
-  });
+  if (type == "daily") {
+    return data.map((item) => {
+      if (
+        typeof item !== "object" ||
+        item === null ||
+        !item.day ||
+        item.precipitation === null ||
+        item.precipitation === undefined
+      ) {
+        throw new Error(
+          "Invalid data format in array. Each object must have 'day' and 'precipitation' properties."
+        );
+      }
+      return {
+        label: item.day,
+        value: item.precipitation,
+      };
+    });
+  } else {
+    return data.map((item) => {
+      if (
+        typeof item !== "object" ||
+        item === null ||
+        item.hour === null ||
+        item.hour === undefined ||
+        item.precipitation === null ||
+        item.precipitation === undefined
+      ) {
+        throw new Error(
+          "Invalid data format in array. Each object must have 'hour' and 'precipitation' properties."
+        );
+      }
+      return {
+        label: item.day,
+        value: item.precipitation,
+      };
+    });
+  }
 }
 export function transformWeatherDataToChartData(weatherData) {
   const chartData = [];
@@ -110,4 +130,35 @@ export function transformWeatherDataToChartData(weatherData) {
   });
 
   return chartData;
+}
+
+/**
+ * Extracts the hourly weather data for a specific date from the provided hourly forecast.
+ *
+ * @param {Array} hourlyForecast - The array of hourly forecast objects.
+ * @param {string} dateString - The date string in "YYYY-MM-DD" format to filter the data for.
+ * @returns {Array} An array of hourly forecast objects for the specified date, or an empty array if no data is found.
+ */
+export function getHourlyDataForDate(hourlyForecast, dateString) {
+  if (!hourlyForecast || !Array.isArray(hourlyForecast)) {
+    console.error(
+      "getHourlyDataForDate: Invalid hourlyForecast provided:",
+      hourlyForecast
+    );
+    return [];
+  }
+
+  if (!dateString || typeof dateString !== "string") {
+    console.error(
+      "getHourlyDataForDate: Invalid dateString provided:",
+      dateString
+    );
+    return [];
+  }
+
+  return hourlyForecast.filter((hourlyData) => {
+    // Extract the date part from the hourlyData.time (which is in ISO 8601 format)
+    const dataDate = hourlyData.time.split("T")[0];
+    return dataDate === dateString;
+  });
 }

@@ -1,4 +1,3 @@
-
 const THIRTY_MINUTES_IN_MS = 30 * 60 * 1000;
 export function isWithinLast30Minutes(dateString) {
   if (!dateString) {
@@ -9,7 +8,10 @@ export function isWithinLast30Minutes(dateString) {
   const dateTimestamp = date.getTime(); // Get timestamp of the input date
 
   if (isNaN(dateTimestamp)) {
-    console.warn("Invalid date string provided to isWithinLast30Minutes:", dateString);
+    console.warn(
+      "Invalid date string provided to isWithinLast30Minutes:",
+      dateString
+    );
     return false; // Handle invalid date strings
   }
 
@@ -25,7 +27,7 @@ const WEEKDAYS = [
   "Thursday",
   "Friday",
   "Saturday",
-]
+];
 export function dateToWeekday(date = new Date().getDay()) {
   return WEEKDAYS[date - 1];
 }

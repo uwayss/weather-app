@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { weatherCodeToCondition } from "../../../helpers/weather";
 import { useWeather } from "../../../context/weatherContext";
 import { GlassyText, GlassyView } from "../../Glassy";
-import { FontAwesome6 } from "react-native-vector-icons";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 export default function Stats() {
   const { currentWeather, weatherName } = useWeather();
@@ -37,15 +37,15 @@ export default function Stats() {
           {Math.round(temp) + tempUnit}
         </GlassyText>
         <GlassyText className="text-lg tracking-wider">
-          {typeof weatherCode == "number" ? weatherCodeToCondition(weatherCode, isDay) : "Loading Condition..."}
+          {typeof weatherCode == "number"
+            ? weatherCodeToCondition(weatherCode, isDay)
+            : "Loading Condition..."}
         </GlassyText>
       </View>
       <View className="flex-row flex-wrap gap-2 justify-center pl-6">
         <View className="w-[35%] flex-row gap-2 items-center">
           <FontAwesome6 name="droplet" size={24} color="white" />
-          <GlassyText className="text-base font-light">
-            {humidity}%
-          </GlassyText>
+          <GlassyText className="text-base font-light">{humidity}%</GlassyText>
         </View>
         <View className="w-[35%] flex-row gap-2 items-center">
           <FontAwesome6 name="wind" size={24} color="white" />
@@ -59,7 +59,7 @@ export default function Stats() {
             {new Date(currentTime).toLocaleTimeString("en-UK", {
               hour12: false,
               hour: "2-digit",
-              minute: "2-digit"
+              minute: "2-digit",
             })}
           </GlassyText>
         </View>

@@ -7,6 +7,20 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useTheme } from "../../context/themeContext";
 import { Image } from "react-native";
 import { useWeather } from "../../context/weatherContext";
+function GlassyStatText({
+  children,
+  className = "",
+  bold = true,
+  size = "xl",
+}) {
+  return (
+    <GlassyText
+      className={`text-${size} ${bold ? "font-bold" : ""} ${className}`}
+    >
+      {children}
+    </GlassyText>
+  );
+}
 export default function StatsView({ time }) {
   const { theme } = useTheme();
   const { dailyWeather } = useWeather();
@@ -22,59 +36,42 @@ export default function StatsView({ time }) {
       windSpeed,
     } = day;
     return (
-      <>
-        <GlassyView
-          className="p-3 items-center flex-row justify-around"
-          transparency={40}
-        >
-          <GlassyText className="text-xl">
+      <GlassyView className="gap-4 p-4">
+        <GlassyView className="px-2 items-center flex-row justify-around" trans>
+          <GlassyStatText>
             Minimum: {Math.round(minTemperature)}°C{" "}
-            <FontAwesome6
-              name="temperature-low"
-              size={20}
-              color={theme.accent}
-            />
-          </GlassyText>
-          <GlassyText className="text-xl">
+          </GlassyStatText>
+          <GlassyStatText>
             Maximum: {Math.round(maxTemperature)}°C{" "}
-            <FontAwesome6
-              name="temperature-high"
-              size={20}
-              color={theme.accent}
-            />
-          </GlassyText>
+          </GlassyStatText>
         </GlassyView>
-        <GlassyView
-          className="p-3 items-center flex-row justify-center"
-          transparency={40}
-        >
+        <GlassyView className="px-2 items-center flex-row justify-center" trans>
           <Image
             className="w-12 h-12"
             source={{ uri: weatherCodeToImageURL(weather_code) }}
           />
-          <GlassyText className="text-xl font-bold">
+          <GlassyStatText>
             {weatherCodeToCondition(weather_code)}
-          </GlassyText>
+          </GlassyStatText>
         </GlassyView>
-        <GlassyView className="p-3 items-center" transparency={40}>
-          <GlassyText className="text-xl font-bold">
-            <FontAwesome6 name="droplet" size={24} color={theme.accent} />{" "}
+        <GlassyView className="px-2 items-center" trans>
+          <GlassyStatText>
+            <FontAwesome6 name="droplet" size={20} color={theme.accent} />{" "}
             {rainProbability}%
-          </GlassyText>
+          </GlassyStatText>
         </GlassyView>
-        <GlassyView className="p-3 items-center" transparency={40}>
-          <GlassyText className="text-xl font-bold">
-            Wind Speed: {windSpeed} km/s
-          </GlassyText>
+        <GlassyView className="px-2 items-center" trans>
+          <GlassyStatText>
+            <FontAwesome6 name="wind" size={20} color={theme.accent} />{" "}
+            {windSpeed} km/s
+          </GlassyStatText>
         </GlassyView>
-      </>
+      </GlassyView>
     );
   } else {
     return (
-      <GlassyView className="p-5">
-        <GlassyText className="text-xl font-bold text-center">
-          Loading...
-        </GlassyText>
+      <GlassyView className="gap-4 p-4">
+        <GlassyStatText className="text-center">Loading...</GlassyStatText>
       </GlassyView>
     );
   }
