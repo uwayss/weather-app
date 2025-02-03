@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { weatherCodeToCondition } from "../../../helpers/weather";
 import { useWeather } from "../../../context/weatherContext";
 import { GlassyText, GlassyView } from "../../Glassy";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { AwesomeIcon } from "../../Icon";
 
 export default function Stats() {
   const { currentWeather, weatherName } = useWeather();
@@ -44,17 +44,17 @@ export default function Stats() {
       </View>
       <View className="flex-row flex-wrap gap-2 justify-center pl-6">
         <View className="w-[35%] flex-row gap-2 items-center">
-          <FontAwesome6 name="droplet" size={24} color="white" />
+          <AwesomeIcon name="droplet" size={24} />
           <GlassyText className="text-base font-light">{humidity}%</GlassyText>
         </View>
         <View className="w-[35%] flex-row gap-2 items-center">
-          <FontAwesome6 name="wind" size={24} color="white" />
+          <AwesomeIcon name="wind" size={24} />
           <GlassyText className="text-base font-light">
             {Math.round(windSpeed)} {windUnit}
           </GlassyText>
         </View>
         <View className="w-[35%] flex-row gap-2 items-center">
-          <FontAwesome6 name="clock" size={24} color="white" />
+          <AwesomeIcon name="clock" size={24} />
           <GlassyText className="text-base font-light">
             {new Date(currentTime).toLocaleTimeString("en-UK", {
               hour12: false,
@@ -64,7 +64,7 @@ export default function Stats() {
           </GlassyText>
         </View>
         <View className="w-[35%] flex-row gap-2 items-center">
-          <FontAwesome6 name={isDay ? "sun" : "moon"} size={24} color="white" />
+          <AwesomeIcon name={isDay ? "sun" : "moon"} size={24} />
           <GlassyText className="text-base font-light">
             {isDay ? "Daytime" : "Nighttime"}
           </GlassyText>

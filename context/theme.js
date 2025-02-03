@@ -1,6 +1,6 @@
 export const lightTheme = {
   background: "bg-slate-300",
-  text: "text-slate-900",
+  text: "text-black",
   accent: "black",
 };
 

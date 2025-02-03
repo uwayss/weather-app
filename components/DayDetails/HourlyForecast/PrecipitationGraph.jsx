@@ -1,30 +1,31 @@
 import { GlassyText, GlassyView } from "../../Glassy";
-import { useWeather } from "../../../context/weatherContext";
 import { LineChart } from "react-native-gifted-charts";
 import { processPrecipitationData } from "../../../helpers/weather";
+import { useTheme } from "../../../context/themeContext";
 
 function Graph({ data }) {
   const currentData = processPrecipitationData(data, "hourly");
+  const { theme } = useTheme();
   return (
     <LineChart
       areaChart
       data={currentData}
-      dataPointsColor="lightblue"
+      dataPointsColor={"lightblue"}
       lineGradient={true}
       lineGradientStartColor="white"
       lineGradientEndColor="lightblue"
       thickness={2}
+      hideRules
       startOpacity={1}
       endOpacity={0}
-      showValuesAsDataPointsText
-      initialSpacing={15}
-      endSpacing={-40}
+      initialSpacing={20}
+      endSpacing={-30}
       noOfSections={6}
       yAxisThickness={0}
       rulesType="solid"
       rulesColor="white"
-      yAxisTextStyle={{ color: "white" }}
-      xAxisLabelTextStyle={{ color: "white" }}
+      yAxisTextStyle={{ color: theme.accent }}
+      xAxisLabelTextStyle={{ color: theme.accent }}
       xAxisThickness={0}
     />
   );
@@ -40,13 +41,16 @@ export default function PrecipitationGraph({ data }) {
   } else {
     const processedData = data.map((day) => {
       return {
-        hour: new Date(day.time).getHours(),
+        hour:
+          new Date(day.time).getHours().toString().padStart(2, "0") +
+          ":" +
+          new Date(day.time).getMinutes().toString().padStart(2, "0"),
         precipitation: day.rainProbability || 0,
       };
     });
 
     return (
-      <GlassyView className="p-4 m-4" transparency={30}>
+      <GlassyView className="py-4 m-4" trans>
         <GlassyText className="text-xl font-bold mb-2">
           Rain Probabliity Graph
         </GlassyText>

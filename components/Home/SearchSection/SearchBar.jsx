@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
-import Feather from "@expo/vector-icons/Feather";
 import { useSearchBar } from "../../../context/searchBarContext";
 import { GlassyView } from "../../Glassy";
 import { useTheme } from "../../../context/themeContext";
 import fetchLocations from "../../../hooks/useFetchLocations";
-
+import { FeatherIcon } from "../../Icon";
 export default function SearchBar() {
   const { showSearch, toggleSearch, setLocations } = useSearchBar();
   const [searchText, setSearchText] = useState("");
@@ -39,10 +38,9 @@ export default function SearchBar() {
       className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16`}
       transparency={!showSearch ? 0 : 50}
     >
-      <Feather
+      <FeatherIcon
         name="map-pin"
         size={28}
-        color={theme.accent}
         className="mr-2"
         style={{ display: !showSearch ? "none" : null }}
       />
@@ -62,7 +60,7 @@ export default function SearchBar() {
           className="p-3 rounded-full"
           transparent={showSearch ? 0 : 50}
         >
-          <Feather name="search" size={28} color={theme.accent} />
+          <FeatherIcon name="search" size={28} />
         </GlassyView>
       </TouchableOpacity>
     </GlassyView>
