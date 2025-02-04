@@ -42,6 +42,7 @@ export default function DailyTemperatureGraph({ data }) {
       yAxisTextStyle={{ color: theme.accent }}
       xAxisLabelTextStyle={{ color: theme.accent }}
       labelWidth={40}
+      disablePress
     />
   );
 }

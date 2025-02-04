@@ -27,6 +27,7 @@ export default function HourlyTemperatureGraph({ data }) {
       yAxisThickness={0}
       xAxisLabelTextStyle={{ color: theme.accent }}
       yAxisTextStyle={{ color: theme.accent }}
+      disablePress
     />
   );
 }

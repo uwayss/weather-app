@@ -109,15 +109,22 @@ export function processPrecipitationData(data, type = "daily") {
 }
 export function transformWeatherDataToChartData(weatherData) {
   const chartData = [];
-  const tempFrontColor = "orange"; // Orange for Min Temp
-  const tempGradientColor = "gold"; // Lighter Orange
-  weatherData.forEach((dayData, index) => {
+  const maxTempFrontColor = "lightblue"; // Blue for Max Temp (same as your example)
+  const maxTempGradientColor = "#1E90FF"; // Lighter Blue
+  const minTempFrontColor = "orange"; // Orange for Min Temp
+  const minTempGradientColor = "gold"; // Lighter Orange
+  weatherData.forEach((dayData) => {
     chartData.push({
       value: Math.round(dayData.maxTemp),
-      frontColor: tempFrontColor,
-      gradientColor: tempGradientColor,
+      frontColor: minTempFrontColor,
+      gradientColor: minTempGradientColor,
       spacing: 6,
       label: dayData.day, // Label only for the first in the pair
+    });
+    chartData.push({
+      value: Math.round(dayData.minTemp),
+      frontColor: maxTempFrontColor,
+      gradientColor: maxTempGradientColor,
     });
   });
   return chartData;
@@ -136,13 +143,6 @@ export function transformHourlyDataToChartData(hourlyData) {
   });
   return chartData;
 }
-/**
- * Extracts the hourly weather data for a specific date from the provided hourly forecast.
- *
- * @param {Array} hourlyForecast - The array of hourly forecast objects.
- * @param {string} dateString - The date string in "YYYY-MM-DD" format to filter the data for.
- * @returns {Array} An array of hourly forecast objects for the specified date, or an empty array if no data is found.
- */
 export function getHourlyDataForDate(hourlyForecast, dateString) {
   if (!hourlyForecast || !Array.isArray(hourlyForecast)) {
     console.error(
