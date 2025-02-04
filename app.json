@@ -13,6 +13,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    // TODO: Implement Localization
+    // TODO: Improve abstraction
+    // TODO: Better icons
+    // TODO: TypeScript !!!!
+
     "ios": {
       "supportsTablet": true
     },

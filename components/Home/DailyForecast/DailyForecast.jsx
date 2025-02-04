@@ -11,24 +11,29 @@ export default function DailyForecast() {
   const { dailyWeather } = useWeather();
   const [dailyForecast, setDailyForecast] = useState([]);
   useEffect(() => {
-    if (!dailyWeather || dailyWeather === null) { // Explicit null check
+    if (!dailyWeather || dailyWeather === null) {
+      // Explicit null check
       setDailyForecast([]);
       return;
     }
-    if (!dailyWeather.forecast) { // Check for forecast property specifically
+    if (!dailyWeather.forecast) {
+      // Check for forecast property specifically
       setDailyForecast([]);
       return;
     }
     try {
-
-
-      if (!dailyWeather.forecast || typeof dailyWeather.forecast !== 'object') { // More robust check
-        console.error("Error: dailyWeather.forecast is not a valid object:", dailyWeather.forecast);
+      if (!dailyWeather.forecast || typeof dailyWeather.forecast !== "object") {
+        // More robust check
+        console.error(
+          "Error: dailyWeather.forecast is not a valid object:",
+          dailyWeather.forecast
+        );
         setDailyForecast([]);
         return; // Exit the useEffect if it's invalid
       }
       const processedData = processDailyWeatherData(dailyWeather.forecast);
-      if (processedData) { // Check if processDailyWeatherData returns a valid result
+      if (processedData) {
+        // Check if processDailyWeatherData returns a valid result
         setDailyForecast(processedData);
       } else {
         console.error("processDailyWeatherData returned null or undefined.");
@@ -49,7 +54,8 @@ export default function DailyForecast() {
       </GlassyView>
     );
   }
-
+  // TODO: Improve chart theming
+  // TODO: Add the words today and tomorrow
   return (
     <GlassyView className="m-2 flex-col w-11/12 h-fit align-center">
       <Header />

@@ -8,6 +8,9 @@ import { ScrollView } from "react-native";
 export default function DayDetails() {
   const { time } = useLocalSearchParams();
   const { theme } = useTheme();
+  // TODO: Add a context for this screen
+  // TODO: Improve UI
+
   return (
     <ScrollView className="w-full flex-1">
       <GlassyView

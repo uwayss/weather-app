@@ -13,8 +13,9 @@ const HomeScreen = () => {
     <WeatherProvider>
       <View className="flex-1">
         <Image
-          source={require("../assets/backgrounds/clear_night.jpg")}
+          source={require("../assets/backgrounds/clear_day.jpg")}
           className="w-full h-full absolute"
+          // TODO: Find better background images
           fadeDuration={50}
           blurRadius={5}
           resizeMode="stretch"
