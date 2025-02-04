@@ -45,7 +45,7 @@ export default function SearchBar() {
         style={{ display: !showSearch ? "none" : null }}
       />
       <TextInput
-        className={`text-lg h-full pl-1 w-[90%] text-${theme.accent} ${
+        className={`text-lg h-full pl-1 w-[90%] ${theme.text} ${
           !showSearch ? "hidden" : ""
         }`}
         textAlignVertical="center"

@@ -1,11 +1,11 @@
 export const lightTheme = {
-  background: "bg-slate-300",
+  background: "rgb(203,213,225)",
   text: "text-black",
   accent: "black",
 };
 
 export const darkTheme = {
-  background: "bg-slate-700",
+  bg: "rgb(51,65,85)",
   text: "text-white",
   accent: "white",
 };

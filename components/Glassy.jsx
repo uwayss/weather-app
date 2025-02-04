@@ -18,7 +18,7 @@ export const GlassyView = ({
   children,
   className,
   rounded = true,
-  transparency = 40,
+  transparency = 50,
   debug = false,
   onPress = null,
   safe = false,
@@ -42,11 +42,9 @@ export const GlassyView = ({
         {children}
       </View>
     );
-  } else if (typeof opaque === "string") {
-    content = <View className={`${baseClassNames} ${opaque}`}>{children}</View>;
   } else if (opaque) {
     content = (
-      <View className={`${baseClassNames} ${theme.background}`}>
+      <View className={baseClassNames} style={{ backgroundColor: theme.bg }}>
         {children}
       </View>
     );

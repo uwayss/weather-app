@@ -3,8 +3,8 @@ import { useWeather } from "../../../context/weatherContext";
 import { processDailyWeatherData } from "../../../helpers/weather";
 import { GlassyText, GlassyView } from "../../Glassy";
 import Header from "./Header";
-import PrecipitationGraph from "./PrecipitationGraph";
-import TemperatureGraph from "./TemperatureGraph";
+import DailyPrecipitation from "./DailyPrecipitation";
+import DailyTemperature from "./DailyTemperature";
 import ForecastList from "./NextDays/ForecastList";
 
 export default function DailyForecast() {
@@ -60,8 +60,8 @@ export default function DailyForecast() {
     <GlassyView className="m-2 flex-col w-11/12 h-fit align-center">
       <Header />
       <ForecastList forecastData={dailyForecast} />
-      <PrecipitationGraph />
-      <TemperatureGraph />
+      <DailyPrecipitation />
+      <DailyTemperature />
     </GlassyView>
   );
 }
