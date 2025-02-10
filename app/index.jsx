@@ -15,7 +15,7 @@ const HomeScreen = () => {
   console.warn(weatherCode);
   return (
     <WeatherProvider>
-      <View className="flex-1">
+      <View style={{ height: "100%", width: "100%" }}>
         <WeatherBackground weatherCode={weatherCode} />
         <ScrollView className="flex-1 w-full">
           <SearchBarProvider>
