@@ -1,25 +1,22 @@
 import { View, Image, ScrollView } from "react-native";
 import SearchSection from "../components/Home/SearchSection/SearchSection";
 import DailyForecastSection from "../components/Home/DailyForecast/DailyForecast";
-import WeatherProvider from "../context/weatherContext";
+import WeatherProvider, { useWeather } from "../context/weatherContext";
 import SearchBarProvider from "../context/searchBarContext";
 import Stats from "../components/Home/Stats/Stats";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../global.css";
 import { StatusBar } from "expo-status-bar";
+import WeatherBackground from "../components/WeatherBackground";
 
 const HomeScreen = () => {
+  const { currentWeather } = useWeather();
+  const weatherCode = currentWeather?.weather_code;
+  console.warn(weatherCode);
   return (
     <WeatherProvider>
       <View className="flex-1">
-        <Image
-          source={require("../assets/backgrounds/clear_night.jpg")}
-          className="w-full h-full absolute"
-          // TODO: Find better background images
-          fadeDuration={50}
-          blurRadius={5}
-          resizeMode="stretch"
-        />
+        <WeatherBackground weatherCode={weatherCode} />
         <ScrollView className="flex-1 w-full">
           <SearchBarProvider>
             <SearchSection />

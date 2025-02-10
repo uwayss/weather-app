@@ -17,8 +17,8 @@ export default function PrecipitationGraph() {
   }));
 
   return (
-    <GlassyView className="p-4 m-4" transparency={30}>
-      <GlassyText className="text-xl font-bold mb-2">
+    <GlassyView className="p-4 m-4 gap-2" transparency={30}>
+      <GlassyText className="text-xl font-bold">
         Precipitation Forecast
       </GlassyText>
       <DailyRainProbGraph data={precipitationData} />

@@ -1,5 +1,39 @@
 import weatherDescriptions from "../constants/descriptions";
+import backgroundMappings from "../constants/backgroundMappings"; // Adjust path if needed
+export function weatherCodeToBackgroundImageSource(
+  code = undefined,
+  isDay = undefined
+) {
+  if (typeof code === "undefined") {
+    console.warn("weatherCodeToBackgroundImageURL: Weather code is undefined.");
+    return null; // Or a default image URL
+  }
 
+  const weatherData = backgroundMappings[code];
+
+  if (!weatherData) {
+    console.warn(
+      `weatherCodeToBackgroundImageURL: No background mapping found for code ${code}.`
+    );
+    return null; // Or a default image URL
+  }
+
+  if (typeof isDay === "undefined") {
+    // If isDay is undefined, default to day (1)
+    return weatherData.day;
+  }
+
+  if (isDay === 1) {
+    return weatherData.day;
+  } else if (isDay === 0) {
+    return weatherData.night;
+  } else {
+    console.warn(
+      `weatherCodeToBackgroundImageURL: Invalid isDay value: ${isDay}.  Expected 0 or 1.`
+    );
+    return null; // Or a default image URL
+  }
+}
 export function weatherCodeToCondition(code = undefined, isDay = undefined) {
   // TODO: implement day/night logic
   // For simplicity, we'll assume daytime for now

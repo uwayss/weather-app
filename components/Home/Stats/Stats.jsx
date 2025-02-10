@@ -33,7 +33,7 @@ export default function Stats() {
         {locationName}
       </GlassyText>
       <View>
-        <GlassyText className="text-7xl font-bold mx-6">
+        <GlassyText className="text-7xl font-bold">
           {Math.round(temp) + tempUnit}
         </GlassyText>
         <GlassyText className="text-lg tracking-wider">

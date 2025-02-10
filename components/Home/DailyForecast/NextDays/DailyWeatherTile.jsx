@@ -3,7 +3,6 @@ import { GlassyText, GlassyView } from "../../../Glassy";
 import { weatherCodeToImageURL } from "../../../../helpers/weather";
 import { useWeather } from "../../../../context/weatherContext";
 import { useRouter } from "expo-router";
-import { useEffect } from "react";
 
 function ConditionImage({ weatherCode }) {
   const imageUri = weatherCodeToImageURL(
@@ -11,7 +10,7 @@ function ConditionImage({ weatherCode }) {
     useWeather().currentWeather?.is_day
   );
   if (!imageUri) {
-    return null; // Or a placeholder image if you have one
+    return null; // TODO: Add a placeholder image
   }
   return (
     <Image
