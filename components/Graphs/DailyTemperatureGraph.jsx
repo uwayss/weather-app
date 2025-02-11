@@ -27,7 +27,7 @@ export default function DailyTemperatureGraph({ data }) {
       barInnerComponent={({ value }) => {
         return (
           <GlassyView rounded={false}>
-            <GlassyText className="text-white font-bold">
+            <GlassyText style={{ color: theme.text, fontWeight: "bold" }}>
               {Math.round(value)}
             </GlassyText>
           </GlassyView>

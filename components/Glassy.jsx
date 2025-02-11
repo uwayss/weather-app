@@ -1,22 +1,19 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useTheme } from "../context/themeContext";
 import { BlurView } from "expo-blur";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export const GlassyText = ({ className, children, centered = true }) => {
+export const GlassyText = ({ style = {}, children }) => {
   const { theme } = useTheme();
   return (
-    <Text
-      className={`${theme.text} ${centered ? "text-center" : ""} ${className}`}
-    >
+    <Text style={{ color: theme.text, textAlign: "center", ...style }}>
       {children}
     </Text>
   );
 };
-
 export const GlassyView = ({
   children,
-  className,
+  style = {},
   rounded = true,
   transparency = 50,
   debug = false,
@@ -26,25 +23,25 @@ export const GlassyView = ({
   opaque = false,
 }) => {
   const { theme, themeName } = useTheme();
-
-  const baseClassNames = `overflow-hidden ${
-    rounded ? "rounded-xl" : ""
-  } ${className}`;
+  const baseStyles = rounded
+    ? styleSheet.glassyView
+    : styleSheet.glassyViewSquare;
   let content;
-
   if (trans) {
     content = (
-      <View className={`${baseClassNames} bg-transparent`}>{children}</View>
+      <View style={{ ...baseStyles, background: "transparent", ...style }}>
+        {children}
+      </View>
     );
   } else if (debug) {
     content = (
-      <View intensity={0} className={`${baseClassNames} bg-red-500`}>
+      <View style={{ ...baseStyles, backgroundColor: "red", ...style }}>
         {children}
       </View>
     );
   } else if (opaque) {
     content = (
-      <View className={baseClassNames} style={{ backgroundColor: theme.bg }}>
+      <View style={{ ...baseStyles, backgroundColor: theme.bg, ...style }}>
         {children}
       </View>
     );
@@ -53,7 +50,7 @@ export const GlassyView = ({
       <BlurView
         intensity={transparency}
         tint={themeName}
-        className={baseClassNames}
+        style={{ ...baseStyles, ...style }}
       >
         {children}
       </BlurView>
@@ -70,3 +67,13 @@ export const GlassyView = ({
 
   return content;
 };
+
+const styleSheet = StyleSheet.create({
+  glassyView: {
+    overflow: "hidden",
+    borderRadius: 12,
+  },
+  glassyViewSquare: {
+    borderRadius: 0,
+  },
+});

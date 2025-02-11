@@ -8,8 +8,10 @@ export default function HourlyForecast({ time }) {
   const { hourlyWeather } = useWeather();
   if (!hourlyWeather) {
     return (
-      <GlassyView className="flex-col w-full">
-        <GlassyText className="text-2xl py-8">
+      <GlassyView style={{ flexDirection: "column", width: "100%" }}>
+        <GlassyText
+          style={{ fontSize: 24, lineHeight: 32, paddingVertical: 32 }}
+        >
           Loading weather forecast...
         </GlassyText>
       </GlassyView>
@@ -17,7 +19,9 @@ export default function HourlyForecast({ time }) {
   } else {
     const hours = getHourlyDataForDate(hourlyWeather.forecast, time);
     return (
-      <GlassyView className="flex-col w-full h-fit align-center">
+      <GlassyView
+        style={{ flexDirection: "column", width: "100%", alignSelf: "center" }}
+      >
         <HourlyPrecipitation data={hours} />
         <HourlyTemperature data={hours} />
       </GlassyView>

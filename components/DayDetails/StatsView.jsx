@@ -1,21 +1,21 @@
 import { GlassyText, GlassyView } from "../Glassy";
+import { View } from "react-native";
 import {
   weatherCodeToCondition,
   weatherCodeToImageURL,
 } from "../../helpers/weather";
-import { useTheme } from "../../context/themeContext";
 import { Image } from "react-native";
 import { useWeather } from "../../context/weatherContext";
-import Icon, { AwesomeIcon } from "../Icon";
-function GlassyStatText({
-  children,
-  className = "",
-  bold = true,
-  size = "xl",
-}) {
+import { AwesomeIcon } from "../Icon";
+function GlassyStatText({ children, centered = false }) {
   return (
     <GlassyText
-      className={`text-${size} ${bold ? "font-bold" : ""} ${className}`}
+      style={{
+        fontSize: 20,
+        lineHeight: 28,
+        fontWeight: "bold",
+        textAlign: centered ? "center" : "",
+      }}
     >
       {children}
     </GlassyText>
@@ -23,40 +23,60 @@ function GlassyStatText({
 }
 function TemperatureInfo({ minTemperature, maxTemperature }) {
   return (
-    <GlassyView className="px-2 items-center flex-row justify-around" trans>
+    <View
+      style={{
+        paddingHorizontal: 8,
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "space-around",
+      }}
+    >
       <GlassyStatText>Minimum: {Math.round(minTemperature)}°C </GlassyStatText>
       <GlassyStatText>Maximum: {Math.round(maxTemperature)}°C </GlassyStatText>
-    </GlassyView>
+    </View>
   );
 }
 function GenericInfo({ rainProbability, windSpeed }) {
-  const { theme } = useTheme();
   return (
-    <GlassyView className="px-2 items-center flex-row justify-around" trans>
-      <GlassyView trans>
+    <View
+      style={{
+        paddingHorizontal: 8,
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "space-around",
+      }}
+    >
+      <View>
         <GlassyStatText>
           <AwesomeIcon name="droplet" /> {rainProbability}%
         </GlassyStatText>
-      </GlassyView>
-      <GlassyView trans>
+      </View>
+      <View>
         <GlassyStatText>
           <AwesomeIcon name="wind" /> {windSpeed} km/s
         </GlassyStatText>
-      </GlassyView>
-    </GlassyView>
+      </View>
+    </View>
   );
 }
 function ConditionInfo({ weather_code }) {
   return (
-    <GlassyView className="px-2 items-center flex-row justify-around" trans>
-      <GlassyView className="flex-row items-center" trans>
+    <View
+      style={{
+        paddingHorizontal: 8,
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "space-around",
+      }}
+    >
+      <View style={{ flexDirection: "row", alingItems: "center" }}>
         <Image
-          className="w-12 h-12"
+          style={{ width: 48, height: 48 }}
           source={{ uri: weatherCodeToImageURL(weather_code) }}
         />
         <GlassyStatText>{weatherCodeToCondition(weather_code)}</GlassyStatText>
-      </GlassyView>
-    </GlassyView>
+      </View>
+    </View>
   );
 }
 export default function StatsView({ time }) {
@@ -73,7 +93,7 @@ export default function StatsView({ time }) {
       windSpeed,
     } = day;
     return (
-      <GlassyView className="gap-4 p-4 flex-col">
+      <GlassyView style={{ gap: 16, padding: 16 }}>
         <TemperatureInfo
           minTemperature={minTemperature}
           maxTemperature={maxTemperature}
@@ -84,8 +104,8 @@ export default function StatsView({ time }) {
     );
   } else {
     return (
-      <GlassyView className="gap-4 p-4">
-        <GlassyStatText className="text-center">Loading...</GlassyStatText>
+      <GlassyView style={{ gap: 16, padding: 16 }}>
+        <GlassyStatText centered>Loading...</GlassyStatText>
       </GlassyView>
     );
   }

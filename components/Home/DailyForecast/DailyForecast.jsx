@@ -47,8 +47,10 @@ export default function DailyForecast() {
 
   if (!dailyWeather) {
     return (
-      <GlassyView className="m-2 flex-col w-11/12 ">
-        <GlassyText className="text-2xl py-8">
+      <GlassyView style={{ margin: 8, flexDirection: "column", width: "91%" }}>
+        <GlassyText
+          style={{ fontSize: 24, lineHeight: 32, paddingVertical: 32 }}
+        >
           Loading weather forecast...
         </GlassyText>
       </GlassyView>
@@ -57,7 +59,14 @@ export default function DailyForecast() {
   // TODO: Improve chart theming
   // TODO: Add the words today and tomorrow
   return (
-    <GlassyView className="m-2 flex-col w-11/12 h-fit align-center">
+    <GlassyView
+      style={{
+        margin: 8,
+        flexDirection: "column",
+        width: "91%",
+        alignSelf: "center",
+      }}
+    >
       <Header />
       <ForecastList forecastData={dailyForecast} />
       <DailyPrecipitation />

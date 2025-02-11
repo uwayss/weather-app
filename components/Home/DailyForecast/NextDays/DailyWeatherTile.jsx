@@ -17,7 +17,7 @@ function ConditionImage({ weatherCode }) {
       source={{
         uri: imageUri,
       }}
-      className="w-32 24 h-24 bg-transparent"
+      style={{ width: 127, height: 96, backgroundColor: "transparent" }}
     ></Image>
   );
 }
@@ -29,7 +29,14 @@ function WeekdayText({ time }) {
       })
     : "Unknown";
   return (
-    <GlassyText className="text-xl font-bold tracking-widest">
+    <GlassyText
+      style={{
+        fontSize: 20,
+        lineHeight: 28,
+        fontWeight: "bold",
+        letterSpacing: 1,
+      }}
+    >
       {weekday}
     </GlassyText>
   );
@@ -37,11 +44,25 @@ function WeekdayText({ time }) {
 
 function TemperatureText({ min, max }) {
   return (
-    <View className="flex-row gap-1 items-center">
-      <GlassyText className={"tacking-wide font-bold text-lg"}>
+    <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
+      <GlassyText
+        style={{
+          letterSpacing: 0.25,
+          fontWeight: "bold",
+          fontSize: 18,
+          lineHeight: 28,
+        }}
+      >
         {Math.round(max) ?? "--"}°C /
       </GlassyText>
-      <GlassyText className={"tacking-wide font-thin"}>
+      <GlassyText
+        style={{
+          letterSpacing: 0.25,
+          fontWeight: "bold",
+          fontSize: 18,
+          lineHeight: 28,
+        }}
+      >
         {Math.round(min) ?? "--"}°C
       </GlassyText>
     </View>
@@ -52,7 +73,13 @@ export default function DailyWeatherTile({ data }) {
   const router = useRouter();
   return (
     <GlassyView
-      className="flex-col gap-1 items-center w-32 h-44 overflow-hidden rounded-xl"
+      style={{
+        flexDirection: "column",
+        gap: 4,
+        alignItems: "center",
+        width: 128,
+        height: 176,
+      }}
       transparency={30}
       onPress={() => {
         router.push({

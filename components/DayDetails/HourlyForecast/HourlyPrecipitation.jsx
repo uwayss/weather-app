@@ -3,7 +3,7 @@ import HourlyRainProbGraph from "../../Graphs/HourlyRainProbGraph";
 export default function PrecipitationGraph({ data }) {
   if (!data) {
     return (
-      <GlassyView className="p-4 w-11/12 m-2">
+      <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>
         <GlassyText>Data unavailable</GlassyText>
       </GlassyView>
     );
@@ -19,8 +19,15 @@ export default function PrecipitationGraph({ data }) {
     });
 
     return (
-      <GlassyView className="py-4 m-4" trans>
-        <GlassyText className="text-xl font-bold mb-2">
+      <GlassyView style={{ paddingVertical: 16, marginVertical: 16 }} trans>
+        <GlassyText
+          style={{
+            fontSize: 20,
+            lineHeight: 28,
+            fontWeight: "bold",
+            marginBottom: 8,
+          }}
+        >
           Rain Probabliity Graph
         </GlassyText>
         <HourlyRainProbGraph data={processedData} />

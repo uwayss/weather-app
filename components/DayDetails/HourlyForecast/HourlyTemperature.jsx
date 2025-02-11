@@ -4,7 +4,7 @@ import HourlyTemperatureGraph from "../../Graphs/HourlyTemperatureGraph";
 export default function TemperatureGraph({ data }) {
   if (!data) {
     return (
-      <GlassyView className="p-4 w-11/12 m-2">
+      <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>
         <GlassyText>Precipitation data unavailable.</GlassyText>
       </GlassyView>
     );
@@ -17,8 +17,8 @@ export default function TemperatureGraph({ data }) {
     temperature: hour.temperature,
   }));
   return (
-    <GlassyView className="p-4 m-4">
-      <GlassyText className="text-xl font-bold mb-2">
+    <GlassyView style={{ padding: 16, margin: 16 }}>
+      <GlassyText style={{ fontSize: 20, lineHeight: 28, marginBottom: 8 }}>
         Temperature Forecast
       </GlassyText>
       <HourlyTemperatureGraph data={{ TemperatureData }} />

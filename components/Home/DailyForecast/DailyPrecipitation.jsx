@@ -6,7 +6,7 @@ export default function PrecipitationGraph() {
   const { dailyWeather } = useWeather();
   if (!dailyWeather || !dailyWeather.forecast) {
     return (
-      <GlassyView className="p-4 w-11/12 m-2">
+      <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>
         <GlassyText>Precipitation data unavailable.</GlassyText>
       </GlassyView>
     );
@@ -17,8 +17,8 @@ export default function PrecipitationGraph() {
   }));
 
   return (
-    <GlassyView className="p-4 m-4 gap-2" transparency={30}>
-      <GlassyText className="text-xl font-bold">
+    <GlassyView style={{ padding: 16, margin: 16, gap: 8 }} transparency={30}>
+      <GlassyText style={{ fontSize: 20, lineHeight: 28, fontWeight: "bold" }}>
         Precipitation Forecast
       </GlassyText>
       <DailyRainProbGraph data={precipitationData} />

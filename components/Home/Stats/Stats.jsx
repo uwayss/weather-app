@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { weatherCodeToCondition } from "../../../helpers/weather";
 import { useWeather } from "../../../context/weatherContext";
 import { GlassyText, GlassyView } from "../../Glassy";
@@ -9,8 +9,15 @@ export default function Stats() {
 
   if (!currentWeather) {
     return (
-      <GlassyView className="items-center py-3 gap-3 w-11/12">
-        <GlassyText className="text-center text-xl">
+      <GlassyView
+        style={{
+          alignItems: "center",
+          paddingVertical: 12,
+          gap: 12,
+          width: "91%",
+        }}
+      >
+        <GlassyText style={{ fontSize: 20 }}>
           Weather data unavailable. Please try again later.
         </GlassyText>
       </GlassyView>
@@ -28,34 +35,72 @@ export default function Stats() {
   const locationName = weatherName;
 
   return (
-    <GlassyView className="items-center py-3 gap-4 w-11/12">
-      <GlassyText className="text-2xl font-bold w-full h-fit">
+    <GlassyView
+      style={{
+        alignItems: "center",
+        paddingVertical: 12,
+        gap: 16,
+        width: "91%",
+      }}
+    >
+      <GlassyText style={{ fontSize: 24, fontWeight: "bold", width: "100%" }}>
         {locationName}
       </GlassyText>
       <View>
-        <GlassyText className="text-7xl font-bold">
+        <GlassyText style={{ fontSize: 72, fontWeight: "bold" }}>
           {Math.round(temp) + tempUnit}
         </GlassyText>
-        <GlassyText className="text-lg tracking-wider">
+        <GlassyText
+          style={{ fontSize: 18, lineHeight: 28, letterSpacing: 0.5 }}
+        >
           {typeof weatherCode == "number"
             ? weatherCodeToCondition(weatherCode, isDay)
             : "Loading Condition..."}
         </GlassyText>
       </View>
-      <View className="flex-row flex-wrap gap-2 justify-center pl-6">
-        <View className="w-[35%] flex-row gap-2 items-center">
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: 8,
+          justifyContent: "center",
+          paddingLeft: 24,
+        }}
+      >
+        <View
+          style={{
+            width: "35%",
+            flexDirection: "row",
+            gap: 8,
+            alignItems: "center",
+          }}
+        >
           <AwesomeIcon name="droplet" size={24} />
-          <GlassyText className="text-base font-light">{humidity}%</GlassyText>
+          <GlassyText style={{ fontWeight: "light" }}>{humidity}%</GlassyText>
         </View>
-        <View className="w-[35%] flex-row gap-2 items-center">
+        <View
+          style={{
+            width: "35%",
+            flexDirection: "row",
+            gap: 8,
+            alignItems: "center",
+          }}
+        >
           <AwesomeIcon name="wind" size={24} />
-          <GlassyText className="text-base font-light">
+          <GlassyText style={{ fontWeight: "light" }}>
             {Math.round(windSpeed)} {windUnit}
           </GlassyText>
         </View>
-        <View className="w-[35%] flex-row gap-2 items-center">
+        <View
+          style={{
+            width: "35%",
+            flexDirection: "row",
+            gap: 8,
+            alignItems: "center",
+          }}
+        >
           <AwesomeIcon name="clock" size={24} />
-          <GlassyText className="text-base font-light">
+          <GlassyText style={{ fontWeight: "light" }}>
             {new Date(currentTime).toLocaleTimeString("en-UK", {
               hour12: false,
               hour: "2-digit",
@@ -63,9 +108,16 @@ export default function Stats() {
             })}
           </GlassyText>
         </View>
-        <View className="w-[35%] flex-row gap-2 items-center">
+        <View
+          style={{
+            width: "35%",
+            flexDirection: "row",
+            gap: 8,
+            alignItems: "center",
+          }}
+        >
           <AwesomeIcon name={isDay ? "sun" : "moon"} size={24} />
-          <GlassyText className="text-base font-light">
+          <GlassyText style={{ fontWeight: "light" }}>
             {isDay ? "Daytime" : "Nighttime"}
           </GlassyText>
         </View>

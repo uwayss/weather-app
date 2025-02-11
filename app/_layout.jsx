@@ -6,6 +6,7 @@ export default function RootLayout() {
   // TODO: Better error handling
   // TODO: Improve performance and learn caching
   // TODO: Animations
+  // TODO: Better styling
   return (
     <ThemeProvider>
       <WeatherProvider>

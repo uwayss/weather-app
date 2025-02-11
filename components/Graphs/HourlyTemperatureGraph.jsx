@@ -15,7 +15,9 @@ export default function HourlyTemperatureGraph({ data }) {
       barInnerComponent={({ value }) => {
         return (
           <GlassyView rounded={false}>
-            <GlassyText className="font-bold">{Math.round(value)}</GlassyText>
+            <GlassyText style={{ fontWeight: "bold" }}>
+              {Math.round(value)}
+            </GlassyText>
           </GlassyView>
         );
       }}

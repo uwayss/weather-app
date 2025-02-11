@@ -4,6 +4,7 @@ import FetchWeather from "../../../hooks/useFetchWeather";
 import { useWeather } from "../../../context/weatherContext";
 import { GlassyView, GlassyText } from "../../Glassy";
 import { storeWeatherData } from "../../../helpers/storage";
+import { withDecay } from "react-native-reanimated";
 
 export default function SearchLocations() {
   const { locations } = useSearchBar();
@@ -11,25 +12,30 @@ export default function SearchLocations() {
 
   async function handleLocationChange(location) {
     const newWeather = await FetchWeather(location);
-    storeWeatherData(newWeather)
+    storeWeatherData(newWeather);
     console.log("Saved weather data into storage");
     setWeather(newWeather);
   }
   return (
     <GlassyView
-      className="flex-col h-fit mx-4 gap-0.5 overflow-hidden items-center"
+      style={{
+        flexDirection: "column",
+        marginHorizontal: 16,
+        gap: 2,
+        alignItems: "center",
+      }}
     >
       {locations.slice(0, 3).map((location) => (
         <TouchableOpacity
           key={location.display_name}
-          className="flex-row items-center"
+          style={{ flexDirection: "row", alignItems: "center" }}
           onPress={() => handleLocationChange(location)}
         >
           <GlassyView
-            className="w-full h-full p-4"
+            style={{ width: "100%", height: "100%", padding: 16 }}
             rounded={false}
           >
-            <GlassyText >{location.display_name}</GlassyText>
+            <GlassyText>{location.display_name}</GlassyText>
           </GlassyView>
         </TouchableOpacity>
       ))}

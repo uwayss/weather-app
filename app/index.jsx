@@ -5,7 +5,6 @@ import WeatherProvider, { useWeather } from "../context/weatherContext";
 import SearchBarProvider from "../context/searchBarContext";
 import Stats from "../components/Home/Stats/Stats";
 import { SafeAreaView } from "react-native-safe-area-context";
-import "../global.css";
 import { StatusBar } from "expo-status-bar";
 import WeatherBackground from "../components/WeatherBackground";
 
@@ -17,11 +16,18 @@ const HomeScreen = () => {
     <WeatherProvider>
       <View style={{ height: "100%", width: "100%" }}>
         <WeatherBackground weatherCode={weatherCode} />
-        <ScrollView className="flex-1 w-full">
+        <ScrollView style={{ flex: 1 }}>
           <SearchBarProvider>
             <SearchSection />
           </SearchBarProvider>
-          <SafeAreaView className="justify-end items-center mt-24 w-full">
+          <SafeAreaView
+            style={{
+              justifyContent: "flex-end",
+              alignItems: "center",
+              marginTop: 80,
+              width: "100%",
+            }}
+          >
             <Stats />
             <DailyForecastSection />
           </SafeAreaView>

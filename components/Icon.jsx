@@ -7,16 +7,8 @@ export function AwesomeIcon({ name = "1", size = 20 }) {
   const { theme } = useTheme();
   return <FontAwesome6 name={name} color={theme.accent} size={size} />;
 }
-export function FeatherIcon({ name = "1", size = 20, className = "", style }) {
+export function FeatherIcon({ name = "1", size = 20, style }) {
   const { theme } = useTheme();
 
-  return (
-    <Feather
-      name={name}
-      size={size}
-      color={theme.accent}
-      style={style}
-      className={className}
-    />
-  );
+  return <Feather name={name} size={size} color={theme.accent} style={style} />;
 }

@@ -15,7 +15,7 @@ export default function SearchBar() {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(searchText);
-    }, 1000); // Wait for one second before updating `debouncedSearch`
+    }, 800); // Wait for one second before updating `debouncedSearch`
 
     return () => clearTimeout(handler); // Cleanup on unmount or input change
   }, [searchText]);
@@ -35,19 +35,32 @@ export default function SearchBar() {
 
   return (
     <GlassyView
-      className={`mx-4 overflow-hidden flex-row w-fit justify-end items-center pl-20 h-16`}
+      style={{
+        marginHorizontal: 16,
+        flexDirection: "row",
+        width: "auto",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingLeft: 80,
+        height: 52,
+      }}
       transparency={!showSearch ? 0 : 50}
     >
       <FeatherIcon
         name="map-pin"
         size={28}
-        className="mr-2"
-        style={{ display: !showSearch ? "none" : null }}
+        style={{ display: !showSearch ? "none" : null, marginRight: 8 }}
       />
       <TextInput
-        className={`text-lg h-full pl-1 w-[90%] ${theme.text} ${
-          !showSearch ? "hidden" : ""
-        }`}
+        style={{
+          fontSize: 18,
+          lineHeight: 28,
+          height: "100%",
+          paddingLeft: 4,
+          width: "90%",
+          color: theme.text,
+          display: !showSearch ? "none" : "",
+        }}
         textAlignVertical="center"
         placeholder="Search City"
         placeholderTextColor={theme.accent}
@@ -56,10 +69,7 @@ export default function SearchBar() {
         value={searchText}
       />
       <TouchableOpacity onPress={() => toggleSearch(!showSearch)}>
-        <GlassyView
-          className="p-3 rounded-full"
-          transparent={showSearch ? 0 : 50}
-        >
+        <GlassyView style={{ padding: 12 }} transparency={showSearch ? 0 : 60}>
           <FeatherIcon name="search" size={28} />
         </GlassyView>
       </TouchableOpacity>

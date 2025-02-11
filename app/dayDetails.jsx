@@ -12,13 +12,21 @@ export default function DayDetails() {
   // TODO: Improve UI
 
   return (
-    <ScrollView
-      className={`w-full flex-1`}
-      style={{ backgroundColor: theme.bg }}
-    >
-      <GlassyView className="h-full p-4 gap-5" trans rounded={false}>
-        <GlassyView safe className="p-5">
-          <GlassyText className="text-2xl font-bold text-center">
+    <ScrollView style={{ backgroundColor: theme.bg, width: "100%", flex: 1 }}>
+      <GlassyView
+        style={{ height: "100%", padding: 16, gap: 20 }}
+        trans
+        rounded={false}
+      >
+        <GlassyView safe style={{ padding: 20 }}>
+          <GlassyText
+            style={{
+              fontSize: 24,
+              lineHeight: 32,
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
             Detailed Weather for {time}
           </GlassyText>
         </GlassyView>

@@ -13,19 +13,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    // TODO: Implement Localization
-    // TODO: Improve abstraction
-    // TODO: Better icons
-    // TODO: TypeScript !!!!
-
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      // "adaptiveIcon": {
-      //   "foregroundImage": "./assets/adaptive-icon.png",
-      //   "backgroundColor": "#ffffff"
-      // },
       "package": "com.uwayss.weatherapp",
       "softwareKeyboardLayoutMode": "pan",
       "versionCode": 1
@@ -33,6 +24,17 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-localization", "expo-router"]
+    "plugins": [
+      "expo-localization",
+      "expo-router"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c84c676f-d603-4815-980f-9201985d8a86"
+      }
+    }
   }
 }

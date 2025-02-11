@@ -4,9 +4,20 @@ import { AwesomeIcon } from "../../Icon";
 
 export default function Header() {
   return (
-    <View className="flex-row justify-center items-center gap-4 px-8 my-3">
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 16,
+        paddingHorizontal: 32,
+        marginVertical: 12,
+      }}
+    >
       <AwesomeIcon name="calendar-days" size={18} />
-      <GlassyText className="text-xl font-bold">Next Days</GlassyText>
+      <GlassyText style={{ fontSize: 20, lineHeight: 28, fontWeight: "bold" }}>
+        Next Days
+      </GlassyText>
     </View>
   );
 }
