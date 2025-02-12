@@ -7,21 +7,33 @@ import {
 import { Image } from "react-native";
 import { useWeather } from "../../context/weatherContext";
 import { AwesomeIcon } from "../Icon";
-function GlassyStatText({ children, centered = false }) {
+import { DayWeather } from "../../types/apiTypes";
+type GlassyStatTextProps = {
+  children: React.ReactNode;
+  centered?: boolean;
+};
+function GlassyStatText({ children, centered = false }: GlassyStatTextProps) {
   return (
     <GlassyText
       style={{
         fontSize: 20,
         lineHeight: 28,
         fontWeight: "bold",
-        textAlign: centered ? "center" : "",
+        textAlign: centered ? "center" : "auto",
       }}
     >
       {children}
     </GlassyText>
   );
 }
-function TemperatureInfo({ minTemperature, maxTemperature }) {
+type TemperatureInfoProps = {
+  minTemperature: number;
+  maxTemperature: number;
+};
+function TemperatureInfo({
+  minTemperature,
+  maxTemperature,
+}: TemperatureInfoProps) {
   return (
     <View
       style={{
@@ -41,7 +53,11 @@ function TemperatureInfo({ minTemperature, maxTemperature }) {
     </View>
   );
 }
-function GenericInfo({ rainProbability, windSpeed }) {
+type GenericInfoProps = {
+  rainProbability: number;
+  windSpeed: number;
+};
+function GenericInfo({ rainProbability, windSpeed }: GenericInfoProps) {
   return (
     <View
       style={{
@@ -64,7 +80,10 @@ function GenericInfo({ rainProbability, windSpeed }) {
     </View>
   );
 }
-function ConditionInfo({ weather_code }) {
+type ConditionInfoProps = {
+  weather_code: number;
+};
+function ConditionInfo({ weather_code }: ConditionInfoProps) {
   return (
     <View
       style={{
@@ -74,7 +93,7 @@ function ConditionInfo({ weather_code }) {
         justifyContent: "space-around",
       }}
     >
-      <View style={{ flexDirection: "row", alingItems: "center" }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Image
           style={{ width: 48, height: 48 }}
           source={{ uri: weatherCodeToImageURL(weather_code) }}
@@ -84,29 +103,29 @@ function ConditionInfo({ weather_code }) {
     </View>
   );
 }
-export default function StatsView({ time }) {
+type StatsViewProps = {
+  time: string;
+};
+export default function StatsView({ time }: StatsViewProps) {
   const { dailyWeather } = useWeather();
   if (dailyWeather) {
-    const day = dailyWeather.forecast.find((d) => {
+    const day: DayWeather | undefined = dailyWeather.forecast.find((d) => {
       return new Date(d.time).getTime() == new Date(time).getTime();
     });
-    const {
-      weather_code,
-      maxTemperature,
-      minTemperature,
-      rainProbability,
-      windSpeed,
-    } = day;
-    return (
-      <GlassyView style={{ gap: 16, padding: 16 }}>
-        <TemperatureInfo
-          minTemperature={minTemperature}
-          maxTemperature={maxTemperature}
-        />
-        <GenericInfo rainProbability={rainProbability} windSpeed={windSpeed} />
-        <ConditionInfo weather_code={weather_code} />
-      </GlassyView>
-    );
+    if (day !== undefined) {
+      const { weather_code, maxTemp, minTemp, rainProbability, windSpeed } =
+        day;
+      return (
+        <GlassyView style={{ gap: 16, padding: 16 }}>
+          <TemperatureInfo minTemperature={minTemp} maxTemperature={maxTemp} />
+          <GenericInfo
+            rainProbability={rainProbability}
+            windSpeed={windSpeed}
+          />
+          <ConditionInfo weather_code={weather_code} />
+        </GlassyView>
+      );
+    }
   } else {
     return (
       <GlassyView style={{ gap: 16, padding: 16 }}>

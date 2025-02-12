@@ -40,6 +40,7 @@ export interface DailyWeatherAPI {
   temperature_2m_max: number[];
   temperature_2m_min: number[];
   precipitation_probability_max: number[];
+  wind_speed_10m_max: number[];
 }
 export interface HourlyWeatherAPI {
   time: string[];
@@ -79,6 +80,7 @@ export interface DayWeather {
   maxTemp: number;
   minTemp: number;
   rainProbability: number;
+  windSpeed: number;
 }
 export interface CurrentWeather extends CurrentWeatherAPI {
   units: CurrentUnits;

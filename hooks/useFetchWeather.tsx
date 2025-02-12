@@ -29,6 +29,7 @@ export default async function useFetchWeather(
           maxTemp: data.daily.temperature_2m_max[index],
           minTemp: data.daily.temperature_2m_min[index],
           rainProbability: data.daily.precipitation_probability_max[index],
+          windSpeed: data.daily.wind_speed_10m_max[index],
         })),
         units: data.daily_units,
       },
@@ -44,6 +45,8 @@ export default async function useFetchWeather(
         units: data.hourly_units,
       },
     };
+    console.warn("here's the weather outputtttt:");
+    console.warn(restructuredWeatherData.dailyWeather.forecast);
     return restructuredWeatherData;
   } catch (error) {
     console.error("Error fetching weather from API:", error);

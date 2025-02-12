@@ -5,7 +5,6 @@ import { useTheme } from "../../context/themeContext";
 
 export default function DailyTemperatureGraph({ data }) {
   // TODO: Better graph
-  console.warn(data);
   const minTemps = [];
   data.forEach((element) => {
     minTemps.push(Math.round(element.minTemp) || 0);
