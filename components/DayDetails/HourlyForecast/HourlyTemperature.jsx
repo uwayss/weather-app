@@ -17,7 +17,7 @@ export default function TemperatureGraph({ data }) {
     temperature: hour.temperature,
   }));
   return (
-    <GlassyView style={{ padding: 16, margin: 16 }}>
+    <GlassyView style={{ padding: 16 }}>
       <GlassyText style={{ fontSize: 20, lineHeight: 28, marginBottom: 8 }}>
         Temperature Forecast
       </GlassyText>

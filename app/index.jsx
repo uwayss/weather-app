@@ -11,11 +11,10 @@ import WeatherBackground from "../components/WeatherBackground";
 const HomeScreen = () => {
   const { currentWeather } = useWeather();
   const weatherCode = currentWeather?.weather_code;
-  console.warn(weatherCode);
   return (
     <WeatherProvider>
       <View style={{ height: "100%", width: "100%" }}>
-        <WeatherBackground weatherCode={weatherCode} />
+        <WeatherBackground weatherCode={weatherCode} />P
         <ScrollView style={{ flex: 1 }}>
           <SearchBarProvider>
             <SearchSection />

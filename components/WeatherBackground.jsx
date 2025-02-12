@@ -1,17 +1,20 @@
 import React from "react";
-import { View, Image, StyleSheet, Dimensions } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { weatherCodeToBackgroundImageSource } from "../helpers/weather"; // Adjust path if needed
 
 export default function WeatherBackground({ weatherCode = 0, isDay = 1 }) {
   const imageSource = weatherCodeToBackgroundImageSource(weatherCode, isDay);
   let content = (
-    <View style={[styles.backgroundImage, { backgroundColor: "red" }]} />
+    <Image
+      style={styles.backgroundImage}
+      source={weatherCodeToBackgroundImageSource()}
+    />
   );
   if (imageSource) {
     content = (
       <Image
         source={imageSource}
-        style={[styles.backgroundImage, { width: "100%", height: "100%" }]}
+        style={styles.backgroundImage}
         resizeMode="cover"
       />
     );
@@ -22,6 +25,8 @@ export default function WeatherBackground({ weatherCode = 0, isDay = 1 }) {
 const styles = StyleSheet.create({
   backgroundImage: {
     position: "absolute",
+    width: "100%",
+    height: "100%",
     top: 0,
     left: 0,
   },

@@ -19,7 +19,7 @@ export default function TemperatureGraph() {
   return (
     <GlassyView
       style={{ padding: 16, margin: 16, alignItems: "center" }}
-      transparency={30}
+      alpha={0.3}
     >
       <GlassyText
         style={{

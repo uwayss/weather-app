@@ -1,25 +1,38 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useTheme } from "../context/themeContext";
-import { BlurView } from "expo-blur";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export const GlassyText = ({ style = {}, children }) => {
+export const GlassyText = ({ style = {}, children, centered = true }) => {
   const { theme } = useTheme();
   return (
-    <Text style={{ color: theme.text, textAlign: "center", ...style }}>
+    <Text
+      style={{
+        color: theme.text,
+        textAlign: centered ? "center" : undefined, // Conditional textAlign
+        ...style,
+      }}
+    >
       {children}
     </Text>
   );
+};
+const hexToRgba = (hex, alpha) => {
+  let hexValue = hex.replace("#", ""); // Remove '#' if present
+  let r = parseInt(hexValue.substring(0, 2), 16);
+  let g = parseInt(hexValue.substring(2, 4), 16);
+  let b = parseInt(hexValue.substring(4, 6), 16);
+
+  return `rgba(${r},${g},${b},${alpha})`;
 };
 export const GlassyView = ({
   children,
   style = {},
   rounded = true,
-  transparency = 50,
+  alpha = 0.5,
   debug = false,
   onPress = null,
   safe = false,
-  trans = false,
+  isTransparent = false, // Renamed prop trans to isTransparent
   opaque = false,
 }) => {
   const { theme, themeName } = useTheme();
@@ -27,33 +40,46 @@ export const GlassyView = ({
     ? styleSheet.glassyView
     : styleSheet.glassyViewSquare;
   let content;
-  if (trans) {
+  if (isTransparent) {
+    // Using renamed prop
     content = (
-      <View style={{ ...baseStyles, background: "transparent", ...style }}>
+      <View style={{ ...baseStyles, backgroundColor: "transparent", ...style }}>
+        {" "}
+        {/* Corrected backgroundColor */}
         {children}
       </View>
     );
   } else if (debug) {
     content = (
       <View style={{ ...baseStyles, backgroundColor: "red", ...style }}>
+        {" "}
+        {/* Corrected backgroundColor */}
         {children}
       </View>
     );
   } else if (opaque) {
     content = (
-      <View style={{ ...baseStyles, backgroundColor: theme.bg, ...style }}>
+      <View
+        style={{
+          ...baseStyles,
+          backgroundColor: `rgb(${theme.background})`,
+          ...style,
+        }}
+      >
         {children}
       </View>
     );
   } else {
     content = (
-      <BlurView
-        intensity={transparency}
-        tint={themeName}
-        style={{ ...baseStyles, ...style }}
+      <View
+        style={{
+          ...baseStyles,
+          backgroundColor: hexToRgba(theme.background, alpha),
+          ...style,
+        }}
       >
         {children}
-      </BlurView>
+      </View>
     );
   }
 
@@ -74,6 +100,7 @@ const styleSheet = StyleSheet.create({
     borderRadius: 12,
   },
   glassyViewSquare: {
+    overflow: "hidden",
     borderRadius: 0,
   },
 });

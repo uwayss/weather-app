@@ -80,7 +80,7 @@ export default function DailyWeatherTile({ data }) {
         width: 128,
         height: 176,
       }}
-      transparency={30}
+      alpha={0.3}
       onPress={() => {
         router.push({
           pathname: "DayDetails",

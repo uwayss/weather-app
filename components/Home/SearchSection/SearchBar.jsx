@@ -10,7 +10,7 @@ export default function SearchBar() {
   const [searchText, setSearchText] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const { themeName, theme } = useTheme();
-
+  // TODO: close searchbar automatically when clicked on home view
   // Debounce the search input
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -44,7 +44,7 @@ export default function SearchBar() {
         paddingLeft: 80,
         height: 52,
       }}
-      transparency={!showSearch ? 0 : 50}
+      alpha={!showSearch ? 0 : 0.5}
     >
       <FeatherIcon
         name="map-pin"
@@ -69,7 +69,7 @@ export default function SearchBar() {
         value={searchText}
       />
       <TouchableOpacity onPress={() => toggleSearch(!showSearch)}>
-        <GlassyView style={{ padding: 12 }} transparency={showSearch ? 0 : 60}>
+        <GlassyView style={{ padding: 12 }} alpha={showSearch ? 0 : 0.6}>
           <FeatherIcon name="search" size={28} />
         </GlassyView>
       </TouchableOpacity>

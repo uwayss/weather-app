@@ -29,10 +29,15 @@ function TemperatureInfo({ minTemperature, maxTemperature }) {
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "space-around",
+        gap: 8,
       }}
     >
-      <GlassyStatText>Minimum: {Math.round(minTemperature)}°C </GlassyStatText>
-      <GlassyStatText>Maximum: {Math.round(maxTemperature)}°C </GlassyStatText>
+      <GlassyStatText>
+        <AwesomeIcon name="arrow-down" /> {Math.round(minTemperature)}°C{" "}
+      </GlassyStatText>
+      <GlassyStatText>
+        <AwesomeIcon name="arrow-up" /> {Math.round(maxTemperature)}°C{" "}
+      </GlassyStatText>
     </View>
   );
 }

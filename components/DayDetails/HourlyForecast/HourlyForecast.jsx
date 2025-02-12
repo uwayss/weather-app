@@ -20,7 +20,14 @@ export default function HourlyForecast({ time }) {
     const hours = getHourlyDataForDate(hourlyWeather.forecast, time);
     return (
       <GlassyView
-        style={{ flexDirection: "column", width: "100%", alignSelf: "center" }}
+        style={{
+          flexDirection: "column",
+          width: "100%",
+          alignSelf: "center",
+          paddingHorizontal: 16,
+          paddingVertical: 16,
+          gap: 16,
+        }}
       >
         <HourlyPrecipitation data={hours} />
         <HourlyTemperature data={hours} />

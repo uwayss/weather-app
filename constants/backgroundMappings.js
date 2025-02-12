@@ -1,4 +1,8 @@
 export default {
+  default: {
+    day: require("../assets/backgrounds/default_dark.jpg"),
+    night: require("../assets/backgrounds/default_light.jpg"),
+  },
   0: {
     day: require("../assets/backgrounds/clear_day.jpg"),
     night: require("../assets/backgrounds/clear_night.jpg"),

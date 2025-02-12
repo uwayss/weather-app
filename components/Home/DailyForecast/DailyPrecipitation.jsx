@@ -17,7 +17,7 @@ export default function PrecipitationGraph() {
   }));
 
   return (
-    <GlassyView style={{ padding: 16, margin: 16, gap: 8 }} transparency={30}>
+    <GlassyView style={{ padding: 16, margin: 16, gap: 8 }} alpha={0.3}>
       <GlassyText style={{ fontSize: 20, lineHeight: 28, fontWeight: "bold" }}>
         Precipitation Forecast
       </GlassyText>

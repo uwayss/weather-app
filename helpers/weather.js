@@ -5,8 +5,7 @@ export function weatherCodeToBackgroundImageSource(
   isDay = undefined
 ) {
   if (typeof code === "undefined") {
-    console.warn("weatherCodeToBackgroundImageURL: Weather code is undefined.");
-    return null; // Or a default image URL
+    return backgroundMappings["default"].day;
   }
 
   const weatherData = backgroundMappings[code];

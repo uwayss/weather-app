@@ -1,5 +1,6 @@
 import { GlassyText, GlassyView } from "../../Glassy";
 import HourlyRainProbGraph from "../../Graphs/HourlyRainProbGraph";
+
 export default function PrecipitationGraph({ data }) {
   if (!data) {
     return (
@@ -19,7 +20,12 @@ export default function PrecipitationGraph({ data }) {
     });
 
     return (
-      <GlassyView style={{ paddingVertical: 16, marginVertical: 16 }} trans>
+      <GlassyView
+        style={{
+          paddingVertical: 16,
+        }}
+        isTransparent
+      >
         <GlassyText
           style={{
             fontSize: 20,
@@ -28,7 +34,7 @@ export default function PrecipitationGraph({ data }) {
             marginBottom: 8,
           }}
         >
-          Rain Probabliity Graph
+          Rain Probability Graph
         </GlassyText>
         <HourlyRainProbGraph data={processedData} />
       </GlassyView>

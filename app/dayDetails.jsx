@@ -12,10 +12,16 @@ export default function DayDetails() {
   // TODO: Improve UI
 
   return (
-    <ScrollView style={{ backgroundColor: theme.bg, width: "100%", flex: 1 }}>
+    <ScrollView
+      style={{
+        backgroundColor: `rgb(${theme.background})`,
+        width: "100%",
+        flex: 1,
+      }}
+    >
       <GlassyView
         style={{ height: "100%", padding: 16, gap: 20 }}
-        trans
+        isTransparent
         rounded={false}
       >
         <GlassyView safe style={{ padding: 20 }}>
