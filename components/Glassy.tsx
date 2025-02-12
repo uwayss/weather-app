@@ -1,22 +1,53 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 import { useTheme } from "../context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+import React from "react";
 
-export const GlassyText = ({ style = {}, children, centered = true }) => {
+type GlassyTextProps = {
+  style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
+  centered?: boolean;
+};
+type GlassyViewProps = {
+  style?: StyleProp<ViewStyle>;
+  children: React.ReactNode;
+  rounded?: boolean;
+  alpha?: number;
+  debug?: boolean;
+  onPress?: () => void;
+  safe?: boolean;
+  isTransparent?: boolean; // Renamed prop trans to isTransparent
+  opaque?: boolean;
+};
+export const GlassyText: React.FC<GlassyTextProps> = ({
+  style = {},
+  children,
+  centered = true,
+}) => {
   const { theme } = useTheme();
   return (
     <Text
-      style={{
-        color: theme.text,
-        textAlign: centered ? "center" : undefined, // Conditional textAlign
-        ...style,
-      }}
+      style={[
+        {
+          color: theme.text,
+          textAlign: centered ? "center" : undefined, // Conditional textAlign
+        },
+        style,
+      ]}
     >
       {children}
     </Text>
   );
 };
-const hexToRgba = (hex, alpha) => {
+const hexToRgba = (hex: string, alpha: number) => {
   let hexValue = hex.replace("#", ""); // Remove '#' if present
   let r = parseInt(hexValue.substring(0, 2), 16);
   let g = parseInt(hexValue.substring(2, 4), 16);
@@ -24,7 +55,8 @@ const hexToRgba = (hex, alpha) => {
 
   return `rgba(${r},${g},${b},${alpha})`;
 };
-export const GlassyView = ({
+
+export const GlassyView: React.FC<GlassyViewProps> = ({
   children,
   style = {},
   rounded = true,
@@ -39,44 +71,29 @@ export const GlassyView = ({
   const baseStyles = rounded
     ? styleSheet.glassyView
     : styleSheet.glassyViewSquare;
-  let content;
+  let content: React.JSX.Element;
   if (isTransparent) {
-    // Using renamed prop
     content = (
-      <View style={{ ...baseStyles, backgroundColor: "transparent", ...style }}>
-        {" "}
-        {/* Corrected backgroundColor */}
+      <View style={[{ backgroundColor: "transparent" }, baseStyles, style]}>
         {children}
       </View>
     );
   } else if (debug) {
     content = (
-      <View style={{ ...baseStyles, backgroundColor: "red", ...style }}>
-        {" "}
-        {/* Corrected backgroundColor */}
-        {children}
-      </View>
-    );
-  } else if (opaque) {
-    content = (
-      <View
-        style={{
-          ...baseStyles,
-          backgroundColor: `rgb(${theme.background})`,
-          ...style,
-        }}
-      >
+      <View style={[{ backgroundColor: "red" }, baseStyles, style]}>
         {children}
       </View>
     );
   } else {
     content = (
       <View
-        style={{
-          ...baseStyles,
-          backgroundColor: hexToRgba(theme.background, alpha),
-          ...style,
-        }}
+        style={[
+          {
+            backgroundColor: hexToRgba(theme.background, alpha),
+          },
+          baseStyles,
+          style,
+        ]}
       >
         {children}
       </View>

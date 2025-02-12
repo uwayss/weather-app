@@ -14,7 +14,7 @@ const HomeScreen = () => {
   return (
     <WeatherProvider>
       <View style={{ height: "100%", width: "100%" }}>
-        <WeatherBackground weatherCode={weatherCode} />P
+        <WeatherBackground weatherCode={weatherCode} />
         <ScrollView style={{ flex: 1 }}>
           <SearchBarProvider>
             <SearchSection />

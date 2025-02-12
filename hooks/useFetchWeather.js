@@ -1,6 +1,6 @@
 import { makeWeatherRequest } from "../helpers/api";
 
-export default async function FetchWeather(location) {
+export default async function useFetchWeather(location) {
   try {
     const data = await makeWeatherRequest(location.lat, location.lon);
     const name = location.name;

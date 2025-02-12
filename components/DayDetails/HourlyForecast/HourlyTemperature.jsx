@@ -1,7 +1,7 @@
 import { GlassyText, GlassyView } from "../../Glassy";
 import HourlyTemperatureGraph from "../../Graphs/HourlyTemperatureGraph";
 
-export default function TemperatureGraph({ data }) {
+export default function HourlyTemperature({ data }) {
   if (!data) {
     return (
       <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>

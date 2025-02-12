@@ -1,4 +1,4 @@
-export default weatherDescriptions = {
+export default {
   0: {
     day: {
       description: "Sunny",

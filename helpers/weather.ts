@@ -1,8 +1,8 @@
 import weatherDescriptions from "../constants/descriptions";
 import backgroundMappings from "../constants/backgroundMappings"; // Adjust path if needed
 export function weatherCodeToBackgroundImageSource(
-  code = undefined,
-  isDay = undefined
+  code?: number,
+  isDay?: 1 | 0
 ) {
   if (typeof code === "undefined") {
     return backgroundMappings["default"].day;
@@ -33,13 +33,7 @@ export function weatherCodeToBackgroundImageSource(
     return null; // Or a default image URL
   }
 }
-export function weatherCodeToCondition(code = undefined, isDay = undefined) {
-  // TODO: implement day/night logic
-  // For simplicity, we'll assume daytime for now
-  // In a real-world application, you'd need to check the sunrise and sunset times to determine if it's day or night
-  if (typeof code == undefined) {
-    throw new Error("WeatherCodeToCondition: Weather code is null or empty");
-  }
+export function weatherCodeToCondition(code: number, isDay?: 0 | 1) {
   if (typeof isDay == undefined) {
     return weatherDescriptions[code].day.description;
   }
@@ -49,11 +43,7 @@ export function weatherCodeToCondition(code = undefined, isDay = undefined) {
     return weatherDescriptions[code].night.description;
   }
 }
-export function weatherCodeToImageURL(code = undefined, isDay = undefined) {
-  if (typeof code == undefined) {
-    console.warn("WeatherCodeToImageURL: Weather code is undefined");
-    return null; // Or a default image URL
-  }
+export function weatherCodeToImageURL(code: number, isDay?: 0 | 1) {
   if (typeof isDay == undefined) {
     return weatherDescriptions[code].day.image;
   }
@@ -66,7 +56,6 @@ export function weatherCodeToImageURL(code = undefined, isDay = undefined) {
 export function processDailyWeatherData(dailyForecast) {
   // Changed parameter to dailyForecast, expecting an array
   // No longer expecting apiResponse.daily, directly using dailyForecast
-
   if (!dailyForecast || !Array.isArray(dailyForecast)) {
     // Check if dailyForecast is a valid array
     console.error(
@@ -80,7 +69,7 @@ export function processDailyWeatherData(dailyForecast) {
     return []; // Return empty array if the forecast is empty, not null
   }
 
-  const result = [];
+  const result: any[] = [];
 
   for (const dayData of dailyForecast) {
     // Iterate directly over the array of dayData objects
@@ -140,8 +129,15 @@ export function processPrecipitationData(data, type = "daily") {
     });
   }
 }
+type ChartDataProp = {
+  value: number;
+  frontColor?: string;
+  gradientColor?: string;
+  spacing?: number;
+  label?: string;
+};
 export function transformWeatherDataToChartData(weatherData) {
-  const chartData = [];
+  const chartData: ChartDataProp[] = [];
   const maxTempFrontColor = "lightblue"; // Blue for Max Temp (same as your example)
   const maxTempGradientColor = "#1E90FF"; // Lighter Blue
   const minTempFrontColor = "orange"; // Orange for Min Temp
@@ -163,7 +159,7 @@ export function transformWeatherDataToChartData(weatherData) {
   return chartData;
 }
 export function transformHourlyDataToChartData(hourlyData) {
-  const chartData = [];
+  const chartData: ChartDataProp[] = [];
   const tempFrontColor = "orange"; // Orange for Min Temp
   const tempGradientColor = "gold"; // Lighter Orange
   hourlyData.forEach((hourData) => {

@@ -1,7 +1,8 @@
+import { StyleSheet } from "react-native";
 import { GlassyText, GlassyView } from "../../Glassy";
 import HourlyRainProbGraph from "../../Graphs/HourlyRainProbGraph";
 
-export default function PrecipitationGraph({ data }) {
+export default function HourlyPrecipitation({ data }) {
   if (!data) {
     return (
       <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>
@@ -20,20 +21,8 @@ export default function PrecipitationGraph({ data }) {
     });
 
     return (
-      <GlassyView
-        style={{
-          paddingVertical: 16,
-        }}
-        isTransparent
-      >
-        <GlassyText
-          style={{
-            fontSize: 20,
-            lineHeight: 28,
-            fontWeight: "bold",
-            marginBottom: 8,
-          }}
-        >
+      <GlassyView style={styles.container} isTransparent>
+        <GlassyText style={styles.headerStyle}>
           Rain Probability Graph
         </GlassyText>
         <HourlyRainProbGraph data={processedData} />
@@ -41,3 +30,14 @@ export default function PrecipitationGraph({ data }) {
     );
   }
 }
+const styles = StyleSheet.create({
+  headerStyle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 8,
+    lineHeight: 28,
+  },
+  container: {
+    paddingVertical: 16,
+  },
+});

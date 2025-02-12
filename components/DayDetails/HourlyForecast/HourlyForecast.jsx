@@ -3,7 +3,6 @@ import { GlassyText, GlassyView } from "../../Glassy";
 import HourlyPrecipitation from "./HourlyPrecipitation";
 import HourlyTemperature from "./HourlyTemperature";
 import { getHourlyDataForDate } from "../../../helpers/weather";
-import { ScrollView } from "react-native";
 export default function HourlyForecast({ time }) {
   const { hourlyWeather } = useWeather();
   if (!hourlyWeather) {
@@ -29,7 +28,7 @@ export default function HourlyForecast({ time }) {
           gap: 16,
         }}
       >
-        <HourlyPrecipitation data={hours} />
+        {/* <HourlyPrecipitation data={hours} /> */}
         <HourlyTemperature data={hours} />
       </GlassyView>
     );
