@@ -1,6 +1,7 @@
 import { GlassyText, GlassyView } from "../../Glassy";
 import { useWeather } from "../../../context/weatherContext";
 import DailyTemperatureGraph from "../../Graphs/DailyTemperatureGraph";
+import { DayWeather } from "../../../types/apiTypes";
 
 export default function TemperatureGraph() {
   const { dailyWeather } = useWeather();
@@ -11,11 +12,12 @@ export default function TemperatureGraph() {
       </GlassyView>
     );
   }
-  const TemperatureData = dailyWeather.forecast.map((day) => ({
-    day: new Date(day.time).toLocaleDateString("en-UK", { weekday: "short" }),
-    minTemp: day.minTemperature || 0,
-    maxTemp: day.maxTemperature || 0,
-  }));
+  const TemperatureData: { day: string; minTemp: number; maxTemp: number }[] =
+    dailyWeather.forecast.map((day: DayWeather) => ({
+      day: new Date(day.time).toLocaleDateString("en-UK", { weekday: "short" }),
+      minTemp: day.minTemp || 0,
+      maxTemp: day.maxTemp || 0,
+    }));
   return (
     <GlassyView
       style={{ padding: 16, margin: 16, alignItems: "center" }}
@@ -31,7 +33,7 @@ export default function TemperatureGraph() {
       >
         Temperature Forecast
       </GlassyText>
-      <DailyTemperatureGraph data={{ TemperatureData }} />
+      <DailyTemperatureGraph data={TemperatureData} />
     </GlassyView>
   );
 }

@@ -10,7 +10,6 @@ export default function SearchBar() {
   const [searchText, setSearchText] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const { themeName, theme } = useTheme();
-  // TODO: close searchbar automatically when clicked on home view
   // Debounce the search input
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -68,7 +67,7 @@ export default function SearchBar() {
         returnKeyType="search"
         value={searchText}
       />
-      <TouchableOpacity onPress={() => toggleSearch(!showSearch)}>
+      <TouchableOpacity onPress={toggleSearch}>
         <GlassyView style={{ padding: 12 }} alpha={showSearch ? 0 : 0.6}>
           <FeatherIcon name="search" size={28} />
         </GlassyView>

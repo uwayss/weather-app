@@ -1,4 +1,10 @@
-export default {
+interface weatherDescriptions {
+  [code: number]: {
+    day: { description: string; image: string };
+    night: { description: string; image: string };
+  };
+}
+const weatherDescriptions: weatherDescriptions = {
   0: {
     day: {
       description: "Sunny",
@@ -280,3 +286,4 @@ export default {
     },
   },
 };
+export default weatherDescriptions;

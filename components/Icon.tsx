@@ -2,10 +2,11 @@ import React from "react";
 import { useTheme } from "../context/themeContext";
 import { Feather } from "expo-vector-icons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { StyleProp, TextStyle } from "react-native";
 type IconProps = {
   name: string;
   size?: number;
-  style?: React.CSSProperties;
+  style?: StyleProp<TextStyle>;
 };
 export function AwesomeIcon({ name, size, style }: IconProps): JSX.Element {
   const { theme } = useTheme();

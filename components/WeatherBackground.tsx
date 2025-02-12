@@ -2,21 +2,21 @@ import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { weatherCodeToBackgroundImageSource } from "../helpers/weather"; // Adjust path if needed
 type WeatherBackgroundProps = {
-  weatherCode: number;
-  isDay: 0 | 1;
+  weatherCode?: number;
+  isDay?: 0 | 1;
 };
 export default function WeatherBackground({
   weatherCode,
   isDay,
 }: WeatherBackgroundProps) {
-  const imageSource = weatherCodeToBackgroundImageSource(weatherCode, isDay);
   let content = (
     <Image
       style={styles.backgroundImage}
       source={weatherCodeToBackgroundImageSource()}
     />
   );
-  if (imageSource) {
+  if (weatherCode !== undefined) {
+    const imageSource = weatherCodeToBackgroundImageSource(weatherCode, isDay);
     content = (
       <Image
         source={imageSource}

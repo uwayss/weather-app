@@ -1,4 +1,10 @@
-export default {
+import { ImageSourcePropType } from "react-native";
+
+interface BackgroundMappings {
+  [key: number]: { day: ImageSourcePropType; night: ImageSourcePropType };
+  default: { day: ImageSourcePropType; night: ImageSourcePropType };
+}
+const backgroundMappings: BackgroundMappings = {
   default: {
     day: require("../assets/backgrounds/default_dark.jpg"),
     night: require("../assets/backgrounds/default_light.jpg"),
@@ -116,3 +122,4 @@ export default {
     night: require("../assets/backgrounds/thunderstorm_with_hail_night.jpg"),
   },
 };
+export default backgroundMappings;

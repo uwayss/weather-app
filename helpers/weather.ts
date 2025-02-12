@@ -1,20 +1,27 @@
 import weatherDescriptions from "../constants/descriptions";
 import backgroundMappings from "../constants/backgroundMappings"; // Adjust path if needed
+import {
+  DaysForecast,
+  HoursForecast,
+  DayWeather,
+  HourWeather,
+} from "../types/apiTypes";
+import { ImageSourcePropType } from "react-native";
+
 export function weatherCodeToBackgroundImageSource(
   code?: number,
   isDay?: 1 | 0
-) {
+): ImageSourcePropType | undefined {
   if (typeof code === "undefined") {
     return backgroundMappings["default"].day;
   }
-
   const weatherData = backgroundMappings[code];
 
   if (!weatherData) {
     console.warn(
       `weatherCodeToBackgroundImageURL: No background mapping found for code ${code}.`
     );
-    return null; // Or a default image URL
+    return undefined; // Or a default image URL
   }
 
   if (typeof isDay === "undefined") {
@@ -30,7 +37,7 @@ export function weatherCodeToBackgroundImageSource(
     console.warn(
       `weatherCodeToBackgroundImageURL: Invalid isDay value: ${isDay}.  Expected 0 or 1.`
     );
-    return null; // Or a default image URL
+    return undefined; // Or a default image URL
   }
 }
 export function weatherCodeToCondition(code: number, isDay?: 0 | 1) {
@@ -53,7 +60,9 @@ export function weatherCodeToImageURL(code: number, isDay?: 0 | 1) {
     return weatherDescriptions[code].night.image;
   }
 }
-export function processDailyWeatherData(dailyForecast) {
+export function processDailyWeatherData(
+  dailyForecast: DayWeather[]
+): DayWeather[] | null {
   // Changed parameter to dailyForecast, expecting an array
   // No longer expecting apiResponse.daily, directly using dailyForecast
   if (!dailyForecast || !Array.isArray(dailyForecast)) {
@@ -86,7 +95,10 @@ export function processDailyWeatherData(dailyForecast) {
 
   return result;
 }
-export function processPrecipitationData(data, type = "daily") {
+export function processPrecipitationData(
+  data: { day?: string; hour?: string; precipitation: number }[],
+  type = "daily"
+) {
   if (!Array.isArray(data)) {
     throw new Error("Input must be an array.");
   }
@@ -136,43 +148,50 @@ type ChartDataProp = {
   spacing?: number;
   label?: string;
 };
-export function transformWeatherDataToChartData(weatherData) {
+export function transformWeatherDataToChartData(
+  weatherData: { day: string; minTemp: number; maxTemp: number }[]
+) {
   const chartData: ChartDataProp[] = [];
   const maxTempFrontColor = "lightblue"; // Blue for Max Temp (same as your example)
   const maxTempGradientColor = "#1E90FF"; // Lighter Blue
   const minTempFrontColor = "orange"; // Orange for Min Temp
   const minTempGradientColor = "gold"; // Lighter Orange
-  weatherData.forEach((dayData) => {
-    chartData.push({
-      value: Math.round(dayData.maxTemp),
-      frontColor: minTempFrontColor,
-      gradientColor: minTempGradientColor,
-      spacing: 6,
-      label: dayData.day, // Label only for the first in the pair
-    });
-    chartData.push({
-      value: Math.round(dayData.minTemp),
-      frontColor: maxTempFrontColor,
-      gradientColor: maxTempGradientColor,
-    });
-  });
+  weatherData.forEach(
+    (dayData: { day: string; minTemp: number; maxTemp: number }) => {
+      chartData.push({
+        value: Math.round(dayData.maxTemp),
+        frontColor: minTempFrontColor,
+        gradientColor: minTempGradientColor,
+        spacing: 6,
+        label: dayData.day, // Label only for the first in the pair
+      });
+      chartData.push({
+        value: Math.round(dayData.minTemp),
+        frontColor: maxTempFrontColor,
+        gradientColor: maxTempGradientColor,
+      });
+    }
+  );
   return chartData;
 }
-export function transformHourlyDataToChartData(hourlyData) {
+export function transformHourlyDataToChartData(hourlyData: HourWeather[]) {
   const chartData: ChartDataProp[] = [];
   const tempFrontColor = "orange"; // Orange for Min Temp
   const tempGradientColor = "gold"; // Lighter Orange
-  hourlyData.forEach((hourData) => {
+  hourlyData.forEach((hourData: HourWeather) => {
     chartData.push({
       value: Math.round(hourData.temperature),
       frontColor: tempFrontColor,
       gradientColor: tempGradientColor,
-      label: hourData.hour, // Label only for the first in the pair
+      label: hourData.time, // Label only for the first in the pair
     });
   });
   return chartData;
 }
-export function getHourlyDataForDate(hourlyForecast, dateString) {
+export function getHourlyDataForDate(
+  hourlyForecast: HourWeather[],
+  dateString: string
+) {
   if (!hourlyForecast || !Array.isArray(hourlyForecast)) {
     console.error(
       "getHourlyDataForDate: Invalid hourlyForecast provided:",

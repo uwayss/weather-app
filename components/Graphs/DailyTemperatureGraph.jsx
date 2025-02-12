@@ -5,18 +5,19 @@ import { useTheme } from "../../context/themeContext";
 
 export default function DailyTemperatureGraph({ data }) {
   // TODO: Better graph
+  console.warn(data);
   const minTemps = [];
-  data.TemperatureData.forEach((element) => {
+  data.forEach((element) => {
     minTemps.push(Math.round(element.minTemp) || 0);
   });
   const maxTemps = [];
-  data.TemperatureData.forEach((element) => {
+  data.forEach((element) => {
     maxTemps.push(Math.round(element.maxTemp) || 0);
   });
   const { theme } = useTheme();
   return (
     <BarChart
-      data={transformWeatherDataToChartData(data.TemperatureData)}
+      data={transformWeatherDataToChartData(data)}
       maxValue={Math.max(...maxTemps) + 2}
       mostNegativeValue={
         !(Math.min(...minTemps) >= 0) ? Math.min(...minTemps) : 0

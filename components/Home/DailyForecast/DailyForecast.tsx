@@ -6,19 +6,19 @@ import Header from "./Header";
 import DailyPrecipitation from "./DailyPrecipitation";
 import DailyTemperature from "./DailyTemperature";
 import ForecastList from "./NextDays/ForecastList";
+import { DayWeather } from "../../../types/apiTypes";
 
 export default function DailyForecast() {
   const { dailyWeather } = useWeather();
-  const [dailyForecast, setDailyForecast] = useState([]);
+  const [dailyForecast, setDailyForecast] = useState<DayWeather[] | null>(null);
   useEffect(() => {
-    if (!dailyWeather || dailyWeather === null) {
-      // Explicit null check
-      setDailyForecast([]);
+    if (dailyWeather === null) {
+      setDailyForecast(null);
       return;
     }
     if (!dailyWeather.forecast) {
       // Check for forecast property specifically
-      setDailyForecast([]);
+      setDailyForecast(null);
       return;
     }
     try {
@@ -28,7 +28,7 @@ export default function DailyForecast() {
           "Error: dailyWeather.forecast is not a valid object:",
           dailyWeather.forecast
         );
-        setDailyForecast([]);
+        setDailyForecast(null);
         return; // Exit the useEffect if it's invalid
       }
       const processedData = processDailyWeatherData(dailyWeather.forecast);
@@ -37,15 +37,15 @@ export default function DailyForecast() {
         setDailyForecast(processedData);
       } else {
         console.error("processDailyWeatherData returned null or undefined.");
-        setDailyForecast([]); // Set to empty array in case of processing error
+        setDailyForecast(null); // Set to empty array in case of processing error
       }
     } catch (error) {
       console.error("Error processing weather data:", error);
-      setDailyForecast([]);
+      setDailyForecast(null);
     }
   }, [dailyWeather]);
 
-  if (!dailyWeather) {
+  if (dailyForecast === null) {
     return (
       <GlassyView style={{ margin: 8, flexDirection: "column", width: "91%" }}>
         <GlassyText

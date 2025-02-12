@@ -3,9 +3,12 @@ import { GlassyText, GlassyView } from "../../Glassy";
 import HourlyPrecipitation from "./HourlyPrecipitation";
 import HourlyTemperature from "./HourlyTemperature";
 import { getHourlyDataForDate } from "../../../helpers/weather";
-export default function HourlyForecast({ time }) {
+type HourlyForecastProps = {
+  time: string;
+};
+export default function HourlyForecast({ time }: HourlyForecastProps) {
   const { hourlyWeather } = useWeather();
-  if (!hourlyWeather) {
+  if (hourlyWeather === null) {
     return (
       <GlassyView style={{ flexDirection: "column", width: "100%" }}>
         <GlassyText
@@ -28,7 +31,7 @@ export default function HourlyForecast({ time }) {
           gap: 16,
         }}
       >
-        {/* <HourlyPrecipitation data={hours} /> */}
+        <HourlyPrecipitation data={hours} />
         <HourlyTemperature data={hours} />
       </GlassyView>
     );

@@ -1,8 +1,11 @@
 import { View, FlatList } from "react-native";
 import DailyWeatherTile from "./DailyWeatherTile";
 import { GlassyText } from "../../../Glassy";
-
-export default function ForecastList({ forecastData }) {
+import { DayWeather } from "../../../../types/apiTypes";
+type ForecastListProps = {
+  forecastData: DayWeather[];
+};
+export default function ForecastList({ forecastData }: ForecastListProps) {
   if (!forecastData || forecastData.length === 0) {
     return (
       <View style={{ padding: 16 }}>

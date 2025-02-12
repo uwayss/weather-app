@@ -6,11 +6,14 @@ interface SearchBarContextValue {
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
   toggleSearch: () => void;
 }
+type ProviderProps = {
+  children: React.ReactNode;
+};
 export const SearchBarContext = createContext<
   SearchBarContextValue | undefined
 >(undefined);
 
-export default function SearchBarProvider({ children }) {
+export default function SearchBarProvider({ children }: ProviderProps) {
   const [locations, setLocations] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
   return (

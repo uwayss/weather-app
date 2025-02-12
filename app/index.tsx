@@ -10,20 +10,37 @@ const HomeScreen = () => {
   const { currentWeather } = useWeather();
   const weatherCode = currentWeather?.weather_code;
   const isDay = currentWeather?.is_day;
-  return (
-    <WeatherProvider>
-      <View style={styles.container}>
-        <WeatherBackground weatherCode={weatherCode} isDay={isDay} />
-        <ScrollView style={{ flex: 1 }}>
-          <SearchBarProvider>
-            <SearchSection />
-            <MainSection />
-          </SearchBarProvider>
-        </ScrollView>
-      </View>
-      <StatusBar style="auto" />
-    </WeatherProvider>
-  );
+  if (typeof weatherCode !== "undefined" && typeof isDay !== "undefined") {
+    return (
+      <WeatherProvider>
+        <View style={styles.container}>
+          <WeatherBackground weatherCode={weatherCode} isDay={isDay} />
+          <ScrollView style={{ flex: 1 }}>
+            <SearchBarProvider>
+              <SearchSection />
+              <MainSection />
+            </SearchBarProvider>
+          </ScrollView>
+        </View>
+        <StatusBar style="auto" />
+      </WeatherProvider>
+    );
+  } else {
+    return (
+      <WeatherProvider>
+        <View style={styles.container}>
+          <WeatherBackground />
+          <ScrollView style={{ flex: 1 }}>
+            <SearchBarProvider>
+              <SearchSection />
+              <MainSection />
+            </SearchBarProvider>
+          </ScrollView>
+        </View>
+        <StatusBar style="auto" />
+      </WeatherProvider>
+    );
+  }
 };
 const styles = StyleSheet.create({
   container: {

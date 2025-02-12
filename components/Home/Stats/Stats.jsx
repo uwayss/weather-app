@@ -5,7 +5,7 @@ import { GlassyText, GlassyView } from "../../Glassy";
 import { AwesomeIcon } from "../../Icon";
 
 export default function Stats() {
-  const { currentWeather, weatherName } = useWeather();
+  const { currentWeather, name } = useWeather();
 
   if (!currentWeather) {
     return (
@@ -32,7 +32,7 @@ export default function Stats() {
   const windUnit = currentWeather.units?.wind_speed_10m;
   const currentTime = currentWeather.time;
   const isDay = currentWeather.is_day;
-  const locationName = weatherName;
+  const locationName = name;
 
   return (
     <GlassyView

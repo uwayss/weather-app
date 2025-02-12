@@ -1,7 +1,10 @@
+import { HourWeather } from "../../../types/apiTypes";
 import { GlassyText, GlassyView } from "../../Glassy";
 import HourlyTemperatureGraph from "../../Graphs/HourlyTemperatureGraph";
-
-export default function HourlyTemperature({ data }) {
+type HourlyTemperatureProp = {
+  data: HourWeather[];
+};
+export default function HourlyTemperature({ data }: HourlyTemperatureProp) {
   if (!data) {
     return (
       <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>
@@ -9,13 +12,15 @@ export default function HourlyTemperature({ data }) {
       </GlassyView>
     );
   }
-  const TemperatureData = data.map((hour) => ({
-    hour:
-      new Date(hour.time).getHours().toString().padStart(2, "0") +
-      ":" +
-      new Date(hour.time).getMinutes().toString().padStart(2, "0"),
-    temperature: hour.temperature,
-  }));
+  const TemperatureData: { hour: string; temperature: number }[] = data.map(
+    (hour: HourWeather) => ({
+      hour:
+        new Date(hour.time).getHours().toString().padStart(2, "0") +
+        ":" +
+        new Date(hour.time).getMinutes().toString().padStart(2, "0"),
+      temperature: hour.temperature,
+    })
+  );
   return (
     <GlassyView style={{ padding: 16 }}>
       <GlassyText style={{ fontSize: 20, lineHeight: 28, marginBottom: 8 }}>

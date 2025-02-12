@@ -49,7 +49,7 @@ export const GlassyText: React.FC<GlassyTextProps> = ({
     </Text>
   );
 };
-const hexToRgba = (hex: string, alpha: number) => {
+const hexToRgba = (hex: string, alpha: number): string => {
   let hexValue = hex.replace("#", ""); // Remove '#' if present
   let r = parseInt(hexValue.substring(0, 2), 16);
   let g = parseInt(hexValue.substring(2, 4), 16);

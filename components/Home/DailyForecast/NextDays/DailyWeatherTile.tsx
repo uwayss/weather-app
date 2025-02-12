@@ -3,8 +3,9 @@ import { GlassyText, GlassyView } from "../../../Glassy";
 import { weatherCodeToImageURL } from "../../../../helpers/weather";
 import { useWeather } from "../../../../context/weatherContext";
 import { useRouter } from "expo-router";
-
-function ConditionImage({ weatherCode }) {
+import { DayWeather } from "../../../../types/apiTypes";
+type ConditionImageProps = { weatherCode: number };
+function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(
     weatherCode,
     useWeather().currentWeather?.is_day
@@ -21,8 +22,10 @@ function ConditionImage({ weatherCode }) {
     ></Image>
   );
 }
-
-function WeekdayText({ time }) {
+type WeekdayTextProps = {
+  time: string;
+};
+function WeekdayText({ time }: WeekdayTextProps) {
   const weekday = time
     ? new Date(time).toLocaleDateString("en-UK", {
         weekday: "long",
@@ -41,8 +44,8 @@ function WeekdayText({ time }) {
     </GlassyText>
   );
 }
-
-function TemperatureText({ min, max }) {
+type TemperatureTextProps = { min: number; max: number };
+function TemperatureText({ min, max }: TemperatureTextProps) {
   return (
     <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
       <GlassyText
@@ -68,8 +71,8 @@ function TemperatureText({ min, max }) {
     </View>
   );
 }
-
-export default function DailyWeatherTile({ data }) {
+type DailyWeatherTileProps = { data: DayWeather };
+export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
   const router = useRouter();
   return (
     <GlassyView
@@ -87,17 +90,16 @@ export default function DailyWeatherTile({ data }) {
           params: {
             time: data.time,
             weather_code: data.weather_code,
-            maxTemperature: data.maxTemperature,
-            minTemperature: data.minTemperature,
+            maxTemperature: data.maxTemp,
+            minTemperature: data.minTemp,
             rainProbability: data.rainProbability,
-            windSpeed: data.windSpeed,
           },
         });
       }}
     >
       <ConditionImage weatherCode={data.weather_code} />
       <WeekdayText time={data.time} />
-      <TemperatureText min={data.minTemperature} max={data.maxTemperature} />
+      <TemperatureText min={data.minTemp} max={data.maxTemp} />
     </GlassyView>
   );
 }

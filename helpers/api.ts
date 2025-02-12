@@ -1,6 +1,6 @@
 // FILE: src/helpers/api.js
 import axios from "axios";
-
+import { LocationAPIResponse, RawWeatherAPIResponse } from "../types/apiTypes";
 const FORECAST_DAYS = 16; // Number of days for forecast
 const locationApi = (q: string) =>
   `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=3&q=${q}`;
@@ -11,7 +11,9 @@ const defaultHeaders = {
   "User-Agent": "MuhammedsWeatherApp/1.0 (mamipromax1513@gmail.com)",
 };
 
-export async function makeNominatimRequest(q: string) {
+export async function makeNominatimRequest(
+  q: string
+): Promise<LocationAPIResponse> {
   try {
     const response = await axios.get(locationApi(q), {
       headers: defaultHeaders,
@@ -23,7 +25,10 @@ export async function makeNominatimRequest(q: string) {
   }
 }
 
-export async function makeWeatherRequest(lat: string, lon: string) {
+export async function makeWeatherRequest(
+  lat: string,
+  lon: string
+): Promise<RawWeatherAPIResponse> {
   try {
     const response = await axios.get(weatherApi(lat, lon));
     return response.data;

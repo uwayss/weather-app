@@ -3,24 +3,34 @@ import { storeWeatherData, readWeatherData } from "../helpers/storage";
 import { isWithinLast30Minutes } from "../helpers/time";
 import { getPublicIP, getLocationFromIP } from "../helpers/location";
 import FetchWeather from "../hooks/useFetchWeather";
-interface Weather {
-  name: string;
-  timezone: any;
-  currentWeather: any;
-  dailyWeather: { forecast: any; units: any };
-  hourlyWeather: { forecast: any; untis: any };
-}
-interface WeatherContext {
-  currentWeather: any;
-  dailyWeather: any;
-  hourlyWeather: any;
-  weatherName: any;
-  setWeather;
-}
-export const WeatherContext = createContext<WeatherContext | null>(null);
+import {
+  CurrentWeather,
+  DaysForecast,
+  HoursForecast,
+  WeatherData,
+} from "../types/apiTypes";
 
-export default function WeatherProvider({ children }) {
-  const [weather, setWeather] = useState<Weather | null>(null);
+interface WeatherContext {
+  name: string | null;
+  timezone: string | null;
+  currentWeather: CurrentWeather | null;
+  dailyWeather: DaysForecast | null;
+  hourlyWeather: HoursForecast | null;
+  setWeather: React.Dispatch<React.SetStateAction<WeatherData | null>> | null;
+}
+export const WeatherContext = createContext<WeatherContext>({
+  name: null,
+  currentWeather: null,
+  dailyWeather: null,
+  hourlyWeather: null,
+  timezone: null,
+  setWeather: null,
+});
+type WeatherProviderProp = {
+  children: React.ReactNode;
+};
+export default function WeatherProvider({ children }: WeatherProviderProp) {
+  const [weather, setWeather] = useState<WeatherData | null>(null);
   // Fetch weather data only when the component mounts or when the weather data is outdated
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -69,18 +79,20 @@ export default function WeatherProvider({ children }) {
   // Conditionally provide context values based on whether weather data is available
   const weatherContextValue = weather
     ? {
+        name: weather.name, // Added name to context
         currentWeather: weather.currentWeather,
         dailyWeather: weather.dailyWeather,
         hourlyWeather: weather.hourlyWeather,
-        weatherName: weather.name, // Added name to context
+        timezone: weather.timezone,
         setWeather,
       }
     : {
+        name: null,
         currentWeather: null,
         dailyWeather: null,
         hourlyWeather: null,
-        weatherName: null, // Added name to context
-        setWeather,
+        timezone: null,
+        setWeather: null,
       };
   return (
     <WeatherContext.Provider value={weatherContextValue}>
@@ -89,5 +101,6 @@ export default function WeatherProvider({ children }) {
   );
 }
 export function useWeather() {
-  return useContext(WeatherContext);
+  const weatherContext = useContext(WeatherContext);
+  return weatherContext;
 }
