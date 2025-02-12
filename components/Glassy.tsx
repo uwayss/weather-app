@@ -6,6 +6,7 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { useTheme } from "../context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -23,6 +24,7 @@ type GlassyViewProps = {
   alpha?: number;
   debug?: boolean;
   onPress?: () => void;
+  onPressNoFeedback?: () => void;
   safe?: boolean;
   isTransparent?: boolean; // Renamed prop trans to isTransparent
   opaque?: boolean;
@@ -61,13 +63,13 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
   style = {},
   rounded = true,
   alpha = 0.5,
-  debug = false,
-  onPress = null,
-  safe = false,
-  isTransparent = false, // Renamed prop trans to isTransparent
-  opaque = false,
+  debug,
+  onPress,
+  onPressNoFeedback,
+  safe,
+  isTransparent,
 }) => {
-  const { theme, themeName } = useTheme();
+  const { theme } = useTheme();
   const baseStyles = rounded
     ? styleSheet.glassyView
     : styleSheet.glassyViewSquare;
@@ -106,6 +108,13 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
 
   if (onPress) {
     content = <TouchableOpacity onPress={onPress}>{content}</TouchableOpacity>;
+  }
+  if (onPressNoFeedback) {
+    content = (
+      <TouchableWithoutFeedback onPress={onPressNoFeedback}>
+        {content}
+      </TouchableWithoutFeedback>
+    );
   }
 
   return content;

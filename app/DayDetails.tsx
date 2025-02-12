@@ -3,36 +3,25 @@ import { GlassyText, GlassyView } from "../components/Glassy";
 import StatsView from "../components/DayDetails/StatsView";
 import HourlyForecast from "../components/DayDetails/HourlyForecast/HourlyForecast";
 import { useTheme } from "../context/themeContext";
-import { ScrollView } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
 export default function DayDetails() {
   const { time } = useLocalSearchParams();
   const { theme } = useTheme();
   // TODO: Add a context for this screen
   // TODO: Improve UI
-
+  // TODO: Add a dynamic background here too
   return (
     <ScrollView
       style={{
-        backgroundColor: `rgb(${theme.background})`,
+        backgroundColor: theme.background,
         width: "100%",
         flex: 1,
       }}
     >
-      <GlassyView
-        style={{ height: "100%", padding: 16, gap: 20 }}
-        isTransparent
-        rounded={false}
-      >
-        <GlassyView safe style={{ padding: 20 }}>
-          <GlassyText
-            style={{
-              fontSize: 24,
-              lineHeight: 32,
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-          >
+      <GlassyView isTransparent rounded={false} safe style={styles.container}>
+        <GlassyView style={styles.headerContainer}>
+          <GlassyText style={styles.header}>
             Detailed Weather for {time}
           </GlassyText>
         </GlassyView>
@@ -42,3 +31,20 @@ export default function DayDetails() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    padding: 16,
+    gap: 20,
+  },
+  header: {
+    fontSize: 24,
+    lineHeight: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  headerContainer: {
+    padding: 12,
+  },
+});

@@ -1,11 +1,14 @@
 import { createContext, useState, useContext } from "react";
-
-export const SearchBarContext = createContext({
-  locations: [],
-  setLocations: () => {},
-  showSearch: false,
-  toggleSearch: () => {},
-});
+interface SearchBarContextValue {
+  locations: string[];
+  setLocations: React.Dispatch<React.SetStateAction<never[]>>;
+  showSearch: boolean;
+  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleSearch: () => void;
+}
+export const SearchBarContext = createContext<
+  SearchBarContextValue | undefined
+>(undefined);
 
 export default function SearchBarProvider({ children }) {
   const [locations, setLocations] = useState([]);
@@ -16,6 +19,7 @@ export default function SearchBarProvider({ children }) {
         locations,
         setLocations,
         showSearch,
+        setShowSearch,
         toggleSearch: () => setShowSearch(!showSearch),
       }}
     >

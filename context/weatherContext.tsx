@@ -1,17 +1,26 @@
 import { createContext, useEffect, useState, useContext } from "react";
-import {
-  storeWeatherData,
-  readWeatherData,
-  resetWeatherData,
-} from "../helpers/storage";
+import { storeWeatherData, readWeatherData } from "../helpers/storage";
 import { isWithinLast30Minutes } from "../helpers/time";
 import { getPublicIP, getLocationFromIP } from "../helpers/location";
 import FetchWeather from "../hooks/useFetchWeather";
-
-export const WeatherContext = createContext();
+interface Weather {
+  name: string;
+  timezone: any;
+  currentWeather: any;
+  dailyWeather: { forecast: any; units: any };
+  hourlyWeather: { forecast: any; untis: any };
+}
+interface WeatherContext {
+  currentWeather: any;
+  dailyWeather: any;
+  hourlyWeather: any;
+  weatherName: any;
+  setWeather;
+}
+export const WeatherContext = createContext<WeatherContext | null>(null);
 
 export default function WeatherProvider({ children }) {
-  const [weather, setWeather] = useState(undefined);
+  const [weather, setWeather] = useState<Weather | null>(null);
   // Fetch weather data only when the component mounts or when the weather data is outdated
   useEffect(() => {
     const fetchWeatherData = async () => {
