@@ -7,7 +7,19 @@ import {
 import { Image } from "react-native";
 import { AwesomeIcon } from "@/components/Icon";
 import { DayWeather } from "@/types/apiTypes";
-
+function Header({ time }: { time: string }) {
+  return (
+    <GlassyView style={styles.headerContainer} isTransparent>
+      <GlassyText style={styles.header}>
+        {new Date(time).toLocaleDateString("en-UK", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+        })}
+      </GlassyText>
+    </GlassyView>
+  );
+}
 function TemperatureInfo({
   minTemperature,
   maxTemperature,
@@ -73,6 +85,7 @@ export default function StatsView({ dayData }: { dayData: DayWeather }) {
   if (dayData) {
     content = (
       <>
+        <Header time={dayData.time} />
         <TemperatureInfo
           minTemperature={dayData.minTemp}
           maxTemperature={dayData.maxTemp}
@@ -115,5 +128,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+  headerContainer: {
+    padding: 12,
+  },
+  header: {
+    fontSize: 24,
+    lineHeight: 32,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

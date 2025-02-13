@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import ThemeProvider from "@/context/themeContext";
 import WeatherProvider from "@/context/weatherContext";
+import { _View, View, ViewBase } from "react-native";
 export default function RootLayout() {
   // TODO: Implement loading logic. react-native-blurhash
   // TODO: Better error handling
@@ -10,16 +11,18 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <WeatherProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="index" />
+        <Stack>
           <Stack.Screen
-            name="DayDetails"
+            name="index"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Details"
             options={{
               animation: "slide_from_right",
+              headerTitleAlign: "center",
             }}
           />
         </Stack>

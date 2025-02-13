@@ -5,7 +5,7 @@ import HourlyForecast from "@/components/DayDetails/HourlyForecast/HourlyForecas
 import { ScrollView, StyleSheet } from "react-native";
 import WeatherBackground from "@/components/WeatherBackground";
 import { useWeather } from "@/context/weatherContext";
-export default function DayDetails() {
+export default function Details() {
   // TODO: Add a context for this screen
   // TODO: Improve UI
   // TODO: Add a dynamic background here too
@@ -26,11 +26,6 @@ export default function DayDetails() {
           style={styles.safeContainer}
           isTransparent
         >
-          <GlassyView style={styles.headerContainer}>
-            <GlassyText style={styles.header}>
-              Detailed Weather for {day?.time}
-            </GlassyText>
-          </GlassyView>
           {day && <StatsView dayData={day} />}
           {day && <HourlyForecast time={day.time} />}
         </GlassyView>
@@ -42,15 +37,6 @@ export default function DayDetails() {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
-  },
-  header: {
-    fontSize: 24,
-    lineHeight: 32,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  headerContainer: {
-    padding: 12,
   },
   safeContainer: {
     width: "100%",

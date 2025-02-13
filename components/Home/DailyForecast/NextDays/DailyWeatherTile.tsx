@@ -86,7 +86,7 @@ export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
       alpha={0.3}
       onPress={() => {
         router.push({
-          pathname: "DayDetails",
+          pathname: "Details",
           params: {
             time: data.time,
           },
