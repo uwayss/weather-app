@@ -11,7 +11,10 @@
     "resolveJsonModule": true,
     "strict": true,
     "isolatedModules": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "exclude": ["node_modules"],
   "extends": "expo/tsconfig.base"

@@ -82,8 +82,15 @@ export interface DayWeather {
   rainProbability: number;
   windSpeed: number;
 }
-export interface CurrentWeather extends CurrentWeatherAPI {
+export interface CurrentWeather {
   units: CurrentUnits;
+  time: string;
+  temperature: number;
+  humidity: number;
+  feltTemperature: number;
+  isDay: 0 | 1;
+  weatherCode: number;
+  windSpeed: number;
 }
 
 export interface HoursForecast {

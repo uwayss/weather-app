@@ -8,8 +8,8 @@ import MainSection from "../components/Home/MainSection/MainSection";
 
 const HomeScreen = () => {
   const { currentWeather } = useWeather();
-  const weatherCode = currentWeather?.weather_code;
-  const isDay = currentWeather?.is_day;
+  const weatherCode = currentWeather?.weatherCode;
+  const isDay = currentWeather?.isDay;
   if (typeof weatherCode !== "undefined" && typeof isDay !== "undefined") {
     return (
       <WeatherProvider>

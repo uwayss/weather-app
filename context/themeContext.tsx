@@ -1,21 +1,27 @@
-import { createContext, useState, useContext, useEffect } from "react"; // Import useContext
-import { useColorScheme, Appearance } from "react-native";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 import themes from "./theme"; // Import the themes object we just created
-
-export const themeContext = createContext();
+import { ThemeContextValue } from "@/types/themeTypes";
 const THEME_STORAGE_KEY = "app_theme"; // Key to store theme in AsyncStorage
 
-export default function ThemeProvider({ children }) {
-  const systemColorScheme = useColorScheme();
-  const [themeName, setThemeName] = useState(systemColorScheme); // Initialize with system theme
+export const themeContext = createContext<ThemeContextValue>({
+  theme: themes.dark,
+  toggleTheme: () => {},
+  themeName: "dark",
+});
+
+type ProviderProps = {
+  children: React.ReactNode;
+};
+export default function ThemeProvider({ children }: ProviderProps) {
+  const [themeName, setThemeName] = useState<"dark" | "light">("dark");
 
   // Load theme from AsyncStorage on component mount (app startup)
   useEffect(() => {
     const loadTheme = async () => {
       try {
         const storedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
-        if (storedTheme) {
+        if (storedTheme === "light" || storedTheme === "dark") {
           setThemeName(storedTheme); // Use stored theme if available
           console.log("Loaded theme from AsyncStorage");
         }
@@ -30,6 +36,7 @@ export default function ThemeProvider({ children }) {
   useEffect(() => {
     const saveTheme = async () => {
       try {
+        if (!themeName) return;
         await AsyncStorage.setItem(THEME_STORAGE_KEY, themeName);
         console.log("Saved theme into AsyncStorage");
       } catch (e) {
@@ -39,28 +46,17 @@ export default function ThemeProvider({ children }) {
     saveTheme();
   }, [themeName]); // Run whenever themeName changes
 
-  // System Appearance Change Listener
-  useEffect(() => {
-    const appearanceListener = Appearance.addChangeListener(
-      ({ colorScheme }) => {
-        setThemeName(colorScheme); // Update theme state when system theme changes
-      }
-    );
-
-    return () => {
-      appearanceListener.remove(); // Clean up listener on unmount
+  if (themeName) {
+    const theme = themes[themeName];
+    const toggleTheme = () => {
+      setThemeName(themeName === "light" ? "dark" : "light"); // State update will trigger useEffect to save
     };
-  }, []); // Run only once on mount and cleanup on unmount
-  const theme = themes[themeName];
-  const toggleTheme = () => {
-    setThemeName(themeName === "light" ? "dark" : "light"); // State update will trigger useEffect to save
-  };
-
-  return (
-    <themeContext.Provider value={{ theme, toggleTheme, themeName }}>
-      {children}
-    </themeContext.Provider>
-  );
+    return (
+      <themeContext.Provider value={{ theme, themeName, toggleTheme }}>
+        {children}
+      </themeContext.Provider>
+    );
+  }
 }
 
 // Custom hook to easily use the theme context in components

@@ -15,12 +15,18 @@ export default async function useFetchWeather(
     const name = location.name;
     const countryName = location.address.country;
     const locationName = `${name}, ${countryName}`;
-    const restructuredWeatherData = {
+    const restructuredWeatherData: WeatherData = {
       name: locationName,
       timezone: data.timezone,
       currentWeather: {
-        ...data.current,
         units: data.current_units,
+        time: data.current.time,
+        temperature: data.current.temperature_2m,
+        humidity: data.current.relative_humidity_2m,
+        feltTemperature: data.current.apparent_temperature,
+        isDay: data.current.is_day,
+        weatherCode: data.current.weather_code,
+        windSpeed: data.current.wind_speed_10m,
       },
       dailyWeather: {
         forecast: data.daily.time.map((time: string, index: number) => ({
@@ -45,8 +51,6 @@ export default async function useFetchWeather(
         units: data.hourly_units,
       },
     };
-    console.warn("here's the weather outputtttt:");
-    console.warn(restructuredWeatherData.dailyWeather.forecast);
     return restructuredWeatherData;
   } catch (error) {
     console.error("Error fetching weather from API:", error);

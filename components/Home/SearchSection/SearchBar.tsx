@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
 import { useSearchBar } from "../../../context/searchBarContext";
-import { GlassyView } from "../../Glassy";
+import { GlassyView } from "@/components/Glassy";
 import { useTheme } from "../../../context/themeContext";
 import fetchLocations from "../../../hooks/useFetchLocations";
 import { FeatherIcon } from "../../Icon";
@@ -48,7 +48,7 @@ export default function SearchBar() {
       <FeatherIcon
         name="map-pin"
         size={28}
-        style={{ display: !showSearch ? "none" : null, marginRight: 8 }}
+        style={{ display: !showSearch ? "none" : undefined, marginRight: 8 }}
       />
       <TextInput
         style={{
@@ -58,7 +58,7 @@ export default function SearchBar() {
           paddingLeft: 4,
           width: "90%",
           color: theme.text,
-          display: !showSearch ? "none" : "",
+          display: !showSearch ? "none" : undefined,
         }}
         textAlignVertical="center"
         placeholder="Search City"

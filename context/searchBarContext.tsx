@@ -1,20 +1,28 @@
+import { LocationAPIResponse } from "@/types/apiTypes";
 import { createContext, useState, useContext } from "react";
+
 interface SearchBarContextValue {
-  locations: string[];
-  setLocations: React.Dispatch<React.SetStateAction<never[]>>;
+  locations: LocationAPIResponse;
+  setLocations: (newLocations: LocationAPIResponse) => void;
   showSearch: boolean;
-  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowSearch: React.Dispatch<React.SetStateAction<boolean>> | (() => void);
   toggleSearch: () => void;
 }
-type ProviderProps = {
-  children: React.ReactNode;
-};
-export const SearchBarContext = createContext<
-  SearchBarContextValue | undefined
->(undefined);
 
-export default function SearchBarProvider({ children }: ProviderProps) {
-  const [locations, setLocations] = useState([]);
+export const SearchBarContext = createContext<SearchBarContextValue>({
+  locations: [],
+  setLocations: () => {},
+  showSearch: false,
+  setShowSearch: () => {},
+  toggleSearch: () => {},
+});
+
+export default function SearchBarProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [locations, setLocations] = useState<LocationAPIResponse>([]);
   const [showSearch, setShowSearch] = useState(false);
   return (
     <SearchBarContext.Provider
