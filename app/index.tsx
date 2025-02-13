@@ -10,7 +10,7 @@ const HomeScreen = () => {
   const { currentWeather } = useWeather();
   const weatherCode = currentWeather?.weatherCode;
   const isDay = currentWeather?.isDay;
-  if (typeof weatherCode !== "undefined" && typeof isDay !== "undefined") {
+  if (weatherCode !== undefined && isDay !== undefined) {
     return (
       <WeatherProvider>
         <View style={styles.container}>

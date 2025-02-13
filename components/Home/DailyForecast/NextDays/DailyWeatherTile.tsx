@@ -8,7 +8,7 @@ type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(
     weatherCode,
-    useWeather().currentWeather?.is_day
+    useWeather().currentWeather?.isDay
   );
   if (!imageUri) {
     return null; // TODO: Add a placeholder image
@@ -89,10 +89,6 @@ export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
           pathname: "DayDetails",
           params: {
             time: data.time,
-            weather_code: data.weather_code,
-            maxTemperature: data.maxTemp,
-            minTemperature: data.minTemp,
-            rainProbability: data.rainProbability,
           },
         });
       }}

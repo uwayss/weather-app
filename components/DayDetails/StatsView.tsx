@@ -1,18 +1,20 @@
-import { GlassyText, GlassyView } from "../Glassy";
+import { GlassyText, GlassyView } from "@/components/Glassy";
 import { View } from "react-native";
 import {
   weatherCodeToCondition,
   weatherCodeToImageURL,
-} from "../../helpers/weather";
+} from "@/helpers/weather";
 import { Image } from "react-native";
-import { useWeather } from "../../context/weatherContext";
-import { AwesomeIcon } from "../Icon";
-import { DayWeather } from "../../types/apiTypes";
-type GlassyStatTextProps = {
+import { useWeather } from "@/context/weatherContext";
+import { AwesomeIcon } from "@/components/Icon";
+import { DayWeather } from "@/types/apiTypes";
+function GlassyStatText({
+  children,
+  centered = false,
+}: {
   children: React.ReactNode;
   centered?: boolean;
-};
-function GlassyStatText({ children, centered = false }: GlassyStatTextProps) {
+}) {
   return (
     <GlassyText
       style={{
@@ -26,14 +28,13 @@ function GlassyStatText({ children, centered = false }: GlassyStatTextProps) {
     </GlassyText>
   );
 }
-type TemperatureInfoProps = {
-  minTemperature: number;
-  maxTemperature: number;
-};
 function TemperatureInfo({
   minTemperature,
   maxTemperature,
-}: TemperatureInfoProps) {
+}: {
+  minTemperature: number;
+  maxTemperature: number;
+}) {
   return (
     <View
       style={{
@@ -103,33 +104,19 @@ function ConditionInfo({ weather_code }: ConditionInfoProps) {
     </View>
   );
 }
-type StatsViewProps = {
-  time: string;
-};
-export default function StatsView({ time }: StatsViewProps) {
-  const { dailyWeather } = useWeather();
-  if (dailyWeather) {
-    const day: DayWeather | undefined = dailyWeather.forecast.find((d) => {
-      return new Date(d.time).getTime() == new Date(time).getTime();
-    });
-    if (day !== undefined) {
-      const { weather_code, maxTemp, minTemp, rainProbability, windSpeed } =
-        day;
-      return (
-        <GlassyView style={{ gap: 16, padding: 16 }}>
-          <TemperatureInfo minTemperature={minTemp} maxTemperature={maxTemp} />
-          <GenericInfo
-            rainProbability={rainProbability}
-            windSpeed={windSpeed}
-          />
-          <ConditionInfo weather_code={weather_code} />
-        </GlassyView>
-      );
-    }
-  } else {
+export default function StatsView({ dayData }: { dayData: DayWeather }) {
+  if (dayData !== undefined) {
     return (
       <GlassyView style={{ gap: 16, padding: 16 }}>
-        <GlassyStatText centered>Loading...</GlassyStatText>
+        <TemperatureInfo
+          minTemperature={dayData.minTemp}
+          maxTemperature={dayData.maxTemp}
+        />
+        <GenericInfo
+          rainProbability={dayData.rainProbability}
+          windSpeed={dayData.windSpeed}
+        />
+        <ConditionInfo weather_code={dayData.weather_code} />
       </GlassyView>
     );
   }
