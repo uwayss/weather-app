@@ -1,33 +1,13 @@
 import { GlassyText, GlassyView } from "@/components/Glassy";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import {
   weatherCodeToCondition,
   weatherCodeToImageURL,
 } from "@/helpers/weather";
 import { Image } from "react-native";
-import { useWeather } from "@/context/weatherContext";
 import { AwesomeIcon } from "@/components/Icon";
 import { DayWeather } from "@/types/apiTypes";
-function GlassyStatText({
-  children,
-  centered = false,
-}: {
-  children: React.ReactNode;
-  centered?: boolean;
-}) {
-  return (
-    <GlassyText
-      style={{
-        fontSize: 20,
-        lineHeight: 28,
-        fontWeight: "bold",
-        textAlign: centered ? "center" : "auto",
-      }}
-    >
-      {children}
-    </GlassyText>
-  );
-}
+
 function TemperatureInfo({
   minTemperature,
   maxTemperature,
@@ -36,78 +16,63 @@ function TemperatureInfo({
   maxTemperature: number;
 }) {
   return (
-    <View
-      style={{
-        paddingHorizontal: 8,
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "space-around",
-        gap: 8,
-      }}
-    >
-      <GlassyStatText>
+    <View style={styles.temperatureInfo}>
+      <GlassyText style={styles.statText}>
         <AwesomeIcon name="arrow-down" /> {Math.round(minTemperature)}°C{" "}
-      </GlassyStatText>
-      <GlassyStatText>
+      </GlassyText>
+      <GlassyText style={styles.statText}>
         <AwesomeIcon name="arrow-up" /> {Math.round(maxTemperature)}°C{" "}
-      </GlassyStatText>
+      </GlassyText>
     </View>
   );
 }
-type GenericInfoProps = {
+function GenericInfo({
+  rainProbability,
+  windSpeed,
+}: {
   rainProbability: number;
   windSpeed: number;
-};
-function GenericInfo({ rainProbability, windSpeed }: GenericInfoProps) {
+}) {
   return (
-    <View
-      style={{
-        paddingHorizontal: 8,
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "space-around",
-      }}
-    >
+    <View style={styles.GenericInfo}>
       <View>
-        <GlassyStatText>
+        <GlassyText style={styles.statText}>
           <AwesomeIcon name="droplet" /> {rainProbability}%
-        </GlassyStatText>
+        </GlassyText>
       </View>
       <View>
-        <GlassyStatText>
+        <GlassyText style={styles.statText}>
           <AwesomeIcon name="wind" /> {windSpeed} km/s
-        </GlassyStatText>
+        </GlassyText>
       </View>
     </View>
   );
 }
-type ConditionInfoProps = {
-  weather_code: number;
-};
-function ConditionInfo({ weather_code }: ConditionInfoProps) {
+function ConditionInfo({ weather_code }: { weather_code: number }) {
   return (
-    <View
-      style={{
-        paddingHorizontal: 8,
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "space-around",
-      }}
-    >
+    <View style={styles.conditionInfo}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Image
           style={{ width: 48, height: 48 }}
           source={{ uri: weatherCodeToImageURL(weather_code) }}
         />
-        <GlassyStatText>{weatherCodeToCondition(weather_code)}</GlassyStatText>
+        <GlassyText style={styles.statText}>
+          {weatherCodeToCondition(weather_code)}
+        </GlassyText>
       </View>
     </View>
   );
 }
+
 export default function StatsView({ dayData }: { dayData: DayWeather }) {
-  if (dayData !== undefined) {
-    return (
-      <GlassyView style={{ gap: 16, padding: 16 }}>
+  let content = (
+    <GlassyText style={[styles.statText, { textAlign: "center" }]}>
+      Loading...
+    </GlassyText>
+  );
+  if (dayData) {
+    content = (
+      <>
         <TemperatureInfo
           minTemperature={dayData.minTemp}
           maxTemperature={dayData.maxTemp}
@@ -117,7 +82,38 @@ export default function StatsView({ dayData }: { dayData: DayWeather }) {
           windSpeed={dayData.windSpeed}
         />
         <ConditionInfo weather_code={dayData.weather_code} />
-      </GlassyView>
+      </>
     );
   }
+  return <GlassyView style={styles.container}>{content}</GlassyView>;
 }
+const styles = StyleSheet.create({
+  container: {
+    gap: 16,
+    padding: 16,
+  },
+  statText: {
+    fontSize: 20,
+    lineHeight: 28,
+    fontWeight: "bold",
+  },
+  temperatureInfo: {
+    paddingHorizontal: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    gap: 8,
+  },
+  GenericInfo: {
+    paddingHorizontal: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  conditionInfo: {
+    paddingHorizontal: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+});

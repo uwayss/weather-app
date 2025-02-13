@@ -10,26 +10,32 @@ export default function DayDetails() {
   // TODO: Improve UI
   // TODO: Add a dynamic background here too
   const { time } = useLocalSearchParams();
-  const { dailyWeather } = useWeather();
+  const { dailyWeather, currentWeather } = useWeather();
   const day = dailyWeather?.forecast.find((day) => day.time === time);
+  const isCurrentlyDay = currentWeather?.isDay;
   return (
-    <ScrollView style={styles.container}>
-      <WeatherBackground weatherCode={day?.weather_code} />
-      <GlassyView
-        rounded={false}
-        safe
-        style={styles.safeContainer}
-        isTransparent
-      >
-        <GlassyView style={styles.headerContainer}>
-          <GlassyText style={styles.header}>
-            Detailed Weather for {day?.time}
-          </GlassyText>
+    <>
+      <WeatherBackground
+        weatherCode={day?.weather_code}
+        isDay={isCurrentlyDay}
+      />
+      <ScrollView style={styles.container}>
+        <GlassyView
+          rounded={false}
+          safe
+          style={styles.safeContainer}
+          isTransparent
+        >
+          <GlassyView style={styles.headerContainer}>
+            <GlassyText style={styles.header}>
+              Detailed Weather for {day?.time}
+            </GlassyText>
+          </GlassyView>
+          {day && <StatsView dayData={day} />}
+          {day && <HourlyForecast time={day.time} />}
         </GlassyView>
-        {day && <StatsView dayData={day} />}
-        {day && <HourlyForecast time={day.time} />}
-      </GlassyView>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 }
 
