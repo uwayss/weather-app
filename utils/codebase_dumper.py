@@ -1,11 +1,11 @@
 import os
 import datetime
-import platform
 from pathlib import Path
 
 def generate_codebase_dump():
     # Configuration
-    exclude_dirs = {'node_modules', '.expo', '.git', '__pycache__', 'android'}
+    exclude_dirs = {'node_modules', '.expo', '.git', '__pycache__', 'android', "codebase","assets"}
+    exclude_files = {'package-lock.json'} # ADD THIS LINE
 
     # Output directory
     output_dir = Path('codebase')
@@ -32,7 +32,7 @@ def generate_codebase_dump():
                 file_path = Path(root) / file
 
                 # Skip excluded directories
-                if any(part in exclude_dirs for part in file_path.parts):
+                if any(part in exclude_dirs for part in file_path.parts) or file in exclude_files:
                     continue
 
                 try:
