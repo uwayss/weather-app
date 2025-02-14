@@ -1,3 +1,4 @@
+import React from "react";
 import {
   View,
   Text,
@@ -8,15 +9,15 @@ import {
   TextStyle,
   TouchableWithoutFeedback,
 } from "react-native";
-import { useTheme } from "../context/themeContext";
+import { useTheme } from "@/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
 
 type GlassyTextProps = {
   style?: StyleProp<TextStyle>;
   children: React.ReactNode;
   centered?: boolean;
 };
+
 type GlassyViewProps = {
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
@@ -26,9 +27,9 @@ type GlassyViewProps = {
   onPress?: () => void;
   onPressNoFeedback?: () => void;
   safe?: boolean;
-  isTransparent?: boolean; // Renamed prop trans to isTransparent
-  opaque?: boolean;
+  isTransparent?: boolean;
 };
+
 export const GlassyText: React.FC<GlassyTextProps> = ({
   style = {},
   children,
@@ -40,7 +41,7 @@ export const GlassyText: React.FC<GlassyTextProps> = ({
       style={[
         {
           color: theme.text,
-          textAlign: centered ? "center" : undefined, // Conditional textAlign
+          textAlign: centered ? "center" : undefined,
         },
         style,
       ]}
@@ -49,8 +50,9 @@ export const GlassyText: React.FC<GlassyTextProps> = ({
     </Text>
   );
 };
+
 const hexToRgba = (hex: string, alpha: number): string => {
-  let hexValue = hex.replace("#", ""); // Remove '#' if present
+  let hexValue = hex.replace("#", "");
   let r = parseInt(hexValue.substring(0, 2), 16);
   let g = parseInt(hexValue.substring(2, 4), 16);
   let b = parseInt(hexValue.substring(4, 6), 16);
@@ -70,37 +72,20 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
   isTransparent,
 }) => {
   const { theme } = useTheme();
+
   const baseStyles = rounded
     ? styleSheet.glassyView
     : styleSheet.glassyViewSquare;
-  let content: React.JSX.Element;
-  if (isTransparent) {
-    content = (
-      <View style={[{ backgroundColor: "transparent" }, baseStyles, style]}>
-        {children}
-      </View>
-    );
-  } else if (debug) {
-    content = (
-      <View style={[{ backgroundColor: "red" }, baseStyles, style]}>
-        {children}
-      </View>
-    );
-  } else {
-    content = (
-      <View
-        style={[
-          {
-            backgroundColor: hexToRgba(theme.background, alpha),
-          },
-          baseStyles,
-          style,
-        ]}
-      >
-        {children}
-      </View>
-    );
-  }
+
+  const backgroundColor = isTransparent
+    ? "transparent"
+    : debug
+    ? "red"
+    : hexToRgba(theme.background, alpha);
+
+  let content = (
+    <View style={[{ backgroundColor }, baseStyles, style]}>{children}</View>
+  );
 
   if (safe) {
     content = <SafeAreaView>{content}</SafeAreaView>;
@@ -109,6 +94,7 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
   if (onPress) {
     content = <TouchableOpacity onPress={onPress}>{content}</TouchableOpacity>;
   }
+
   if (onPressNoFeedback) {
     content = (
       <TouchableWithoutFeedback onPress={onPressNoFeedback}>

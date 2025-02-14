@@ -5,7 +5,7 @@ import {
   LineChartPropsType,
   BarChartPropsType,
 } from "react-native-gifted-charts";
-import { useTheme } from "../../context/themeContext";
+import { useTheme } from "@/context/themeContext";
 import { Text } from "react-native";
 
 interface BaseChartProps {

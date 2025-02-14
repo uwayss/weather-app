@@ -1,9 +1,9 @@
 import { View, Image } from "react-native";
-import { GlassyText, GlassyView } from "../../../Glassy";
-import { weatherCodeToImageURL } from "../../../../helpers/weather";
-import { useWeather } from "../../../../context/weatherContext";
+import { GlassyText, GlassyView } from "@/components/Glassy";
+import { weatherCodeToImageURL } from "@/helpers/weather";
+import { useWeather } from "@/context/weatherContext";
 import { useRouter } from "expo-router";
-import { DayWeather } from "../../../../types/apiTypes";
+import { DayWeather } from "@/types/apiTypes";
 type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(

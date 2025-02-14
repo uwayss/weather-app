@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
-import { weatherCodeToBackgroundImageSource } from "../helpers/weather"; // Adjust path if needed
+import { weatherCodeToBackgroundImageSource } from "@/helpers/weather"; // Adjust path if needed
 type WeatherBackgroundProps = {
   weatherCode?: number;
   isDay?: 0 | 1;

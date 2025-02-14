@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { GlassyView } from "../../Glassy";
-import DailyForecastSection from "../../../components/Home/DailyForecast/DailyForecast";
-import Stats from "../../../components/Home/Stats/Stats";
-import { useSearchBar } from "../../../context/searchBarContext";
+import { GlassyView } from "@/components/Glassy";
+import DailyForecastSection from "@/components/Home/DailyForecast/DailyForecast";
+import Stats from "@/components/Home/Stats/Stats";
+import { useSearchBar } from "@/context/searchBarContext";
 
 export default function MainSection() {
   const { setShowSearch } = useSearchBar();

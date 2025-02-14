@@ -1,6 +1,6 @@
-import weatherDescriptions from "../constants/descriptions";
-import backgroundMappings from "../constants/backgroundMappings"; // Adjust path if needed
-import { DayWeather, HourWeather } from "../types/apiTypes";
+import weatherDescriptions from "@/constants/descriptions";
+import backgroundMappings from "@/constants/backgroundMappings"; // Adjust path if needed
+import { DayWeather, HourWeather } from "@/types/apiTypes";
 import { ImageSourcePropType } from "react-native";
 
 export function calculateMinMax(

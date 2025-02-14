@@ -1,7 +1,7 @@
-import { GlassyText, GlassyView } from "../../Glassy";
-import { useWeather } from "../../../context/weatherContext";
-import DailyTemperatureGraph from "../../Graphs/DailyTemperatureGraph";
-import { DayWeather } from "../../../types/apiTypes";
+import { GlassyText, GlassyView } from "@/components/Glassy";
+import { useWeather } from "@/context/weatherContext";
+import DailyTemperatureGraph from "@/components/Graphs/DailyTemperatureGraph";
+import { DayWeather } from "@/types/apiTypes";
 
 export default function TemperatureGraph() {
   const { dailyWeather } = useWeather();

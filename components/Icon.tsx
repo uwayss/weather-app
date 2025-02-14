@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "../context/themeContext";
+import { useTheme } from "@/context/themeContext";
 import { Feather } from "expo-vector-icons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { StyleProp, TextStyle } from "react-native";

@@ -1,23 +1,16 @@
 import { useEffect, useState } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
-import { useSearchBar } from "../../../context/searchBarContext";
+import { useSearchBar } from "@/context/searchBarContext";
 import { GlassyView } from "@/components/Glassy";
-import { useTheme } from "../../../context/themeContext";
-import fetchLocations from "../../../hooks/useFetchLocations";
-import { FeatherIcon } from "../../Icon";
+import { useTheme } from "@/context/themeContext";
+import fetchLocations from "@/hooks/useFetchLocations";
+import { FeatherIcon } from "@/components/Icon";
+import useDebounce from "@/hooks/debounce"; // Import the debounce hook
 export default function SearchBar() {
   const { showSearch, toggleSearch, setLocations } = useSearchBar();
   const [searchText, setSearchText] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const debouncedSearch = useDebounce(searchText, 800); // Use the debounce hook
   const { themeName, theme } = useTheme();
-  // Debounce the search input
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearch(searchText);
-    }, 800); // Wait for one second before updating `debouncedSearch`
-
-    return () => clearTimeout(handler); // Cleanup on unmount or input change
-  }, [searchText]);
 
   // Fetch locations when debouncedSearch changes
   useEffect(() => {

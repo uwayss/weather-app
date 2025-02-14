@@ -1,7 +1,7 @@
 import { View, FlatList } from "react-native";
 import DailyWeatherTile from "./DailyWeatherTile";
-import { GlassyText } from "../../../Glassy";
-import { DayWeather } from "../../../../types/apiTypes";
+import { GlassyText } from "@/components/Glassy";
+import { DayWeather } from "@/types/apiTypes";
 type ForecastListProps = {
   forecastData: DayWeather[];
 };

@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
-import { weatherCodeToCondition } from "../../../helpers/weather";
-import { useWeather } from "../../../context/weatherContext";
-import { GlassyText, GlassyView } from "../../Glassy";
-import { AwesomeIcon } from "../../Icon";
+import { weatherCodeToCondition } from "@/helpers/weather";
+import { useWeather } from "@/context/weatherContext";
+import { GlassyText, GlassyView } from "@/components/Glassy";
+import { AwesomeIcon } from "@/components/Icon";
 export default function Stats() {
   const { currentWeather, name } = useWeather();
 

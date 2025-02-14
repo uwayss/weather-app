@@ -10,9 +10,9 @@ export default function Details() {
   // TODO: Improve UI
   // TODO: Add a dynamic background here too
   const { time } = useLocalSearchParams();
-  const { dailyWeather, currentWeather } = useWeather();
+  const { dailyWeather } = useWeather();
   const day = dailyWeather?.forecast.find((day) => day.time === time);
-  const isCurrentlyDay = currentWeather?.isDay;
+  const isCurrentlyDay = useWeather().currentWeather?.isDay;
   return (
     <>
       <WeatherBackground

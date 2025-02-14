@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { GlassyText, GlassyView } from "../../Glassy";
-import HourlyRainProbGraph from "../../Graphs/HourlyRainProbGraph";
-import { DayWeather, HourWeather } from "../../../types/apiTypes";
+import { GlassyText, GlassyView } from "@/components/Glassy";
+import HourlyRainProbGraph from "@/components/Graphs/HourlyRainProbGraph";
+import { DayWeather, HourWeather } from "@/types/apiTypes";
 type HourlyPrecipitationProp = {
   data: HourWeather[];
 };

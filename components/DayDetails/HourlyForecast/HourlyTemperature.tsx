@@ -1,6 +1,6 @@
-import { HourWeather } from "../../../types/apiTypes";
-import { GlassyText, GlassyView } from "../../Glassy";
-import HourlyTemperatureGraph from "../../Graphs/HourlyTemperatureGraph";
+import { HourWeather } from "@/types/apiTypes";
+import { GlassyText, GlassyView } from "@/components/Glassy";
+import HourlyTemperatureGraph from "@/components/Graphs/HourlyTemperatureGraph";
 type HourlyTemperatureProp = {
   data: HourWeather[];
 };

@@ -1,6 +1,6 @@
 import { View } from "react-native";
-import { GlassyText } from "../../Glassy";
-import { AwesomeIcon } from "../../Icon";
+import { GlassyText } from "@/components/Glassy";
+import { AwesomeIcon } from "@/components/Icon";
 
 export default function Header() {
   return (

@@ -1,6 +1,6 @@
-import { GlassyText, GlassyView } from "../../Glassy";
-import { useWeather } from "../../../context/weatherContext";
-import DailyRainProbGraph from "../../Graphs/DailyRainProbGraph";
+import { GlassyText, GlassyView } from "@/components/Glassy";
+import { useWeather } from "@/context/weatherContext";
+import DailyRainProbGraph from "@/components/Graphs/DailyRainProbGraph";
 
 export default function PrecipitationGraph() {
   const { dailyWeather } = useWeather();

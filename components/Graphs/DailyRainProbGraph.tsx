@@ -1,7 +1,7 @@
 import React from "react";
 import BaseChart from "./BaseChart";
-import { processPrecipitationData } from "../../helpers/weather";
-import { useTheme } from "../../context/themeContext";
+import { processPrecipitationData } from "@/helpers/weather";
+import { useTheme } from "@/context/themeContext";
 
 type Props = {
   data: { day?: string; hour?: string; precipitation: number }[];

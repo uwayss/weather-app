@@ -1,7 +1,7 @@
 import React from "react";
 import BaseChart from "./BaseChart";
-import { transformHourlyDataToChartData } from "../../helpers/weather";
-import { GlassyText, GlassyView } from "../Glassy";
+import { transformHourlyDataToChartData } from "@/helpers/weather";
+import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
 

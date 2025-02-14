@@ -1,6 +1,6 @@
 // FILE: src/helpers/api.js
 import axios from "axios";
-import { LocationAPIResponse, RawWeatherAPIResponse } from "../types/apiTypes";
+import { LocationAPIResponse, RawWeatherAPIResponse } from "@/types/apiTypes";
 const FORECAST_DAYS = 16; // Number of days for forecast
 const locationApi = (q: string) =>
   `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=3&q=${q}`;

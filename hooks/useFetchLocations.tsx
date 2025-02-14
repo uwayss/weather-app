@@ -1,4 +1,4 @@
-import { makeNominatimRequest } from "../helpers/api";
+import { makeNominatimRequest } from "@/helpers/api";
 
 export default async function fetchLocations(q: string) {
   // TODO: Save last location in asyncStorage just like the weather

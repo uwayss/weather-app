@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { WeatherData } from "../types/apiTypes";
+import { WeatherData } from "@/types/apiTypes";
 
 export const storeWeatherData = async (value: WeatherData | null) => {
   try {
