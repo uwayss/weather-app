@@ -1,18 +1,28 @@
 import weatherDescriptions from "../constants/descriptions";
 import backgroundMappings from "../constants/backgroundMappings"; // Adjust path if needed
-import {
-  DaysForecast,
-  HoursForecast,
-  DayWeather,
-  HourWeather,
-} from "../types/apiTypes";
+import { DayWeather, HourWeather } from "../types/apiTypes";
 import { ImageSourcePropType } from "react-native";
+
+export function calculateMinMax(
+  data: {
+    day: string;
+    minTemp: number;
+    maxTemp: number;
+  }[]
+) {
+  const minTemps = data.map((element) => Math.round(element.minTemp) || 0);
+  const maxTemps = data.map((element) => Math.round(element.maxTemp) || 0);
+  return {
+    max: Math.max(...maxTemps),
+    min: Math.min(...minTemps),
+  };
+}
 
 export function weatherCodeToBackgroundImageSource(
   code?: number,
   isDay?: 1 | 0
 ): ImageSourcePropType | undefined {
-  if (typeof code === "undefined") {
+  if (code === undefined) {
     return backgroundMappings["default"].day;
   }
   const weatherData = backgroundMappings[code];
@@ -24,77 +34,61 @@ export function weatherCodeToBackgroundImageSource(
     return undefined; // Or a default image URL
   }
 
-  if (typeof isDay === "undefined") {
-    // If isDay is undefined, default to day (1)
-    return weatherData.day;
-  }
+  let imageSource = weatherData.day; // Default to day
 
-  if (isDay === 1) {
-    return weatherData.day;
-  } else if (isDay === 0) {
-    return weatherData.night;
-  } else {
+  if (isDay === 0) {
+    imageSource = weatherData.night;
+  } else if (isDay !== 1 && isDay !== undefined) {
     console.warn(
       `weatherCodeToBackgroundImageURL: Invalid isDay value: ${isDay}.  Expected 0 or 1.`
     );
     return undefined; // Or a default image URL
   }
+
+  return imageSource;
 }
+
 export function weatherCodeToCondition(code: number, isDay?: 0 | 1) {
-  if (typeof isDay == undefined) {
-    return weatherDescriptions[code].day.description;
-  }
-  if (isDay) {
-    return weatherDescriptions[code].day.description;
-  } else {
-    return weatherDescriptions[code].night.description;
-  }
+  const timeOfDay = isDay === 0 ? "night" : "day";
+  return weatherDescriptions[code][timeOfDay].description;
 }
+
 export function weatherCodeToImageURL(code: number, isDay?: 0 | 1) {
-  if (typeof isDay == undefined) {
-    return weatherDescriptions[code].day.image;
-  }
-  if (isDay) {
-    return weatherDescriptions[code].day.image;
-  } else {
-    return weatherDescriptions[code].night.image;
-  }
+  const timeOfDay = isDay === 0 ? "night" : "day";
+  return weatherDescriptions[code][timeOfDay].image;
 }
+
 export function processDailyWeatherData(
   dailyForecast: DayWeather[]
 ): DayWeather[] | null {
-  // Changed parameter to dailyForecast, expecting an array
-  // No longer expecting apiResponse.daily, directly using dailyForecast
-  if (!dailyForecast || !Array.isArray(dailyForecast)) {
-    // Check if dailyForecast is a valid array
+  if (!Array.isArray(dailyForecast)) {
     console.error(
-      "Error: Invalid input to processDailyWeatherData. Expected an array of daily forecast objects."
+      "Error: Invalid input to processDailyWeatherData. Expected an array."
     );
     return null;
   }
 
   if (dailyForecast.length === 0) {
     console.warn("Warning: Empty dailyForecast array provided.");
-    return []; // Return empty array if the forecast is empty, not null
+    return [];
   }
 
-  const result: any[] = [];
+  const result: DayWeather[] = [];
 
   for (const dayData of dailyForecast) {
-    // Iterate directly over the array of dayData objects
     if (!dayData || typeof dayData !== "object" || !dayData.time) {
-      // Basic check for each dayData object
       console.error(
         "Error: Invalid day data object within dailyForecast:",
         dayData
       );
-      continue; // Skip invalid day data and continue processing other days
+      continue;
     }
-    result.push(dayData); // Directly push the dayData object as it's already in the desired format
+    result.push(dayData);
   }
 
   return result;
 }
+
 export function processPrecipitationData(
   data: { day?: string; hour?: string; precipitation: number }[],
   type = "daily"
@@ -102,8 +96,9 @@ export function processPrecipitationData(
   if (!Array.isArray(data)) {
     throw new Error("Input must be an array.");
   }
-  if (type == "daily") {
-    return data.map((item) => {
+
+  return data.map((item) => {
+    if (type === "daily") {
       if (
         typeof item !== "object" ||
         item === null ||
@@ -119,9 +114,7 @@ export function processPrecipitationData(
         label: item.day,
         value: item.precipitation,
       };
-    });
-  } else {
-    return data.map((item) => {
+    } else {
       if (
         typeof item !== "object" ||
         item === null ||
@@ -138,9 +131,10 @@ export function processPrecipitationData(
         value: item.precipitation,
         label: item.hour,
       };
-    });
-  }
+    }
+  });
 }
+
 type ChartDataProp = {
   value: number;
   frontColor?: string;
@@ -148,46 +142,54 @@ type ChartDataProp = {
   spacing?: number;
   label?: string;
 };
+
 export function transformWeatherDataToChartData(
   weatherData: { day: string; minTemp: number; maxTemp: number }[]
 ) {
   const chartData: ChartDataProp[] = [];
-  const maxTempFrontColor = "lightblue"; // Blue for Max Temp (same as your example)
-  const maxTempGradientColor = "#1E90FF"; // Lighter Blue
-  const minTempFrontColor = "orange"; // Orange for Min Temp
-  const minTempGradientColor = "gold"; // Lighter Orange
-  weatherData.forEach(
-    (dayData: { day: string; minTemp: number; maxTemp: number }) => {
-      chartData.push({
-        value: Math.round(dayData.maxTemp),
-        frontColor: minTempFrontColor,
-        gradientColor: minTempGradientColor,
-        spacing: 6,
-        label: dayData.day, // Label only for the first in the pair
-      });
-      chartData.push({
-        value: Math.round(dayData.minTemp),
-        frontColor: maxTempFrontColor,
-        gradientColor: maxTempGradientColor,
-      });
-    }
-  );
-  return chartData;
-}
-export function transformHourlyDataToChartData(hourlyData: HourWeather[]) {
-  const chartData: ChartDataProp[] = [];
-  const tempFrontColor = "orange"; // Orange for Min Temp
-  const tempGradientColor = "gold"; // Lighter Orange
-  hourlyData.forEach((hourData: HourWeather) => {
+  const maxTempFrontColor = "lightblue";
+  const maxTempGradientColor = "#1E90FF";
+  const minTempFrontColor = "orange";
+  const minTempGradientColor = "gold";
+
+  weatherData.forEach((dayData) => {
     chartData.push({
-      value: Math.round(hourData.temperature),
-      frontColor: tempFrontColor,
-      gradientColor: tempGradientColor,
-      label: hourData.time, // Label only for the first in the pair
+      value: Math.round(dayData.maxTemp),
+      frontColor: minTempFrontColor,
+      gradientColor: minTempGradientColor,
+      spacing: 6,
+      label: dayData.day,
+    });
+    chartData.push({
+      value: Math.round(dayData.minTemp),
+      frontColor: maxTempFrontColor,
+      gradientColor: maxTempGradientColor,
     });
   });
+
   return chartData;
 }
+
+export function transformHourlyDataToChartData(
+  hourlyData: { hour: string; temperature: number }[]
+) {
+  if (!Array.isArray(hourlyData)) {
+    console.error(
+      "transformHourlyDataToChartData: hourlyData is not an array",
+      hourlyData
+    );
+    return [];
+  }
+
+  const chartData: ChartDataProp[] = hourlyData.map((hourData) => ({
+    value: Math.round(hourData.temperature),
+    frontColor: "orange",
+    gradientColor: "gold",
+    label: hourData.hour,
+  }));
+  return chartData;
+}
+
 export function getHourlyDataForDate(
   hourlyForecast: HourWeather[],
   dateString: string
@@ -209,7 +211,6 @@ export function getHourlyDataForDate(
   }
 
   return hourlyForecast.filter((hourlyData) => {
-    // Extract the date part from the hourlyData.time (which is in ISO 8601 format)
     const dataDate = hourlyData.time.split("T")[0];
     return dataDate === dateString;
   });

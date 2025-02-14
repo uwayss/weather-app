@@ -26,7 +26,7 @@ export default function HourlyTemperature({ data }: HourlyTemperatureProp) {
       <GlassyText style={{ fontSize: 20, lineHeight: 28, marginBottom: 8 }}>
         Temperature Forecast
       </GlassyText>
-      <HourlyTemperatureGraph data={{ TemperatureData }} />
+      <HourlyTemperatureGraph data={TemperatureData} />
     </GlassyView>
   );
 }
