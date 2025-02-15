@@ -17,7 +17,6 @@ const HomeScreen = () => {
       : {};
 
   return (
-    // Small change
     <WeatherProvider>
       <View style={styles.container}>
         <WeatherBackground {...backgroundProps} />
