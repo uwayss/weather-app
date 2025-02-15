@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { storeWeatherData, readWeatherData } from "@/helpers/storage";
 import { isWithinLast30Minutes } from "@/helpers/time";
-import { getPublicIP, getLocationFromIP } from "@/helpers/location";
+import { getPublicIP, getLocationFromIP } from "@/helpers/api";
 import FetchWeather from "@/hooks/useFetchWeather";
 import {
   CurrentWeather,

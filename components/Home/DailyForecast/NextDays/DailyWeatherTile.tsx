@@ -1,9 +1,11 @@
-import { View, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Image, Text, Pressable, StyleSheet } from "react-native";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { weatherCodeToImageURL } from "@/helpers/weather";
 import { useWeather } from "@/context/weatherContext";
 import { useRouter } from "expo-router";
 import { DayWeather } from "@/types/apiTypes";
+import DayModal from "@/components/DayDetails/DayModal";
 type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(
@@ -73,29 +75,35 @@ function TemperatureText({ min, max }: TemperatureTextProps) {
 }
 type DailyWeatherTileProps = { data: DayWeather };
 export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
-  const router = useRouter();
+  const [modalVisible, setModalVisible] = useState(false);
   return (
-    <GlassyView
-      style={{
-        flexDirection: "column",
-        gap: 4,
-        alignItems: "center",
-        width: 128,
-        height: 176,
-      }}
-      alpha={0.3}
-      onPress={() => {
-        router.push({
-          pathname: "Details",
-          params: {
-            time: data.time,
-          },
-        });
-      }}
-    >
-      <ConditionImage weatherCode={data.weather_code} />
-      <WeekdayText time={data.time} />
-      <TemperatureText min={data.minTemp} max={data.maxTemp} />
-    </GlassyView>
+    <>
+      <GlassyView
+        style={styles.tile}
+        alpha={0.3}
+        onPress={() => {
+          setModalVisible(true);
+        }}
+      >
+        <ConditionImage weatherCode={data.weather_code} />
+        <WeekdayText time={data.time} />
+        <TemperatureText min={data.minTemp} max={data.maxTemp} />
+      </GlassyView>
+      <DayModal
+        modalVisible={modalVisible}
+        toggleVisibility={() => setModalVisible(!modalVisible)}
+        data={data}
+      />
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  tile: {
+    flexDirection: "column",
+    gap: 4,
+    alignItems: "center",
+    width: 128,
+    height: 176,
+  },
+});

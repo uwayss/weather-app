@@ -1,6 +1,10 @@
 // FILE: src/helpers/api.js
 import axios from "axios";
-import { LocationAPIResponse, RawWeatherAPIResponse } from "@/types/apiTypes";
+import {
+  LocationAPIResponse,
+  RawWeatherAPIResponse,
+  IPAPIResponse,
+} from "@/types/apiTypes";
 const FORECAST_DAYS = 16; // Number of days for forecast
 const locationApi = (q: string) =>
   `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=3&q=${q}`;
@@ -35,5 +39,28 @@ export async function makeWeatherRequest(
   } catch (error) {
     console.error(`Request to open-metero api failed:`, error);
     throw error;
+  }
+}
+
+export async function getLocationFromIP(
+  query: string
+): Promise<IPAPIResponse | null> {
+  try {
+    const response = await axios.get(
+      `http://ip-api.com/json/${query}?fields=61433`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+}
+export async function getPublicIP(): Promise<string | null> {
+  try {
+    const response = await axios.get("https://api.ipify.org?format=json");
+    return response.data.ip;
+  } catch (error) {
+    console.error("Error fetching public IP:", error);
+    return null;
   }
 }

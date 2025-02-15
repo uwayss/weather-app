@@ -18,13 +18,6 @@ export default function RootLayout() {
               headerShown: false,
             }}
           />
-          <Stack.Screen
-            name="Details"
-            options={{
-              animation: "slide_from_right",
-              headerTitleAlign: "center",
-            }}
-          />
         </Stack>
       </WeatherProvider>
     </ThemeProvider>
