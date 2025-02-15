@@ -35,7 +35,7 @@ This application provides current weather conditions and forecasts for locations
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/uwayss/weather-app
     cd weather-app
     ```
 2.  **Install dependencies:**
