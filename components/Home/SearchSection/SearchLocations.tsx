@@ -24,18 +24,13 @@ export default function SearchLocations() {
         marginHorizontal: 16,
         gap: 2,
         alignItems: "center",
-      }}
-    >
+      }}>
       {locations.slice(0, 3).map((location: LocationSearchResult) => (
         <TouchableOpacity
           key={location.display_name}
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => handleLocationChange(location)}
-        >
-          <GlassyView
-            style={{ width: "100%", height: "100%", padding: 16 }}
-            rounded={false}
-          >
+          onPress={() => handleLocationChange(location)}>
+          <GlassyView style={{ width: "100%", height: "100%", padding: 16 }} rounded={false}>
             <GlassyText>{location.display_name}</GlassyText>
           </GlassyView>
         </TouchableOpacity>

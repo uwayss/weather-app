@@ -7,11 +7,7 @@ import { StyleSheet } from "react-native";
 
 export default function HourlyForecast({ time }: { time: string }) {
   const { hourlyWeather } = useWeather();
-  let content = (
-    <GlassyText style={styles.loadingText}>
-      Loading weather forecast...
-    </GlassyText>
-  );
+  let content = <GlassyText style={styles.loadingText}>Loading weather forecast...</GlassyText>;
   if (hourlyWeather !== null) {
     const hours = getHourlyDataForDate(hourlyWeather.forecast, time);
     content = (

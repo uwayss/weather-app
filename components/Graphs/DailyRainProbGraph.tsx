@@ -33,9 +33,7 @@ function DailyRainProbGraph({ data }: Props) {
     yAxisThickness: 0,
   };
 
-  return (
-    <BaseChart type="line" data={currentData} lineChartProps={lineChartProps} />
-  );
+  return <BaseChart type="line" data={currentData} lineChartProps={lineChartProps} />;
 }
 
 export default React.memo(DailyRainProbGraph);

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { weatherCodeToCondition } from "@/helpers/weather";
 import { useWeather } from "@/context/weatherContext";
 import { GlassyText, GlassyView } from "@/components/Glassy";
@@ -48,9 +48,7 @@ export default function Stats() {
     <GlassyView style={styles.container}>
       <GlassyText style={styles.header}>{name}</GlassyText>
       <View>
-        <GlassyText style={styles.temperature}>
-          {Math.round(temp) + tempUnit}
-        </GlassyText>
+        <GlassyText style={styles.temperature}>{Math.round(temp) + tempUnit}</GlassyText>
         <GlassyText style={styles.condition}>
           {typeof weatherCode == "number"
             ? weatherCodeToCondition(weatherCode, isDay)
@@ -80,9 +78,7 @@ export default function Stats() {
         </View>
         <View style={styles.statistic}>
           <AwesomeIcon name={isDay ? "sun" : "moon"} size={24} />
-          <GlassyText style={styles.statisticText}>
-            {isDay ? "Daytime" : "Nighttime"}
-          </GlassyText>
+          <GlassyText style={styles.statisticText}>{isDay ? "Daytime" : "Nighttime"}</GlassyText>
         </View>
       </View>
     </GlassyView>

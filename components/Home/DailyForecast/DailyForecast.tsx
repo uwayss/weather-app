@@ -24,10 +24,7 @@ export default function DailyForecast() {
     try {
       if (!dailyWeather.forecast || typeof dailyWeather.forecast !== "object") {
         // More robust check
-        console.error(
-          "Error: dailyWeather.forecast is not a valid object:",
-          dailyWeather.forecast
-        );
+        console.error("Error: dailyWeather.forecast is not a valid object:", dailyWeather.forecast);
         setDailyForecast(null);
         return; // Exit the useEffect if it's invalid
       }
@@ -48,9 +45,7 @@ export default function DailyForecast() {
   if (dailyForecast === null) {
     return (
       <GlassyView style={{ margin: 8, flexDirection: "column", width: "91%" }}>
-        <GlassyText
-          style={{ fontSize: 24, lineHeight: 32, paddingVertical: 32 }}
-        >
+        <GlassyText style={{ fontSize: 24, lineHeight: 32, paddingVertical: 32 }}>
           Loading weather forecast...
         </GlassyText>
       </GlassyView>
@@ -65,8 +60,7 @@ export default function DailyForecast() {
         flexDirection: "column",
         width: "91%",
         alignSelf: "center",
-      }}
-    >
+      }}>
       <Header />
       <ForecastList forecastData={dailyForecast} />
       <DailyPrecipitation />

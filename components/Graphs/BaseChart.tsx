@@ -30,12 +30,7 @@ const chartConfig = {
   disablePress: true,
 };
 
-const BaseChart: React.FC<BaseChartProps> = ({
-  type,
-  data,
-  lineChartProps,
-  barChartProps,
-}) => {
+const BaseChart: React.FC<BaseChartProps> = ({ type, data, lineChartProps, barChartProps }) => {
   const { theme } = useTheme();
 
   const commonProps = {
@@ -48,14 +43,7 @@ const BaseChart: React.FC<BaseChartProps> = ({
   if (type === "line") {
     return <LineChart data={data} {...commonProps} {...lineChartProps} />;
   } else if (type === "bar") {
-    return (
-      <BarChart
-        data={data}
-        {...commonProps}
-        {...chartConfig}
-        {...barChartProps}
-      />
-    );
+    return <BarChart data={data} {...commonProps} {...chartConfig} {...barChartProps} />;
   } else {
     return <Text>Invalid chart type</Text>;
   }

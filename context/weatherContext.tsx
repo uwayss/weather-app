@@ -3,14 +3,9 @@ import { storeWeatherData, readWeatherData } from "@/helpers/storage";
 import { isWithinLast30Minutes } from "@/helpers/time";
 import { getPublicIP, getLocationFromIP } from "@/helpers/api";
 import FetchWeather from "@/hooks/useFetchWeather";
-import {
-  CurrentWeather,
-  DaysForecast,
-  HoursForecast,
-  WeatherData,
-} from "@/types/apiTypes";
+import { CurrentWeather, DaysForecast, HoursForecast, WeatherData } from "@/types/apiTypes";
 
-interface WeatherContext {
+interface WeatherContextProps {
   name: string | null;
   timezone: string | null;
   currentWeather: CurrentWeather | null;
@@ -18,7 +13,7 @@ interface WeatherContext {
   hourlyWeather: HoursForecast | null;
   setWeather: React.Dispatch<React.SetStateAction<WeatherData | null>> | null;
 }
-export const WeatherContext = createContext<WeatherContext>({
+export const WeatherContext = createContext<WeatherContextProps>({
   name: null,
   currentWeather: null,
   dailyWeather: null,
@@ -46,27 +41,27 @@ export default function WeatherProvider({ children }: WeatherProviderProp) {
         } else {
           console.log("Generating new data based on public IP address");
           const publicIP = await getPublicIP();
-          const locationData = await getLocationFromIP(publicIP);
-          if (locationData) {
-            const { lat, lon, city, regionName, country } = locationData;
-            const newWeatherData = await FetchWeather({
-              lat,
-              lon,
-              name: city,
-              display_name: `${city}, ${regionName}, ${country}`,
-              address: {
-                country,
-              },
-            });
-            storeWeatherData(newWeatherData);
-            console.log("Saved weather data into storage");
-            setWeather(newWeatherData);
-          } else {
-            // Handle case where locationData is null (IP lookup failed)
-            console.warn(
-              "Could not get location from IP. Weather data might be unavailable."
-            );
-            setWeather(null); // Or set to a specific error state if needed
+          if (publicIP) {
+            const locationData = await getLocationFromIP(publicIP);
+            if (locationData) {
+              const { lat, lon, city, regionName, country } = locationData;
+              const newWeatherData = await FetchWeather({
+                lat,
+                lon,
+                name: city,
+                display_name: `${city}, ${regionName}, ${country}`,
+                address: {
+                  country,
+                },
+              });
+              storeWeatherData(newWeatherData);
+              console.log("Saved weather data into storage");
+              setWeather(newWeatherData);
+            } else {
+              // Handle case where locationData is null (IP lookup failed)
+              console.warn("Could not get location from IP. Weather data might be unavailable.");
+              setWeather(null); // Or set to a specific error state if needed
+            }
           }
         }
       } catch (error) {
@@ -94,11 +89,7 @@ export default function WeatherProvider({ children }: WeatherProviderProp) {
         timezone: null,
         setWeather: null,
       };
-  return (
-    <WeatherContext.Provider value={weatherContextValue}>
-      {children}
-    </WeatherContext.Provider>
-  );
+  return <WeatherContext.Provider value={weatherContextValue}>{children}</WeatherContext.Provider>;
 }
 export function useWeather() {
   const weatherContext = useContext(WeatherContext);

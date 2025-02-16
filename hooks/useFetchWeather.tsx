@@ -7,9 +7,7 @@ interface Location {
   display_name?: string;
   address: any;
 }
-export default async function useFetchWeather(
-  location: Location
-): Promise<WeatherData | null> {
+export default async function useFetchWeather(location: Location): Promise<WeatherData | null> {
   try {
     const data = await makeWeatherRequest(location.lat, location.lon);
     const name = location.name;

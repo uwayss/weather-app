@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   LocationAPIResponse,
   RawWeatherAPIResponse,
-  IPAPIResponse,
+  IPGeolocationResponse,
 } from "@/types/apiTypes";
 const FORECAST_DAYS = 16; // Number of days for forecast
 const locationApi = (q: string) =>
@@ -15,9 +15,7 @@ const defaultHeaders = {
   "User-Agent": "MuhammedsWeatherApp/1.0 (mamipromax1513@gmail.com)",
 };
 
-export async function makeNominatimRequest(
-  q: string
-): Promise<LocationAPIResponse> {
+export async function makeNominatimRequest(q: string): Promise<LocationAPIResponse> {
   try {
     const response = await axios.get(locationApi(q), {
       headers: defaultHeaders,
@@ -29,10 +27,7 @@ export async function makeNominatimRequest(
   }
 }
 
-export async function makeWeatherRequest(
-  lat: string,
-  lon: string
-): Promise<RawWeatherAPIResponse> {
+export async function makeWeatherRequest(lat: string, lon: string): Promise<RawWeatherAPIResponse> {
   try {
     const response = await axios.get(weatherApi(lat, lon));
     return response.data;
@@ -42,13 +37,9 @@ export async function makeWeatherRequest(
   }
 }
 
-export async function getLocationFromIP(
-  query: string
-): Promise<IPAPIResponse | null> {
+export async function getLocationFromIP(query: string): Promise<IPGeolocationResponse | null> {
   try {
-    const response = await axios.get(
-      `http://ip-api.com/json/${query}?fields=61433`
-    );
+    const response = await axios.get(`http://ip-api.com/json/${query}?fields=61433`);
     return response.data;
   } catch (error) {
     console.error("Error:", error);

@@ -26,19 +26,11 @@ export default function DayModal(props: DayModalProps) {
       transparent={true}
       statusBarTranslucent={false}
       visible={modalVisible}
-      onRequestClose={toggleVisibility}
-    >
+      onRequestClose={toggleVisibility}>
       <View style={styles.container}>
-        <WeatherBackground
-          weatherCode={data.weather_code}
-          isDay={isCurrentlyDay}
-        />
+        <WeatherBackground weatherCode={data.weather_code} isDay={isCurrentlyDay} />
         <ScrollView style={{ height: "100%", width: "100%" }}>
-          <GlassyView
-            rounded={false}
-            style={styles.safeContainer}
-            isTransparent
-          >
+          <GlassyView rounded={false} style={styles.safeContainer} isTransparent>
             {data && <StatsView dayData={data} />}
             {data && <HourlyForecast time={data.time} />}
           </GlassyView>

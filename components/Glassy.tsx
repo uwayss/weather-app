@@ -44,8 +44,7 @@ export const GlassyText: React.FC<GlassyTextProps> = ({
           textAlign: centered ? "center" : undefined,
         },
         style,
-      ]}
-    >
+      ]}>
       {children}
     </Text>
   );
@@ -73,19 +72,15 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  const baseStyles = rounded
-    ? styleSheet.glassyView
-    : styleSheet.glassyViewSquare;
+  const baseStyles = rounded ? styleSheet.glassyView : styleSheet.glassyViewSquare;
 
   const backgroundColor = isTransparent
     ? "transparent"
     : debug
-    ? "red"
-    : hexToRgba(theme.background, alpha);
+      ? "red"
+      : hexToRgba(theme.background, alpha);
 
-  let content = (
-    <View style={[{ backgroundColor }, baseStyles, style]}>{children}</View>
-  );
+  let content = <View style={[{ backgroundColor }, baseStyles, style]}>{children}</View>;
 
   if (safe) {
     content = <SafeAreaView>{content}</SafeAreaView>;
@@ -97,9 +92,7 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
 
   if (onPressNoFeedback) {
     content = (
-      <TouchableWithoutFeedback onPress={onPressNoFeedback}>
-        {content}
-      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={onPressNoFeedback}>{content}</TouchableWithoutFeedback>
     );
   }
 

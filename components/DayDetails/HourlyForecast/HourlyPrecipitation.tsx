@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import HourlyRainProbGraph from "@/components/Graphs/HourlyRainProbGraph";
-import { DayWeather, HourWeather } from "@/types/apiTypes";
+import { HourWeather } from "@/types/apiTypes";
 type HourlyPrecipitationProp = {
   data: HourWeather[];
 };
@@ -22,13 +22,11 @@ export default function HourlyPrecipitation({ data }: HourlyPrecipitationProp) {
             new Date(day.time).getMinutes().toString().padStart(2, "0"),
           precipitation: day.rainProbability || 0,
         };
-      }
+      },
     );
     return (
       <GlassyView style={styles.container} isTransparent>
-        <GlassyText style={styles.headerStyle}>
-          Rain Probability Graph
-        </GlassyText>
+        <GlassyText style={styles.headerStyle}>Rain Probability Graph</GlassyText>
         <HourlyRainProbGraph data={processedData} />
       </GlassyView>
     );

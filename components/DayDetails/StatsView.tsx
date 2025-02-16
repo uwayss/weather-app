@@ -1,9 +1,6 @@
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { StyleSheet, View } from "react-native";
-import {
-  weatherCodeToCondition,
-  weatherCodeToImageURL,
-} from "@/helpers/weather";
+import { weatherCodeToCondition, weatherCodeToImageURL } from "@/helpers/weather";
 import { Image } from "react-native";
 import { AwesomeIcon } from "@/components/Icon";
 import { DayWeather } from "@/types/apiTypes";
@@ -68,9 +65,7 @@ function ConditionInfo({ weather_code }: { weather_code: number }) {
           style={{ width: 48, height: 48 }}
           source={{ uri: weatherCodeToImageURL(weather_code) }}
         />
-        <GlassyText style={styles.statText}>
-          {weatherCodeToCondition(weather_code)}
-        </GlassyText>
+        <GlassyText style={styles.statText}>{weatherCodeToCondition(weather_code)}</GlassyText>
       </View>
     </View>
   );
@@ -78,22 +73,14 @@ function ConditionInfo({ weather_code }: { weather_code: number }) {
 
 export default function StatsView({ dayData }: { dayData: DayWeather }) {
   let content = (
-    <GlassyText style={[styles.statText, { textAlign: "center" }]}>
-      Loading...
-    </GlassyText>
+    <GlassyText style={[styles.statText, { textAlign: "center" }]}>Loading...</GlassyText>
   );
   if (dayData) {
     content = (
       <>
         <Header time={dayData.time} />
-        <TemperatureInfo
-          minTemperature={dayData.minTemp}
-          maxTemperature={dayData.maxTemp}
-        />
-        <GenericInfo
-          rainProbability={dayData.rainProbability}
-          windSpeed={dayData.windSpeed}
-        />
+        <TemperatureInfo minTemperature={dayData.minTemp} maxTemperature={dayData.maxTemp} />
+        <GenericInfo rainProbability={dayData.rainProbability} windSpeed={dayData.windSpeed} />
         <ConditionInfo weather_code={dayData.weather_code} />
       </>
     );

@@ -10,20 +10,18 @@ export default function SearchBar() {
   const { showSearch, toggleSearch, setLocations } = useSearchBar();
   const [searchText, setSearchText] = useState("");
   const debouncedSearch = useDebounce(searchText, 800); // Use the debounce hook
-  const { themeName, theme } = useTheme();
+  const { theme } = useTheme();
 
   // Fetch locations when debouncedSearch changes
   useEffect(() => {
     async function getLocations() {
       if (!debouncedSearch.trim()) return;
-      const newLocations = await fetchLocations(
-        encodeURIComponent(debouncedSearch)
-      );
+      const newLocations = await fetchLocations(encodeURIComponent(debouncedSearch));
       setLocations(newLocations);
     }
 
     getLocations();
-  }, [debouncedSearch]);
+  }, [debouncedSearch, setLocations]);
 
   return (
     <GlassyView
@@ -36,8 +34,7 @@ export default function SearchBar() {
         paddingLeft: 80,
         height: 52,
       }}
-      alpha={!showSearch ? 0 : 0.5}
-    >
+      alpha={!showSearch ? 0 : 0.5}>
       <FeatherIcon
         name="map-pin"
         size={28}

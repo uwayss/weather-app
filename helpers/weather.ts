@@ -8,7 +8,7 @@ export function calculateMinMax(
     day: string;
     minTemp: number;
     maxTemp: number;
-  }[]
+  }[],
 ) {
   const minTemps = data.map((element) => Math.round(element.minTemp) || 0);
   const maxTemps = data.map((element) => Math.round(element.maxTemp) || 0);
@@ -20,7 +20,7 @@ export function calculateMinMax(
 
 export function weatherCodeToBackgroundImageSource(
   code?: number,
-  isDay?: 1 | 0
+  isDay?: 1 | 0,
 ): ImageSourcePropType | undefined {
   if (code === undefined) {
     return backgroundMappings["default"].day;
@@ -28,9 +28,7 @@ export function weatherCodeToBackgroundImageSource(
   const weatherData = backgroundMappings[code];
 
   if (!weatherData) {
-    console.warn(
-      `weatherCodeToBackgroundImageURL: No background mapping found for code ${code}.`
-    );
+    console.warn(`weatherCodeToBackgroundImageURL: No background mapping found for code ${code}.`);
     return undefined; // Or a default image URL
   }
 
@@ -40,7 +38,7 @@ export function weatherCodeToBackgroundImageSource(
     imageSource = weatherData.night;
   } else if (isDay !== 1 && isDay !== undefined) {
     console.warn(
-      `weatherCodeToBackgroundImageURL: Invalid isDay value: ${isDay}.  Expected 0 or 1.`
+      `weatherCodeToBackgroundImageURL: Invalid isDay value: ${isDay}.  Expected 0 or 1.`,
     );
     return undefined; // Or a default image URL
   }
@@ -58,13 +56,9 @@ export function weatherCodeToImageURL(code: number, isDay?: 0 | 1) {
   return weatherDescriptions[code][timeOfDay].image;
 }
 
-export function processDailyWeatherData(
-  dailyForecast: DayWeather[]
-): DayWeather[] | null {
+export function processDailyWeatherData(dailyForecast: DayWeather[]): DayWeather[] | null {
   if (!Array.isArray(dailyForecast)) {
-    console.error(
-      "Error: Invalid input to processDailyWeatherData. Expected an array."
-    );
+    console.error("Error: Invalid input to processDailyWeatherData. Expected an array.");
     return null;
   }
 
@@ -77,10 +71,7 @@ export function processDailyWeatherData(
 
   for (const dayData of dailyForecast) {
     if (!dayData || typeof dayData !== "object" || !dayData.time) {
-      console.error(
-        "Error: Invalid day data object within dailyForecast:",
-        dayData
-      );
+      console.error("Error: Invalid day data object within dailyForecast:", dayData);
       continue;
     }
     result.push(dayData);
@@ -91,7 +82,7 @@ export function processDailyWeatherData(
 
 export function processPrecipitationData(
   data: { day?: string; hour?: string; precipitation: number }[],
-  type = "daily"
+  type = "daily",
 ) {
   if (!Array.isArray(data)) {
     throw new Error("Input must be an array.");
@@ -107,7 +98,7 @@ export function processPrecipitationData(
         item.precipitation === undefined
       ) {
         throw new Error(
-          "Invalid data format in array. Each object must have 'day' and 'precipitation' properties."
+          "Invalid data format in array. Each object must have 'day' and 'precipitation' properties.",
         );
       }
       return {
@@ -124,7 +115,7 @@ export function processPrecipitationData(
         item.precipitation === undefined
       ) {
         throw new Error(
-          "Invalid data format in array. Each object must have 'hour' and 'precipitation' properties."
+          "Invalid data format in array. Each object must have 'hour' and 'precipitation' properties.",
         );
       }
       return {
@@ -144,7 +135,7 @@ type ChartDataProp = {
 };
 
 export function transformWeatherDataToChartData(
-  weatherData: { day: string; minTemp: number; maxTemp: number }[]
+  weatherData: { day: string; minTemp: number; maxTemp: number }[],
 ) {
   const chartData: ChartDataProp[] = [];
   const maxTempFrontColor = "lightblue";
@@ -171,13 +162,10 @@ export function transformWeatherDataToChartData(
 }
 
 export function transformHourlyDataToChartData(
-  hourlyData: { hour: string; temperature: number }[]
+  hourlyData: { hour: string; temperature: number }[],
 ) {
   if (!Array.isArray(hourlyData)) {
-    console.error(
-      "transformHourlyDataToChartData: hourlyData is not an array",
-      hourlyData
-    );
+    console.error("transformHourlyDataToChartData: hourlyData is not an array", hourlyData);
     return [];
   }
 
@@ -190,23 +178,14 @@ export function transformHourlyDataToChartData(
   return chartData;
 }
 
-export function getHourlyDataForDate(
-  hourlyForecast: HourWeather[],
-  dateString: string
-) {
+export function getHourlyDataForDate(hourlyForecast: HourWeather[], dateString: string) {
   if (!hourlyForecast || !Array.isArray(hourlyForecast)) {
-    console.error(
-      "getHourlyDataForDate: Invalid hourlyForecast provided:",
-      hourlyForecast
-    );
+    console.error("getHourlyDataForDate: Invalid hourlyForecast provided:", hourlyForecast);
     return [];
   }
 
   if (!dateString || typeof dateString !== "string") {
-    console.error(
-      "getHourlyDataForDate: Invalid dateString provided:",
-      dateString
-    );
+    console.error("getHourlyDataForDate: Invalid dateString provided:", dateString);
     return [];
   }
 

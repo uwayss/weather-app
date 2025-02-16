@@ -24,18 +24,14 @@ export default function TemperatureGraph() {
     }));
 
   return (
-    <GlassyView
-      style={{ padding: 16, margin: 16, alignItems: "center" }}
-      alpha={0.3}
-    >
+    <GlassyView style={{ padding: 16, margin: 16, alignItems: "center" }} alpha={0.3}>
       <GlassyText
         style={{
           fontSize: 20,
           lineHeight: 28,
           fontWeight: "bold",
           marginBottom: 8,
-        }}
-      >
+        }}>
         Temperature Forecast
       </GlassyText>
       <DailyTemperatureGraph data={temperatureData} />

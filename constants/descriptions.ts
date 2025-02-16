@@ -1,10 +1,10 @@
-interface weatherDescriptions {
+interface weatherDescriptionsType {
   [code: number]: {
     day: { description: string; image: string };
     night: { description: string; image: string };
   };
 }
-const weatherDescriptions: weatherDescriptions = {
+const weatherDescriptions: weatherDescriptionsType = {
   0: {
     day: {
       description: "Sunny",

@@ -10,25 +10,11 @@ type IconProps = {
 };
 export function AwesomeIcon({ name, size, style }: IconProps): JSX.Element {
   const { theme } = useTheme();
-  return (
-    <FontAwesome6
-      name={name}
-      color={theme.accent}
-      size={size ? size : 20}
-      style={style}
-    />
-  );
+  return <FontAwesome6 name={name} color={theme.accent} size={size ? size : 20} style={style} />;
 }
 
 export function FeatherIcon({ name, size, style }: IconProps): JSX.Element {
   const { theme } = useTheme();
 
-  return (
-    <Feather
-      name={name}
-      size={size ? size : 20}
-      color={theme.accent}
-      style={style}
-    />
-  );
+  return <Feather name={name} size={size ? size : 20} color={theme.accent} style={style} />;
 }

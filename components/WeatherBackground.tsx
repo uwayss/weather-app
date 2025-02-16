@@ -5,25 +5,13 @@ type WeatherBackgroundProps = {
   weatherCode?: number;
   isDay?: 0 | 1;
 };
-export default function WeatherBackground({
-  weatherCode,
-  isDay,
-}: WeatherBackgroundProps) {
+export default function WeatherBackground({ weatherCode, isDay }: WeatherBackgroundProps) {
   let content = (
-    <Image
-      style={styles.backgroundImage}
-      source={weatherCodeToBackgroundImageSource()}
-    />
+    <Image style={styles.backgroundImage} source={weatherCodeToBackgroundImageSource()} />
   );
   if (weatherCode !== undefined) {
     const imageSource = weatherCodeToBackgroundImageSource(weatherCode, isDay);
-    content = (
-      <Image
-        source={imageSource}
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      />
-    );
+    content = <Image source={imageSource} style={styles.backgroundImage} resizeMode="cover" />;
   }
   return content;
 }

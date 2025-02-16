@@ -31,7 +31,5 @@ export default function HourlyRainProbGraph({
     xAxisThickness: 0,
   };
 
-  return (
-    <BaseChart type="line" data={currentData} lineChartProps={lineChartProps} />
-  );
+  return <BaseChart type="line" data={currentData} lineChartProps={lineChartProps} />;
 }

@@ -19,7 +19,7 @@ export default function HourlyTemperature({ data }: HourlyTemperatureProp) {
         ":" +
         new Date(hour.time).getMinutes().toString().padStart(2, "0"),
       temperature: hour.temperature,
-    })
+    }),
   );
   return (
     <GlassyView style={{ padding: 16 }}>

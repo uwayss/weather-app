@@ -15,14 +15,10 @@ export default function HourlyTemperatureGraph({
     yAxisLabelWidth: 0,
     initialSpacing: 10,
     endSpacing: 15,
-    barInnerComponent: (
-      item: barDataItem | stackDataItem | undefined
-    ): ReactNode => {
+    barInnerComponent: (item: barDataItem | stackDataItem | undefined): ReactNode => {
       return (
         <GlassyView rounded={false}>
-          <GlassyText style={{ fontWeight: "bold" }}>
-            {Math.round(item?.value ?? 0)}
-          </GlassyText>
+          <GlassyText style={{ fontWeight: "bold" }}>{Math.round(item?.value ?? 0)}</GlassyText>
         </GlassyView>
       );
     },

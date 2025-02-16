@@ -13,8 +13,7 @@ export default function SearchSection() {
         marginTop: 8,
         zIndex: 10,
         position: "absolute",
-      }}
-    >
+      }}>
       <SearchBar />
       {locations?.length > 0 && showSearch && <SearchLocations />}
     </SafeAreaView>

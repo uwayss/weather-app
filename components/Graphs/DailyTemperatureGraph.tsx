@@ -1,9 +1,6 @@
 import React, { useMemo } from "react";
 import BaseChart from "./BaseChart";
-import {
-  calculateMinMax,
-  transformWeatherDataToChartData,
-} from "@/helpers/weather";
+import { calculateMinMax, transformWeatherDataToChartData } from "@/helpers/weather";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
@@ -22,9 +19,7 @@ export default function DailyTemperatureGraph({
     yAxisLabelWidth: 0,
     initialSpacing: 10,
     endSpacing: 15,
-    barInnerComponent: (
-      item: barDataItem | undefined | stackDataItem
-    ): ReactNode => {
+    barInnerComponent: (item: barDataItem | undefined | stackDataItem): ReactNode => {
       return (
         <GlassyView rounded={false}>
           <GlassyText style={{ fontWeight: "bold" }}>

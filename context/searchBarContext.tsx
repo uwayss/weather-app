@@ -17,11 +17,7 @@ export const SearchBarContext = createContext<SearchBarContextValue>({
   toggleSearch: () => {},
 });
 
-export default function SearchBarProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SearchBarProvider({ children }: { children: React.ReactNode }) {
   const [locations, setLocations] = useState<LocationAPIResponse>([]);
   const [showSearch, setShowSearch] = useState(false);
   return (
@@ -32,8 +28,7 @@ export default function SearchBarProvider({
         showSearch,
         setShowSearch,
         toggleSearch: () => setShowSearch(!showSearch),
-      }}
-    >
+      }}>
       {children}
     </SearchBarContext.Provider>
   );

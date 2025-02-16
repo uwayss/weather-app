@@ -12,8 +12,7 @@ export default function MainSection() {
       style={styles.safeContainer}
       safe
       isTransparent
-      onPressNoFeedback={() => setShowSearch(false)}
-    >
+      onPressNoFeedback={() => setShowSearch(false)}>
       <Stats />
       <DailyForecastSection />
     </GlassyView>

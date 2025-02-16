@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import { View, Image, Text, Pressable, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { weatherCodeToImageURL } from "@/helpers/weather";
 import { useWeather } from "@/context/weatherContext";
-import { useRouter } from "expo-router";
 import { DayWeather } from "@/types/apiTypes";
 import DayModal from "@/components/DayDetails/DayModal";
 type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
-  const imageUri = weatherCodeToImageURL(
-    weatherCode,
-    useWeather().currentWeather?.isDay
-  );
+  const imageUri = weatherCodeToImageURL(weatherCode, useWeather().currentWeather?.isDay);
   if (!imageUri) {
     return null; // TODO: Add a placeholder image
   }
@@ -20,8 +16,7 @@ function ConditionImage({ weatherCode }: ConditionImageProps) {
       source={{
         uri: imageUri,
       }}
-      style={{ width: 127, height: 96, backgroundColor: "transparent" }}
-    ></Image>
+      style={{ width: 127, height: 96, backgroundColor: "transparent" }}></Image>
   );
 }
 type WeekdayTextProps = {
@@ -40,8 +35,7 @@ function WeekdayText({ time }: WeekdayTextProps) {
         lineHeight: 28,
         fontWeight: "bold",
         letterSpacing: 1,
-      }}
-    >
+      }}>
       {weekday}
     </GlassyText>
   );
@@ -56,8 +50,7 @@ function TemperatureText({ min, max }: TemperatureTextProps) {
           fontWeight: "bold",
           fontSize: 18,
           lineHeight: 28,
-        }}
-      >
+        }}>
         {Math.round(max) ?? "--"}°C /
       </GlassyText>
       <GlassyText
@@ -66,8 +59,7 @@ function TemperatureText({ min, max }: TemperatureTextProps) {
           fontWeight: "bold",
           fontSize: 18,
           lineHeight: 28,
-        }}
-      >
+        }}>
         {Math.round(min) ?? "--"}°C
       </GlassyText>
     </View>
@@ -83,8 +75,7 @@ export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
         alpha={0.3}
         onPress={() => {
           setModalVisible(true);
-        }}
-      >
+        }}>
         <ConditionImage weatherCode={data.weather_code} />
         <WeekdayText time={data.time} />
         <TemperatureText min={data.minTemp} max={data.maxTemp} />

@@ -11,11 +11,12 @@ export default function PrecipitationGraph() {
       </GlassyView>
     );
   }
-  const precipitationData: { day: string; precipitation: number }[] =
-    dailyWeather.forecast.map((day) => ({
+  const precipitationData: { day: string; precipitation: number }[] = dailyWeather.forecast.map(
+    (day) => ({
       day: new Date(day.time).toLocaleDateString("en-UK", { weekday: "short" }),
       precipitation: day.rainProbability || 0,
-    }));
+    }),
+  );
 
   return (
     <GlassyView style={{ padding: 16, margin: 16, gap: 8 }} alpha={0.3}>

@@ -16,10 +16,7 @@ export function isWithinLast30Minutes(dateString: string): boolean {
   const dateTimestamp = date.getTime(); // Get timestamp of the input date
 
   if (isNaN(dateTimestamp)) {
-    console.warn(
-      "Invalid date string provided to isWithinLast30Minutes:",
-      dateString
-    );
+    console.warn("Invalid date string provided to isWithinLast30Minutes:", dateString);
     return false; // Handle invalid date strings
   }
 
@@ -28,15 +25,7 @@ export function isWithinLast30Minutes(dateString: string): boolean {
   return dateTimestamp >= thirtyMinutesAgo && dateTimestamp <= now;
 }
 
-const WEEKDAYS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 /**
  * Converts a date (or day index) to its corresponding weekday name.
@@ -44,9 +33,7 @@ const WEEKDAYS = [
  * @param date Either a Date object or the numeric day of the week (0 for Sunday, 1 for Monday, etc.). If omitted, defaults to the current day.
  * @returns The name of the weekday (e.g., "Monday").  Returns undefined if the input is out of range.
  */
-export function dateToWeekday(
-  date: Date | number = new Date().getDay()
-): string | undefined {
+export function dateToWeekday(date: Date | number = new Date().getDay()): string | undefined {
   let dayIndex: number;
 
   if (date instanceof Date) {
