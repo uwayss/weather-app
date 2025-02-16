@@ -1,6 +1,6 @@
 {
-    "printWidth": 100,
-    "tabWidth": 2,
-    "doubleQuote": true,
-    "bracketSameLine": true
+  "printWidth": 100,
+  "tabWidth": 2,
+  "bracketSameLine": true,
+  "endOfLine": "lf"
 }
