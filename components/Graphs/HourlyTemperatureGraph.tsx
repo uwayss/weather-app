@@ -14,7 +14,8 @@ export default function HourlyTemperatureGraph({
     barWidth: 24,
     yAxisLabelWidth: 0,
     initialSpacing: 10,
-    endSpacing: 15,
+    endSpacing: -5,
+    hideRules: true,
     barInnerComponent: (item: barDataItem | stackDataItem | undefined): ReactNode => {
       return (
         <GlassyView rounded={false}>
@@ -22,7 +23,7 @@ export default function HourlyTemperatureGraph({
         </GlassyView>
       );
     },
-    spacing: 25,
+    spacing: 20,
     noOfSections: 5,
     showGradient: true,
     labelWidth: 40,

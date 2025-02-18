@@ -25,7 +25,7 @@ export default function HourlyPrecipitation({ data }: HourlyPrecipitationProp) {
       },
     );
     return (
-      <GlassyView style={styles.container} isTransparent>
+      <GlassyView style={styles.container}>
         <GlassyText style={styles.headerStyle}>Rain Probability Graph</GlassyText>
         <HourlyRainProbGraph data={processedData} />
       </GlassyView>
