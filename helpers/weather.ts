@@ -1,8 +1,65 @@
 import weatherDescriptions from "@/constants/descriptions";
 import backgroundMappings from "@/constants/backgroundMappings"; // Adjust path if needed
-import { DayWeather, HourWeather } from "@/types/apiTypes";
+import { DayWeather, HourWeather, WeatherData } from "@/types/apiTypes";
 import { ImageSourcePropType } from "react-native";
+import { getPublicIP, getLocationFromIP } from "@/helpers/api";
+import FetchWeather from "@/hooks/useFetchWeather";
+import { readWeatherData, storeWeatherData } from "./storage";
 
+export async function fetchWeatherDataForContext(
+  setWeather: React.Dispatch<React.SetStateAction<WeatherData | null>>,
+) {
+  try {
+    const previousWeatherData = await readWeatherData();
+    if (!isValidWeatherData(previousWeatherData)) {
+      await getWeatherDataFromPublicIp(setWeather);
+      return;
+    }
+    console.log("Using previous weather data");
+    return setWeather(previousWeatherData);
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    setWeather(null); // Set weather to null in case of any error
+  }
+}
+
+export async function getWeatherDataFromPublicIp(
+  setWeather: React.Dispatch<React.SetStateAction<WeatherData | null>>,
+) {
+  console.log("Generating new data based on public IP address");
+  const publicIP = await getPublicIP();
+  if (!publicIP) {
+    console.warn("Could not get location from IP. Weather data might be unavailable.");
+    setWeather(null); // Or set to a specific error state if needed
+    return;
+  }
+  const locationData = await getLocationFromIP(publicIP);
+  if (!locationData) {
+    console.warn("Could not get location from IP. Weather data might be unavailable.");
+    setWeather(null);
+    return;
+  }
+  const { lat, lon, city, regionName, country } = locationData;
+  const newWeatherData = await FetchWeather({
+    lat,
+    lon,
+    name: city,
+    display_name: `${city}, ${regionName}, ${country}`,
+    address: {
+      country,
+    },
+  });
+  storeWeatherData(newWeatherData);
+  console.log("Saved weather data into storage");
+  return setWeather(newWeatherData);
+}
+export function isValidWeatherData(weatherData: WeatherData | null): WeatherData | null {
+  if (weatherData && weatherData.currentWeather) {
+    console.warn("Valid weather data found in storage");
+    return weatherData;
+  }
+  return null;
+}
 export function calculateMinMax(
   data: {
     day: string;

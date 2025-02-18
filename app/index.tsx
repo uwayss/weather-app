@@ -8,21 +8,19 @@ import MainSection from "@/components/Home/MainSection/MainSection";
 
 const HomeScreen = () => {
   const { currentWeather } = useWeather();
-  const weatherCode = currentWeather?.weatherCode;
-  const isDay = currentWeather?.isDay;
+  const { weatherCode, isDay } = currentWeather || {};
+  const backgroundProps = weatherCode && isDay ? { weatherCode, isDay } : {};
 
-  const backgroundProps =
-    weatherCode !== undefined && isDay !== undefined ? { weatherCode, isDay } : {};
   return (
     <WeatherProvider>
       <View style={{ height: "100%", width: "100%" }}>
         <WeatherBackground {...backgroundProps} />
-        <ScrollView style={{ flex: 1 }}>
-          <SearchBarProvider>
+        <SearchBarProvider>
+          <ScrollView style={{ flex: 1 }}>
             <SearchSection />
             <MainSection />
-          </SearchBarProvider>
-        </ScrollView>
+          </ScrollView>
+        </SearchBarProvider>
       </View>
       <StatusBar style="auto" />
     </WeatherProvider>

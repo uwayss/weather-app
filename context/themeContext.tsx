@@ -1,8 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
-import themes from "./theme"; // Import the themes object we just created
+import themes from "./theme";
 import { ThemeContextValue } from "@/types/themeTypes";
-const THEME_STORAGE_KEY = "app_theme"; // Key to store theme in AsyncStorage
+import { readTheme, storeTheme } from "@/helpers/storage";
 
 export const themeContext = createContext<ThemeContextValue>({
   theme: themes.dark,
@@ -16,35 +15,33 @@ type ProviderProps = {
 export default function ThemeProvider({ children }: ProviderProps) {
   const [themeName, setThemeName] = useState<"dark" | "light">("dark");
 
-  // Load theme from AsyncStorage on component mount (app startup)
+  // Load theme from storage on component mount (app startup)
   useEffect(() => {
     const loadTheme = async () => {
       try {
-        const storedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
-        if (storedTheme === "light" || storedTheme === "dark") {
-          setThemeName(storedTheme); // Use stored theme if available
-          console.log("Loaded theme from AsyncStorage");
-        }
+        const storedTheme = await readTheme();
+        setThemeName(storedTheme); // Use stored theme if available
+        console.log("Loaded theme from storage");
       } catch (e) {
-        console.error("Error loading theme from AsyncStorage:", e);
+        console.error("Error loading theme from storage:", e);
       }
     };
     loadTheme();
   }, []); // Run only once on mount
 
-  // Update AsyncStorage when themeName changes
+  // Update storage when themeName changes
   useEffect(() => {
     const saveTheme = async () => {
       try {
         if (!themeName) return;
-        await AsyncStorage.setItem(THEME_STORAGE_KEY, themeName);
-        console.log("Saved theme into AsyncStorage");
+        storeTheme(themeName);
+        console.log("Saved theme into storage");
       } catch (e) {
-        console.error("Error saving theme to AsyncStorage:", e);
+        console.error("Error saving theme to storage:", e);
       }
     };
     saveTheme();
-  }, [themeName]); // Run whenever themeName changes
+  }, [themeName]);
 
   if (themeName) {
     const theme = themes[themeName];
