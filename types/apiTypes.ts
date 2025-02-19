@@ -154,3 +154,14 @@ export interface LocationSearchResult {
 }
 
 export type LocationAPIResponse = LocationSearchResult[];
+
+export type HourlyRainProbGraphProps = {
+  hour: string;
+  precipitation: number;
+}[];
+
+export type HourlyTemperatureGraphProps = {
+  hour: string;
+  temperature: number;
+}[];
+export type RainProbGraphProps = { day?: string; hour?: string; precipitation: number }[];

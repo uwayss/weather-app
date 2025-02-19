@@ -1,10 +1,10 @@
-import { View, ScrollView } from "react-native";
 import SearchSection from "@/components/Home/SearchSection/SearchSection";
 import WeatherProvider, { useWeather } from "@/context/weatherContext";
-import SearchBarProvider from "@/context/searchBarContext";
-import { StatusBar } from "expo-status-bar";
-import WeatherBackground from "@/components/WeatherBackground";
 import MainSection from "@/components/Home/MainSection/MainSection";
+import WeatherBackground from "@/components/WeatherBackground";
+import SearchBarProvider from "@/context/searchBarContext";
+import { View, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = () => {
   const { currentWeather } = useWeather();

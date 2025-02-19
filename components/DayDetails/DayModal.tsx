@@ -1,14 +1,15 @@
 import { View, Modal, Pressable, StyleSheet, ScrollView } from "react-native";
-import { GlassyText, GlassyView } from "@/components/Glassy";
+import { GlassyView } from "@/components/Glassy";
 import WeatherBackground from "../WeatherBackground";
 import { DayWeather } from "@/types/apiTypes";
 import { useWeather } from "@/context/weatherContext";
 import StatsView from "./StatsView";
 import HourlyForecast from "./HourlyForecast/HourlyForecast";
+import { AwesomeIcon } from "@/components/Icon";
 function CloseButton({ toggleVisibility }: { toggleVisibility: () => void }) {
   return (
     <Pressable style={styles.button} onPress={toggleVisibility}>
-      <GlassyText style={{ fontWeight: "bold" }}>Back</GlassyText>
+      <AwesomeIcon name="arrow-left" size={32} />
     </Pressable>
   );
 }
@@ -23,7 +24,6 @@ export default function DayModal(props: DayModalProps) {
   return (
     <Modal
       animationType="slide"
-      transparent={true}
       statusBarTranslucent={false}
       visible={modalVisible}
       onRequestClose={toggleVisibility}>
@@ -42,13 +42,13 @@ export default function DayModal(props: DayModalProps) {
 }
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    backgroundColor: "transparent",
+    flexDirection: "column",
     position: "absolute",
     top: 20,
     left: 20,
+    borderRadius: 12,
+    padding: 8,
+    backgroundColor: "rgba(126,126,126,0.1)",
   },
   container: {
     flex: 1,

@@ -2,9 +2,10 @@ import React from "react";
 import BaseChart from "./BaseChart";
 import { processPrecipitationData } from "@/helpers/weather";
 import { useTheme } from "@/context/themeContext";
+import { RainProbGraphProps } from "@/types/apiTypes";
 
 type Props = {
-  data: { day?: string; hour?: string; precipitation: number }[];
+  data: RainProbGraphProps;
 };
 
 function DailyRainProbGraph({ data }: Props) {

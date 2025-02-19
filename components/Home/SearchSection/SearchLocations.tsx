@@ -20,9 +20,6 @@ export default function SearchLocations() {
   }
 
   function Location({ location }: { location: LocationSearchResult }) {
-    {
-      console.warn(location);
-    }
     return (
       <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center" }}

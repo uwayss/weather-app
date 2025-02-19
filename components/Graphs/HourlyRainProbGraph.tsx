@@ -2,12 +2,9 @@ import React from "react";
 import BaseChart from "./BaseChart";
 import { processPrecipitationData } from "@/helpers/weather";
 import { useTheme } from "@/context/themeContext";
+import { HourlyRainProbGraphProps } from "@/types/apiTypes";
 
-export default function HourlyRainProbGraph({
-  data,
-}: {
-  data: { hour: string; precipitation: number }[];
-}) {
+export default function HourlyRainProbGraph({ data }: { data: HourlyRainProbGraphProps }) {
   const currentData = processPrecipitationData(data, "hourly");
   const { theme } = useTheme();
 

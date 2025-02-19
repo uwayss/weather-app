@@ -4,12 +4,9 @@ import { transformHourlyDataToChartData } from "@/helpers/weather";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
+import { HourlyTemperatureGraphProps } from "@/types/apiTypes";
 
-export default function HourlyTemperatureGraph({
-  data,
-}: {
-  data: { hour: string; temperature: number }[];
-}) {
+export default function HourlyTemperatureGraph({ data }: { data: HourlyTemperatureGraphProps }) {
   const barChartProps = {
     barWidth: 24,
     yAxisLabelWidth: 0,
