@@ -1,76 +1,41 @@
-import { View, Image, StyleSheet } from "react-native";
+import { Image } from "react-native";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { weatherCodeToImageURL } from "@/helpers/weather";
 import { useWeather } from "@/context/weatherContext";
 import { DayWeather } from "@/types/apiTypes";
 import { useRouter } from "expo-router";
+import { dailyWeatherTileStyles } from "../../styles";
+import { timeToWeekday } from "@/helpers/time";
 type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(weatherCode, useWeather().currentWeather?.isDay);
-  if (!imageUri) {
-    return null; // TODO: Add a placeholder image
-  }
+  if (!imageUri) return null; // TODO: Add a placeholder image
   return (
     <Image
       source={{
         uri: imageUri,
       }}
-      style={{ width: 127, height: 96, backgroundColor: "transparent" }}></Image>
+      style={dailyWeatherTileStyles.conditionImage}></Image>
   );
 }
-type WeekdayTextProps = {
-  time: string;
-};
-function WeekdayText({ time }: WeekdayTextProps) {
-  const weekday = time
-    ? new Date(time).toLocaleDateString("en-UK", {
-        weekday: "long",
-      })
-    : "Unknown";
-  return (
-    <GlassyText
-      style={{
-        fontSize: 20,
-        lineHeight: 28,
-        fontWeight: "bold",
-        letterSpacing: 1,
-      }}>
-      {weekday}
-    </GlassyText>
-  );
+function WeekdayText({ time }: { time: string }) {
+  const weekday = timeToWeekday(time);
+  return <GlassyText style={dailyWeatherTileStyles.weekdayText}>{weekday}</GlassyText>;
 }
 type TemperatureTextProps = { min: number; max: number };
 function TemperatureText({ min, max }: TemperatureTextProps) {
   return (
-    <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
-      <GlassyText
-        style={{
-          letterSpacing: 0.25,
-          fontWeight: "bold",
-          fontSize: 18,
-          lineHeight: 28,
-        }}>
-        {Math.round(max) ?? "--"}°C /
-      </GlassyText>
-      <GlassyText
-        style={{
-          letterSpacing: 0.25,
-          fontWeight: "bold",
-          fontSize: 18,
-          lineHeight: 28,
-        }}>
-        {Math.round(min) ?? "--"}°C
-      </GlassyText>
-    </View>
+    <GlassyText style={dailyWeatherTileStyles.temperatureText}>
+      {Math.round(max) ?? "--"}°C / {Math.round(min) ?? "--"}°C
+    </GlassyText>
   );
 }
-type DailyWeatherTileProps = { data: DayWeather };
-export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
+export default function DailyWeatherTile({ data }: { data: DayWeather }) {
   const router = useRouter();
   return (
     <>
       <GlassyView
-        style={styles.tile}
+        style={dailyWeatherTileStyles.container}
         alpha={0.3}
         onPress={() => {
           router.push(`/${data.time.split("T")[0]}`); // Navigate to dynamic route
@@ -82,13 +47,3 @@ export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  tile: {
-    flexDirection: "column",
-    gap: 4,
-    alignItems: "center",
-    width: 128,
-    height: 176,
-  },
-});

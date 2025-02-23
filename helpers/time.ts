@@ -47,3 +47,9 @@ export function dateToWeekday(date: Date | number = new Date().getDay()): string
 
   return WEEKDAYS[dayIndex];
 }
+
+export function timeToWeekday(time: string) {
+  return new Date(time).toLocaleDateString("en-UK", {
+    weekday: "long",
+  });
+}

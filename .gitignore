@@ -2,7 +2,6 @@
 
 # dependencies
 node_modules/
-android/
 
 # Expo
 .expo/
@@ -41,3 +40,4 @@ codebase/
 todo.todo
 testing/
 .vscode/
+android/

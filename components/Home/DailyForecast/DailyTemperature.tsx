@@ -1,39 +1,21 @@
 import { GlassyText, GlassyView } from "@/components/Glassy";
-import { useWeather } from "@/context/weatherContext";
 import DailyTemperatureGraph from "@/components/Graphs/DailyTemperatureGraph";
 import { DayWeather } from "@/types/apiTypes";
+import { dailyTemperatureStyles } from "../styles";
 
-export default function TemperatureGraph() {
-  const { dailyWeather } = useWeather();
-
-  if (!dailyWeather || !dailyWeather.forecast) {
-    return (
-      <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>
-        <GlassyText>Temperature data unavailable.</GlassyText>
-      </GlassyView>
-    );
-  }
-
-  const temperatureData: { day: string; minTemp: number; maxTemp: number }[] =
-    dailyWeather.forecast.map((day: DayWeather) => ({
+export default function TemperatureGraph({ forecastData }: { forecastData: DayWeather[] }) {
+  const temperatureData: { day: string; minTemp: number; maxTemp: number }[] = forecastData.map(
+    (day: DayWeather) => ({
       day: new Date(day.time).toLocaleDateString("en-UK", {
         weekday: "short",
       }),
       minTemp: day.minTemp || 0,
       maxTemp: day.maxTemp || 0,
-    }));
-
+    }),
+  );
   return (
-    <GlassyView style={{ padding: 16, margin: 16, alignItems: "center" }} alpha={0.3}>
-      <GlassyText
-        style={{
-          fontSize: 20,
-          lineHeight: 28,
-          fontWeight: "bold",
-          marginBottom: 8,
-        }}>
-        Temperature Forecast
-      </GlassyText>
+    <GlassyView style={dailyTemperatureStyles.container} alpha={0.3}>
+      <GlassyText style={dailyTemperatureStyles.header}>Temperature Forecast</GlassyText>
       <DailyTemperatureGraph data={temperatureData} />
     </GlassyView>
   );

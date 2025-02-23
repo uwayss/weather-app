@@ -1,10 +1,11 @@
 import SearchSection from "@/components/Home/SearchSection/SearchSection";
-import WeatherProvider, { useWeather } from "@/context/weatherContext";
-import MainSection from "@/components/Home/MainSection/MainSection";
+import { useWeather } from "@/context/weatherContext";
+import MainSection from "@/components/Home/MainSection";
 import WeatherBackground from "@/components/WeatherBackground";
 import SearchBarProvider from "@/context/searchBarContext";
 import { View, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { globalStyles } from "./styles";
 
 const HomeScreen = () => {
   const { currentWeather } = useWeather();
@@ -12,18 +13,16 @@ const HomeScreen = () => {
   const backgroundProps = weatherCode && isDay ? { weatherCode, isDay } : {};
 
   return (
-    <WeatherProvider>
-      <View style={{ height: "100%", width: "100%" }}>
-        <WeatherBackground {...backgroundProps} />
-        <SearchBarProvider>
-          <ScrollView style={{ flex: 1 }}>
-            <SearchSection />
-            <MainSection />
-          </ScrollView>
-        </SearchBarProvider>
-      </View>
+    <View style={globalStyles.container}>
+      <WeatherBackground {...backgroundProps} />
+      <SearchBarProvider>
+        <ScrollView style={globalStyles.container}>
+          <SearchSection />
+          <MainSection />
+        </ScrollView>
+      </SearchBarProvider>
       <StatusBar style="auto" />
-    </WeatherProvider>
+    </View>
   );
 };
 

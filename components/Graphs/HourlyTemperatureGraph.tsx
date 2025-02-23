@@ -5,6 +5,7 @@ import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
 import { HourlyTemperatureGraphProps } from "@/types/apiTypes";
+import { globalStyles } from "@/app/styles";
 
 export default function HourlyTemperatureGraph({ data }: { data: HourlyTemperatureGraphProps }) {
   const barChartProps = {
@@ -16,7 +17,7 @@ export default function HourlyTemperatureGraph({ data }: { data: HourlyTemperatu
     barInnerComponent: (item: barDataItem | stackDataItem | undefined): ReactNode => {
       return (
         <GlassyView rounded={false}>
-          <GlassyText style={{ fontWeight: "bold" }}>{Math.round(item?.value ?? 0)}</GlassyText>
+          <GlassyText style={globalStyles.bold}>{Math.round(item?.value ?? 0)}</GlassyText>
         </GlassyView>
       );
     },

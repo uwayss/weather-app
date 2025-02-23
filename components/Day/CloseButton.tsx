@@ -1,13 +1,14 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable } from "react-native";
 import { AwesomeIcon } from "../Icon";
 import { useTheme } from "@/context/themeContext";
+import { closeButtonStyles } from "./styles";
 
 export default function CloseButton({ onClose }: { onClose: () => void }) {
   const { theme } = useTheme();
   return (
     <Pressable
       style={[
-        styles.button,
+        closeButtonStyles.button,
         {
           backgroundColor: theme.background,
         },
@@ -17,14 +18,3 @@ export default function CloseButton({ onClose }: { onClose: () => void }) {
     </Pressable>
   );
 }
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 12,
-    padding: 8,
-    width: 48,
-    height: 48,
-  },
-});

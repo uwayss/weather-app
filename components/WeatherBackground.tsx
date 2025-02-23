@@ -1,27 +1,24 @@
 import React from "react";
-import { Image, StyleSheet } from "react-native";
-import { weatherCodeToBackgroundImageSource } from "@/helpers/weather"; // Adjust path if needed
-type WeatherBackgroundProps = {
+import { Image } from "react-native";
+import { weatherCodeToBackgroundImageSource } from "@/helpers/weather";
+import { weatherBackgroundStyles } from "./styles";
+
+export default function WeatherBackground({
+  weatherCode,
+  isDay,
+}: {
   weatherCode?: number;
   isDay?: 0 | 1;
-};
-export default function WeatherBackground({ weatherCode, isDay }: WeatherBackgroundProps) {
-  let content = (
-    <Image style={styles.backgroundImage} source={weatherCodeToBackgroundImageSource()} />
+}) {
+  const imageSource =
+    weatherCode === undefined
+      ? weatherCodeToBackgroundImageSource()
+      : weatherCodeToBackgroundImageSource(weatherCode, isDay);
+  return (
+    <Image
+      source={imageSource}
+      style={weatherBackgroundStyles.backgroundImage}
+      resizeMode="cover"
+    />
   );
-  if (weatherCode !== undefined) {
-    const imageSource = weatherCodeToBackgroundImageSource(weatherCode, isDay);
-    content = <Image source={imageSource} style={styles.backgroundImage} resizeMode="cover" />;
-  }
-  return content;
 }
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    top: 0,
-    left: 0,
-  },
-});

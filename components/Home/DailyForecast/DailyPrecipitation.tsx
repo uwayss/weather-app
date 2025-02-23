@@ -1,28 +1,17 @@
 import { GlassyText, GlassyView } from "@/components/Glassy";
-import { useWeather } from "@/context/weatherContext";
 import DailyRainProbGraph from "@/components/Graphs/DailyRainProbGraph";
+import { dailyPrecipitationStyles } from "../styles";
+import { DayWeather } from "@/types/apiTypes";
 
-export default function PrecipitationGraph() {
-  const { dailyWeather } = useWeather();
-  if (!dailyWeather || !dailyWeather.forecast) {
-    return (
-      <GlassyView style={{ padding: 16, width: "91%", margin: 8 }}>
-        <GlassyText>Precipitation data unavailable.</GlassyText>
-      </GlassyView>
-    );
-  }
-  const precipitationData: { day: string; precipitation: number }[] = dailyWeather.forecast.map(
-    (day) => ({
-      day: new Date(day.time).toLocaleDateString("en-UK", { weekday: "short" }),
-      precipitation: day.rainProbability || 0,
-    }),
-  );
+export default function PrecipitationGraph({ forecastData }: { forecastData: DayWeather[] }) {
+  const precipitationData: { day: string; precipitation: number }[] = forecastData.map((day) => ({
+    day: new Date(day.time).toLocaleDateString("en-UK", { weekday: "short" }),
+    precipitation: day.rainProbability || 0,
+  }));
 
   return (
-    <GlassyView style={{ padding: 16, margin: 16, gap: 8 }} alpha={0.3}>
-      <GlassyText style={{ fontSize: 20, lineHeight: 28, fontWeight: "bold" }}>
-        Precipitation Forecast
-      </GlassyText>
+    <GlassyView style={dailyPrecipitationStyles.container} alpha={0.3}>
+      <GlassyText style={dailyPrecipitationStyles.title}>Precipitation Forecast</GlassyText>
       <DailyRainProbGraph data={precipitationData} />
     </GlassyView>
   );

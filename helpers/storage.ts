@@ -1,4 +1,4 @@
-import { MMKV } from 'react-native-mmkv';
+import { MMKV } from "react-native-mmkv";
 import { LocationSearchResult, WeatherData } from "@/types/apiTypes";
 import { LAST_LOCATION_KEY, THEME_STORAGE_KEY, WEATHER_KEY } from "@/constants/storageKeys";
 
@@ -21,7 +21,6 @@ export function readWeatherData(): WeatherData | null {
     return null;
   }
 }
-
 
 export const resetWeatherData = () => {
   try {

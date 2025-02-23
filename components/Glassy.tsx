@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   StyleProp,
   ViewStyle,
   TextStyle,
@@ -11,6 +10,7 @@ import {
 } from "react-native";
 import { useTheme } from "@/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { glassyStyles } from "@/components/styles";
 
 type GlassyTextProps = {
   style?: StyleProp<TextStyle>;
@@ -72,7 +72,7 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  const baseStyles = rounded ? styleSheet.glassyView : styleSheet.glassyViewSquare;
+  const baseStyles = rounded ? glassyStyles.glassyView : glassyStyles.glassyViewSquare;
 
   const backgroundColor = isTransparent
     ? "transparent"
@@ -98,14 +98,3 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
 
   return content;
 };
-
-const styleSheet = StyleSheet.create({
-  glassyView: {
-    overflow: "hidden",
-    borderRadius: 12,
-  },
-  glassyViewSquare: {
-    overflow: "hidden",
-    borderRadius: 0,
-  },
-});

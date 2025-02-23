@@ -7,64 +7,33 @@ import DailyPrecipitation from "./DailyPrecipitation";
 import DailyTemperature from "./DailyTemperature";
 import ForecastList from "./NextDays/ForecastList";
 import { DayWeather } from "@/types/apiTypes";
+import { dailyForecastStyles } from "../styles";
 
 export default function DailyForecast() {
   const { dailyWeather } = useWeather();
   const [dailyForecast, setDailyForecast] = useState<DayWeather[] | null>(null);
+
   useEffect(() => {
-    if (dailyWeather === null) {
-      setDailyForecast(null);
-      return;
-    }
-    if (!dailyWeather.forecast) {
-      // Check for forecast property specifically
-      setDailyForecast(null);
-      return;
-    }
-    try {
-      if (!dailyWeather.forecast || typeof dailyWeather.forecast !== "object") {
-        // More robust check
-        console.error("Error: dailyWeather.forecast is not a valid object:", dailyWeather.forecast);
-        setDailyForecast(null);
-        return; // Exit the useEffect if it's invalid
-      }
-      const processedData = processDailyWeatherData(dailyWeather.forecast);
-      if (processedData) {
-        // Check if processDailyWeatherData returns a valid result
-        setDailyForecast(processedData);
-      } else {
-        console.error("processDailyWeatherData returned null or undefined.");
-        setDailyForecast(null); // Set to empty array in case of processing error
-      }
-    } catch (error) {
-      console.error("Error processing weather data:", error);
-      setDailyForecast(null);
-    }
+    if (dailyWeather === null) return setDailyForecast(null);
+    const processedData = processDailyWeatherData(dailyWeather.forecast);
+    if (!processedData) return setDailyForecast(null);
+    setDailyForecast(processedData);
   }, [dailyWeather]);
 
-  if (dailyForecast === null) {
-    return (
-      <GlassyView style={{ margin: 8, flexDirection: "column", width: "91%" }}>
-        <GlassyText style={{ fontSize: 24, lineHeight: 32, paddingVertical: 32 }}>
-          Loading weather forecast...
-        </GlassyText>
-      </GlassyView>
+  let content = (
+    <GlassyText style={dailyForecastStyles.text}>Loading weather forecast...</GlassyText>
+  );
+  if (dailyForecast) {
+    content = (
+      <>
+        <Header />
+        <ForecastList forecastData={dailyForecast} />
+        <DailyPrecipitation forecastData={dailyForecast} />
+        <DailyTemperature forecastData={dailyForecast} />
+      </>
     );
   }
-  // TODO: Improve chart theming
+  // TODO: Make the graphs better
   // TODO: Add the words today and tomorrow
-  return (
-    <GlassyView
-      style={{
-        margin: 8,
-        flexDirection: "column",
-        width: "91%",
-        alignSelf: "center",
-      }}>
-      <Header />
-      <ForecastList forecastData={dailyForecast} />
-      <DailyPrecipitation />
-      <DailyTemperature />
-    </GlassyView>
-  );
+  return <GlassyView style={dailyForecastStyles.container}>{content}</GlassyView>;
 }

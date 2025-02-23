@@ -3,10 +3,9 @@ import { useTheme } from "@/context/themeContext";
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { StyleProp, TextStyle } from "react-native";
-import { Feather as FeatherType } from '@expo/vector-icons';
 
 type IconProps = {
-  name: keyof typeof FeatherType.glyphMap;
+  name: any;
   size?: number;
   style?: StyleProp<TextStyle>;
 };
