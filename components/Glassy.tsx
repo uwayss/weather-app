@@ -11,6 +11,7 @@ import {
 import { useTheme } from "@/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { glassyStyles } from "@/components/styles";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
 type GlassyTextProps = {
   style?: StyleProp<TextStyle>;
@@ -28,6 +29,7 @@ type GlassyViewProps = {
   onPressNoFeedback?: () => void;
   safe?: boolean;
   isTransparent?: boolean;
+  isAnimated?: boolean;
 };
 
 export const GlassyText: React.FC<GlassyTextProps> = ({
@@ -44,7 +46,8 @@ export const GlassyText: React.FC<GlassyTextProps> = ({
           textAlign: centered ? "center" : undefined,
         },
         style,
-      ]}>
+      ]}
+    >
       {children}
     </Text>
   );
@@ -69,6 +72,7 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
   onPressNoFeedback,
   safe,
   isTransparent,
+  isAnimated,
 }) => {
   const { theme } = useTheme();
 
@@ -81,6 +85,14 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
       : hexToRgba(theme.background, alpha);
 
   let content = <View style={[{ backgroundColor }, baseStyles, style]}>{children}</View>;
+
+  if (isAnimated) {
+    content = (
+      <Animated.View entering={FadeInDown.duration(600).springify().damping(10)}>
+        {content}
+      </Animated.View>
+    );
+  }
 
   if (safe) {
     content = <SafeAreaView>{content}</SafeAreaView>;

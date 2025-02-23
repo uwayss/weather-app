@@ -1,5 +1,5 @@
 import { FlatList } from "react-native";
-import DailyWeatherTile from "./DailyWeatherTile";
+import AnimatedWeatherTile from "./AnimatedWeatherTile";
 import { DayWeather } from "@/types/apiTypes";
 
 export default function ForecastList({ forecastData }: { forecastData: DayWeather[] }) {
@@ -8,7 +8,7 @@ export default function ForecastList({ forecastData }: { forecastData: DayWeathe
       horizontal={true}
       data={forecastData}
       keyExtractor={(item) => item.time}
-      renderItem={({ item }) => <DailyWeatherTile data={item} />}
+      renderItem={({ item, index }) => <AnimatedWeatherTile data={item} index={index} />}
       contentContainerStyle={{
         gap: 8,
         paddingHorizontal: 16,

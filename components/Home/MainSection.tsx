@@ -1,5 +1,5 @@
 import { GlassyView } from "../Glassy";
-import DailyForecastSection from "../Home/DailyForecast/DailyForecast";
+import DailyForecast from "../Home/DailyForecast/DailyForecast";
 import Stats from "../Home/Stats";
 import { useSearchBar } from "../../context/searchBarContext";
 import { mainSectionStyles } from "./styles";
@@ -11,9 +11,10 @@ export default function MainSection() {
       style={mainSectionStyles.safeContainer}
       safe
       isTransparent
-      onPressNoFeedback={() => setShowSearch(false)}>
+      onPressNoFeedback={() => setShowSearch(false)}
+    >
       <Stats />
-      <DailyForecastSection />
+      <DailyForecast />
     </GlassyView>
   );
 }

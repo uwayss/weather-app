@@ -6,6 +6,8 @@ import { useRouter } from "expo-router";
 import { dailyWeatherTileStyles } from "../../styles";
 import { timeToWeekday } from "@/helpers/time";
 import { weatherCodeToImageURL } from "@/helpers/weather/display";
+import React from "react";
+
 type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(weatherCode, useWeather().currentWeather?.isDay);
@@ -15,11 +17,24 @@ function ConditionImage({ weatherCode }: ConditionImageProps) {
       source={{
         uri: imageUri,
       }}
-      style={dailyWeatherTileStyles.conditionImage}></Image>
+      style={dailyWeatherTileStyles.conditionImage}
+    ></Image>
   );
 }
 function WeekdayText({ time }: { time: string }) {
-  const weekday = timeToWeekday(time);
+  const today = new Date().toISOString().split("T")[0];
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
+  const dayDate = time.split("T")[0];
+
+  let weekday;
+  if (dayDate === today) {
+    weekday = "Today";
+  } else if (dayDate === tomorrow) {
+    weekday = "Tomorrow";
+  } else {
+    weekday = timeToWeekday(time);
+  }
+
   return <GlassyText style={dailyWeatherTileStyles.weekdayText}>{weekday}</GlassyText>;
 }
 type TemperatureTextProps = { min: number; max: number };
@@ -39,7 +54,8 @@ export default function DailyWeatherTile({ data }: { data: DayWeather }) {
         alpha={0.3}
         onPress={() => {
           router.push(`/${data.time.split("T")[0]}`); // Navigate to dynamic route
-        }}>
+        }}
+      >
         <ConditionImage weatherCode={data.weather_code} />
         <WeekdayText time={data.time} />
         <TemperatureText min={data.minTemp} max={data.maxTemp} />

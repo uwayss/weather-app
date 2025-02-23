@@ -12,7 +12,7 @@ def get_desktop_path():
 
 def generate_filename(prefix="diff"):
     """Generates a filename with a timestamp."""
-    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    timestamp = time.strftime("%H%M")
     return f"{prefix}_{timestamp}.txt"
 
 def save_git_diff(filepath):
