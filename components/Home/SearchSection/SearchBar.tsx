@@ -5,7 +5,7 @@ import { GlassyView } from "@/components/Glassy";
 import { useTheme } from "@/context/themeContext";
 import fetchLocations from "@/hooks/useFetchLocations";
 import { FeatherIcon } from "@/components/Icon";
-import useDebounce from "@/hooks/debounce"; // Import the debounce hook
+import useDebounce from "@/hooks/useDebounce"; // Import the debounce hook
 export default function SearchBar() {
   const { showSearch, toggleSearch, setLocations } = useSearchBar();
   const [searchText, setSearchText] = useState("");

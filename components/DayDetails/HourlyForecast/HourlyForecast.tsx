@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     alignSelf: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    padding: 16,
     gap: 16,
   },
   loadingText: {

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { weatherCodeToImageURL } from "@/helpers/weather";
 import { useWeather } from "@/context/weatherContext";
 import { DayWeather } from "@/types/apiTypes";
-import DayModal from "@/components/DayDetails/DayModal";
+import { useRouter } from "expo-router";
 type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(weatherCode, useWeather().currentWeather?.isDay);
@@ -67,24 +66,19 @@ function TemperatureText({ min, max }: TemperatureTextProps) {
 }
 type DailyWeatherTileProps = { data: DayWeather };
 export default function DailyWeatherTile({ data }: DailyWeatherTileProps) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const router = useRouter();
   return (
     <>
       <GlassyView
         style={styles.tile}
         alpha={0.3}
         onPress={() => {
-          setModalVisible(true);
+          router.push(`/${data.time.split("T")[0]}`); // Navigate to dynamic route
         }}>
         <ConditionImage weatherCode={data.weather_code} />
         <WeekdayText time={data.time} />
         <TemperatureText min={data.minTemp} max={data.maxTemp} />
       </GlassyView>
-      <DayModal
-        modalVisible={modalVisible}
-        toggleVisibility={() => setModalVisible(!modalVisible)}
-        data={data}
-      />
     </>
   );
 }

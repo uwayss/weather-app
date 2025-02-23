@@ -12,6 +12,16 @@ import { getPublicIP, getLocationFromIP } from "@/helpers/api";
 import FetchWeather from "@/hooks/useFetchWeather";
 import { readWeatherData, storeWeatherData } from "./storage";
 
+export function findDayWeatherFromTime(
+  time: string,
+  dailyForecast: DayWeather[] | undefined,
+): DayWeather | null {
+  if (dailyForecast === undefined) return null;
+  const day = dailyForecast.find((day) => day.time.split("T")[0] === time);
+  if (!day) return null;
+  return day;
+}
+
 export async function fetchWeatherDataForContext(
   setWeather: React.Dispatch<React.SetStateAction<WeatherData | null>>,
 ) {

@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
   container: {
     gap: 16,
     padding: 16,
-    marginTop: 80,
   },
   statText: {
     fontSize: 20,

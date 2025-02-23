@@ -10,11 +10,15 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <WeatherProvider>
-        <Stack>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="index" />
           <Stack.Screen
-            name="index"
+            name="[dayId]"
             options={{
-              headerShown: false,
+              animation: "slide_from_right",
             }}
           />
         </Stack>
