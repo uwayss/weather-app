@@ -1,9 +1,9 @@
 import { View } from "react-native";
-import { weatherCodeToCondition } from "../../helpers/weather";
 import { useWeather } from "../../context/weatherContext";
 import { GlassyText, GlassyView } from "../../components/Glassy";
 import { AwesomeIcon } from "../../components/Icon";
 import { statsStyles } from "./styles";
+import { weatherCodeToCondition } from "@/helpers/weather/display";
 function LoadingStats() {
   return (
     <GlassyView style={statsStyles.container}>

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import themes from "./theme";
 import { ThemeContextValue } from "@/types/themeTypes";
-import { readTheme, storeTheme } from "@/helpers/storage";
+import { readTheme, storeTheme } from "@/helpers/storage/theme";
 
 export const themeContext = createContext<ThemeContextValue>({
   theme: themes.dark,

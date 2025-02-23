@@ -1,11 +1,11 @@
 import { Image } from "react-native";
 import { GlassyText, GlassyView } from "@/components/Glassy";
-import { weatherCodeToImageURL } from "@/helpers/weather";
 import { useWeather } from "@/context/weatherContext";
 import { DayWeather } from "@/types/apiTypes";
 import { useRouter } from "expo-router";
 import { dailyWeatherTileStyles } from "../../styles";
 import { timeToWeekday } from "@/helpers/time";
+import { weatherCodeToImageURL } from "@/helpers/weather/display";
 type ConditionImageProps = { weatherCode: number };
 function ConditionImage({ weatherCode }: ConditionImageProps) {
   const imageUri = weatherCodeToImageURL(weatherCode, useWeather().currentWeather?.isDay);

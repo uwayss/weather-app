@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useWeather } from "@/context/weatherContext";
-import { processDailyWeatherData } from "@/helpers/weather";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import Header from "./Header";
 import DailyPrecipitation from "./DailyPrecipitation";
@@ -8,6 +7,7 @@ import DailyTemperature from "./DailyTemperature";
 import ForecastList from "./NextDays/ForecastList";
 import { DayWeather } from "@/types/apiTypes";
 import { dailyForecastStyles } from "../styles";
+import { processDailyWeatherData } from "@/helpers/weather/data";
 
 export default function DailyForecast() {
   const { dailyWeather } = useWeather();

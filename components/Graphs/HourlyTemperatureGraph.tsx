@@ -1,11 +1,11 @@
 import React from "react";
 import BaseChart from "./BaseChart";
-import { transformHourlyDataToChartData } from "@/helpers/weather";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
 import { HourlyTemperatureGraphProps } from "@/types/apiTypes";
 import { globalStyles } from "@/app/styles";
+import { transformHourlyDataToChartData } from "@/helpers/weather/chart";
 
 export default function HourlyTemperatureGraph({ data }: { data: HourlyTemperatureGraphProps }) {
   const barChartProps = {

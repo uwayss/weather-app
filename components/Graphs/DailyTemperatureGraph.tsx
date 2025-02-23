@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
 import BaseChart from "./BaseChart";
-import { calculateMinMax, transformWeatherDataToChartData } from "@/helpers/weather";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
 import { globalStyles } from "@/app/styles";
+import { calculateMinMax } from "@/helpers/weather/data";
+import { transformWeatherDataToChartData } from "@/helpers/weather/chart";
 
 export default function DailyTemperatureGraph({
   data,

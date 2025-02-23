@@ -1,8 +1,8 @@
 import React from "react";
 import BaseChart from "./BaseChart";
-import { processPrecipitationData } from "@/helpers/weather";
 import { useTheme } from "@/context/themeContext";
 import { RainProbGraphProps } from "@/types/apiTypes";
+import { processPrecipitationData } from "@/helpers/weather/data";
 
 type Props = {
   data: RainProbGraphProps;

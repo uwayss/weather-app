@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { CurrentWeather, DaysForecast, HoursForecast, WeatherData } from "@/types/apiTypes";
 import { EmptyWeatherObject } from "@/constants/weather";
-import { fetchWeatherDataForContext } from "@/helpers/weather";
+import { fetchWeatherDataForContext } from "@/helpers/weather/data";
 
 interface WeatherContextProps {
   name: string | null;

@@ -2,8 +2,8 @@ import { useWeather } from "@/context/weatherContext";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import HourlyPrecipitation from "./HourlyPrecipitation";
 import HourlyTemperature from "./HourlyTemperature";
-import { getHourlyDataForDate } from "@/helpers/weather";
 import { hourlyForecastStyles } from "./styles";
+import { getHourlyDataForDate } from "@/helpers/weather/data";
 
 export default function HourlyForecast({ time }: { time: string }) {
   const { hourlyWeather } = useWeather();

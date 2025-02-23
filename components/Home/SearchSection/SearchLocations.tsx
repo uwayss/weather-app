@@ -1,11 +1,12 @@
-import { TouchableOpacity } from "react-native";
-import { useSearchBar } from "@/context/searchBarContext";
 import FetchWeather from "@/hooks/useFetchWeather";
-import { useWeather } from "@/context/weatherContext";
 import { GlassyView, GlassyText } from "@/components/Glassy";
-import { saveLastLocation, storeWeatherData } from "@/helpers/storage";
+import { storeWeatherData } from "@/helpers/storage/weather";
+import { useSearchBar } from "@/context/searchBarContext";
 import { LocationSearchResult } from "@/types/apiTypes";
+import { useWeather } from "@/context/weatherContext";
 import { searchLocationsStyles } from "../styles";
+import { TouchableOpacity } from "react-native";
+import { saveLastLocation } from "@/helpers/storage/location";
 
 export default function SearchLocations() {
   const { locations, toggleSearch } = useSearchBar();

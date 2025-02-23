@@ -1,5 +1,6 @@
 import { WeatherData } from "@/types/apiTypes"; // Adjust path as necessary
-import { makeWeatherRequest } from "@/helpers/api";
+import { makeWeatherRequest } from "@/helpers/api/openMeteo";
+
 interface Location {
   lat: any;
   lon: any;

@@ -10,7 +10,8 @@
     "dump": "python utils/codebase_dumper.py",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "diff": "python utils/diff.py"
+    "diff": "python utils/diff.py",
+    "typescript": "tsc . "
   },
   "dependencies": {
     "@types/react": "~18.3.12",

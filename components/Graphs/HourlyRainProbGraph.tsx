@@ -1,8 +1,8 @@
 import React from "react";
 import BaseChart from "./BaseChart";
-import { processPrecipitationData } from "@/helpers/weather";
 import { useTheme } from "@/context/themeContext";
 import { HourlyRainProbGraphProps } from "@/types/apiTypes";
+import { processPrecipitationData } from "@/helpers/weather/data";
 
 export default function HourlyRainProbGraph({ data }: { data: HourlyRainProbGraphProps }) {
   const currentData = processPrecipitationData(data, "hourly");

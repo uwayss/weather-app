@@ -5,9 +5,10 @@ import WeatherBackground from "@/components/WeatherBackground";
 import { useWeather } from "@/context/weatherContext";
 import StatsView from "@/components/Day/StatsView";
 import HourlyForecast from "@/components/Day/HourlyForecast/HourlyForecast";
-import { findDayWeatherFromTime } from "@/helpers/weather";
+
 import CloseButton from "@/components/Day/CloseButton";
 import { dayStyles, globalStyles } from "./styles";
+import { findDayWeatherFromTime } from "@/helpers/weather/data";
 export default function DayDetailsScreen() {
   const router = useRouter();
   const { dayId } = useLocalSearchParams<{ dayId: string }>();

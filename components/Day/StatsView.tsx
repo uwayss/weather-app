@@ -1,10 +1,11 @@
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { View } from "react-native";
-import { weatherCodeToCondition, weatherCodeToImageURL } from "@/helpers/weather";
+
 import { Image } from "react-native";
 import { AwesomeIcon } from "@/components/Icon";
 import { DayWeather } from "@/types/apiTypes";
 import { statsViewStyles } from "./styles";
+import { weatherCodeToCondition, weatherCodeToImageURL } from "@/helpers/weather/display";
 function Header({ time }: { time: string }) {
   return (
     <GlassyView style={statsViewStyles.headerContainer} isTransparent>

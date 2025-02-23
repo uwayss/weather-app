@@ -1,7 +1,8 @@
 import React from "react";
 import { Image } from "react-native";
-import { weatherCodeToBackgroundImageSource } from "@/helpers/weather";
+
 import { weatherBackgroundStyles } from "./styles";
+import { weatherCodeToBackgroundImageSource } from "@/helpers/weather/display";
 
 export default function WeatherBackground({
   weatherCode,
