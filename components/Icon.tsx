@@ -1,10 +1,12 @@
 import React from "react";
 import { useTheme } from "@/context/themeContext";
-import { Feather } from "expo-vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { StyleProp, TextStyle } from "react-native";
+import { Feather as FeatherType } from '@expo/vector-icons';
+
 type IconProps = {
-  name: string;
+  name: keyof typeof FeatherType.glyphMap;
   size?: number;
   style?: StyleProp<TextStyle>;
 };
