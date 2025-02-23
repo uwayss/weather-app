@@ -16,7 +16,7 @@ export function isWithinLast30Minutes(dateString: string): boolean {
   const dateTimestamp = date.getTime(); // Get timestamp of the input date
 
   if (isNaN(dateTimestamp)) {
-    console.warn("Invalid date string provided to isWithinLast30Minutes:", dateString);
+    console.error("Invalid date string provided to isWithinLast30Minutes:", dateString);
     return false; // Handle invalid date strings
   }
 

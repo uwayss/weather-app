@@ -27,7 +27,7 @@ This application provides current weather conditions and forecasts for locations
 - **Open-Meteo API:** For reliable and accurate weather data.
 - **Nominatim (OpenStreetMap):** For geocoding and location search functionality.
 - **react-native-gifted-charts:** For creating interactive and informative charts.
-- **react-native-async-storage:** For local data persistence.
+- **react-native-mmkv:** For local data persistence.
 - **axios:** For making HTTP requests to external APIs.
 - **TypeScript:** For enhanced code maintainability and type safety.
 

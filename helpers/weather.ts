@@ -16,7 +16,7 @@ export async function fetchWeatherDataForContext(
   setWeather: React.Dispatch<React.SetStateAction<WeatherData | null>>,
 ) {
   try {
-    const previousWeatherData = await readWeatherData();
+    const previousWeatherData = readWeatherData();
     if (isValidWeatherData(previousWeatherData)) {
       console.log("Using previous weather data");
       return setWeather(previousWeatherData);
@@ -33,13 +33,13 @@ async function fetchWeatherByIP(
 ) {
   const publicIP = await getPublicIP();
   if (!publicIP) {
-    console.warn("Could not get location from IP. Weather data might be unavailable.");
+    console.error("Could not get location from IP. Weather data might be unavailable.");
     return setWeather(null);
   }
 
   const locationData = await getLocationFromIP(publicIP);
   if (!locationData) {
-    console.warn("Could not get location from IP. Weather data might be unavailable.");
+    console.error("Could not get location from IP. Weather data might be unavailable.");
     return setWeather(null);
   }
 
@@ -71,7 +71,7 @@ export async function getWeatherDataFromPublicIp(
 
 export function isValidWeatherData(weatherData: WeatherData | null): WeatherData | null {
   if (weatherData?.currentWeather) {
-    console.warn("Valid weather data found in storage");
+    console.log("Valid weather data found in storage");
     return weatherData;
   }
   return null;
@@ -91,13 +91,13 @@ export const weatherCodeToBackgroundImageSource = (
 
   const weatherData = backgroundMappings[code];
   if (!weatherData) {
-    console.warn(`weatherCodeToBackgroundImageURL: No background mapping found for code ${code}.`);
+    console.error(`weatherCodeToBackgroundImageURL: No background mapping found for code ${code}.`);
     return undefined;
   }
 
   if (isDay === 0) return weatherData.night;
-  if (isDay !== 1 && isDay !== undefined) {
-    console.warn(
+  if (isDay !== 1) {
+    console.error(
       `weatherCodeToBackgroundImageURL: Invalid isDay value: ${isDay}. Expected 0 or 1.`,
     );
     return undefined;
@@ -123,7 +123,7 @@ export function processDailyWeatherData(dailyForecast: DayWeather[]): DayWeather
   }
 
   if (dailyForecast.length === 0) {
-    console.warn("Warning: Empty dailyForecast array provided.");
+    console.error("Warning: Empty dailyForecast array provided.");
     return [];
   }
 

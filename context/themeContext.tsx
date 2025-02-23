@@ -19,7 +19,7 @@ export default function ThemeProvider({ children }: ProviderProps) {
   useEffect(() => {
     const loadTheme = async () => {
       try {
-        const storedTheme = await readTheme();
+        const storedTheme = readTheme();
         setThemeName(storedTheme); // Use stored theme if available
         console.log("Loaded theme from storage");
       } catch (e) {

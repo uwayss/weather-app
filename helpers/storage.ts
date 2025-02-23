@@ -1,75 +1,84 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MMKV } from 'react-native-mmkv';
 import { LocationSearchResult, WeatherData } from "@/types/apiTypes";
 import { LAST_LOCATION_KEY, THEME_STORAGE_KEY, WEATHER_KEY } from "@/constants/storageKeys";
 
-export const storeWeatherData = async (value: WeatherData | null) => {
+const storage = new MMKV();
+
+export const storeWeatherData = (value: WeatherData | null) => {
   try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem(WEATHER_KEY, jsonValue);
+    storage.set(WEATHER_KEY, JSON.stringify(value));
   } catch (e) {
     console.error("Error saving data to Storage", e);
   }
 };
-export async function readWeatherData(): Promise<WeatherData | null> {
+
+export function readWeatherData(): WeatherData | null {
   try {
-    const jsonValue = await AsyncStorage.getItem(WEATHER_KEY);
+    const jsonValue = storage.getString(WEATHER_KEY);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     console.error("Error reading data from Storage", e);
     return null;
   }
 }
-export const resetWeatherData = async () => {
+
+
+export const resetWeatherData = () => {
   try {
-    await AsyncStorage.removeItem(WEATHER_KEY);
+    storage.delete(WEATHER_KEY);
   } catch (e) {
     throw new Error("Error resetting weather data: " + e);
   }
 };
-export const saveLastLocation = async (location: LocationSearchResult) => {
+
+export const saveLastLocation = (location: LocationSearchResult) => {
   try {
-    const jsonValue = JSON.stringify(location);
-    await AsyncStorage.setItem(LAST_LOCATION_KEY, jsonValue);
+    storage.set(LAST_LOCATION_KEY, JSON.stringify(location));
     console.log("Saved last location to Storage");
   } catch (e) {
     console.error("Error saving last location to Storage", e);
   }
 };
-export const readLastLocation = async () => {
+
+export const readLastLocation = () => {
   try {
-    const jsonValue = await AsyncStorage.getItem(LAST_LOCATION_KEY);
+    const jsonValue = storage.getString(LAST_LOCATION_KEY);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     console.error("Error reading last location from Storage", e);
     return null;
   }
 };
-export const resetLastLocation = async () => {
+
+export const resetLastLocation = () => {
   try {
-    await AsyncStorage.removeItem(LAST_LOCATION_KEY);
+    storage.delete(LAST_LOCATION_KEY);
   } catch (e) {
     throw new Error("Error resetting last location: " + e);
   }
 };
-export const storeTheme = async (theme: "light" | "dark") => {
+
+export const storeTheme = (theme: "light" | "dark") => {
   try {
-    await AsyncStorage.setItem(THEME_STORAGE_KEY, theme);
+    storage.set(THEME_STORAGE_KEY, theme);
   } catch (e) {
     console.error("Error saving theme to Storage", e);
   }
 };
-export const readTheme = async () => {
+
+export const readTheme = () => {
   try {
-    const theme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
+    const theme = storage.getString(THEME_STORAGE_KEY);
     return theme === "light" ? "light" : "dark";
   } catch (e) {
     console.error("Error reading theme from Storage", e);
     return "light";
   }
 };
-export const resetTheme = async () => {
+
+export const resetTheme = () => {
   try {
-    await AsyncStorage.removeItem(THEME_STORAGE_KEY);
+    storage.delete(THEME_STORAGE_KEY);
   } catch (e) {
     throw new Error("Error resetting theme: " + e);
   }

@@ -16,7 +16,7 @@ export default function SearchLocations() {
     storeWeatherData(newWeather);
     console.log("Saved weather data into storage");
     setWeather && setWeather(newWeather);
-    await saveLastLocation(location);
+    saveLastLocation(location);
   }
 
   function Location({ location }: { location: LocationSearchResult }) {
