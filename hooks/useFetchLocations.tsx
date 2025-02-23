@@ -1,4 +1,4 @@
-import { makeNominatimRequest } from "@/helpers/api/nominatim";
+import { makeNominatimRequest } from "@/helpers/api";
 
 export default async function fetchLocations(q: string) {
   try {

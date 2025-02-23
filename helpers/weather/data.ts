@@ -1,7 +1,8 @@
 import { DayWeather, HourWeather, RainProbGraphProps, WeatherData } from "../../types/apiTypes";
 import { readWeatherData, storeWeatherData } from "../storage/weather";
-import { getLocationFromIP, getPublicIP } from "../api/ip";
+import { getLocationFromIP, getPublicIP } from "../api";
 import FetchWeather from "../../hooks/useFetchWeather";
+import { HourlyTemperatureGraphProps } from "../../types/apiTypes";
 
 export function findDayWeatherFromTime(
   time: string,
@@ -144,4 +145,42 @@ export function getHourlyDataForDate(hourlyForecast: HourWeather[], dateString: 
   }
 
   return hourlyForecast.filter((hourlyData) => hourlyData.time.split("T")[0] === dateString);
+}
+
+export function transformWeatherDataToChartData(
+  weatherData: { day: string; minTemp: number; maxTemp: number }[],
+) {
+  const maxTempFrontColor = "lightblue";
+  const maxTempGradientColor = "#1E90FF";
+  const minTempFrontColor = "orange";
+  const minTempGradientColor = "gold";
+
+  return weatherData.flatMap((dayData) => [
+    {
+      value: Math.round(dayData.maxTemp),
+      frontColor: minTempFrontColor,
+      gradientColor: minTempGradientColor,
+      spacing: 6,
+      label: dayData.day,
+    },
+    {
+      value: Math.round(dayData.minTemp),
+      frontColor: maxTempFrontColor,
+      gradientColor: maxTempGradientColor,
+    },
+  ]);
+}
+
+export function transformHourlyDataToChartData(hourlyData: HourlyTemperatureGraphProps) {
+  if (!Array.isArray(hourlyData)) {
+    console.error("transformHourlyDataToChartData: hourlyData is not an array", hourlyData);
+    return [];
+  }
+
+  return hourlyData.map((hourData) => ({
+    value: Math.round(hourData.temperature),
+    frontColor: "orange",
+    gradientColor: "gold",
+    label: hourData.hour,
+  }));
 }

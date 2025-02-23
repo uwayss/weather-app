@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
 import { HourlyTemperatureGraphProps } from "@/types/apiTypes";
 import { globalStyles } from "@/app/styles";
-import { transformHourlyDataToChartData } from "@/helpers/weather/chart";
+import { transformHourlyDataToChartData } from "@/helpers/weather/data";
 
 export default function HourlyTemperatureGraph({ data }: { data: HourlyTemperatureGraphProps }) {
   const barChartProps = {
