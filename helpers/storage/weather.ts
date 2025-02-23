@@ -1,7 +1,7 @@
 import { MMKV } from "react-native-mmkv";
 import { WeatherData } from "../../types/apiTypes";
-import { WEATHER_KEY } from "../../constants/storageKeys";
 
+const WEATHER_KEY = "weather";
 const storage = new MMKV();
 
 export const storeWeatherData = (value: WeatherData | null) => {

@@ -5,13 +5,13 @@ import WeatherBackground from "@/components/WeatherBackground";
 import SearchBarProvider from "@/context/searchBarContext";
 import { View, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { globalStyles } from "./styles";
+import { globalStyles } from "../styles";
 
 const HomeScreen = () => {
   const { currentWeather } = useWeather();
   const { weatherCode, isDay } = currentWeather || {};
-  const backgroundProps = weatherCode && isDay ? { weatherCode, isDay } : {};
-
+  const backgroundProps =
+    typeof weatherCode === "number" && typeof isDay === "number" ? { weatherCode, isDay } : {};
   return (
     <View style={globalStyles.container}>
       <WeatherBackground {...backgroundProps} />

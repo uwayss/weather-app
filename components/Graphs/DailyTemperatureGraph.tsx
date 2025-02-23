@@ -3,7 +3,7 @@ import BaseChart from "./BaseChart";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
-import { globalStyles } from "@/app/styles";
+import { globalStyles } from "@/styles";
 import { calculateMinMax, transformWeatherDataToChartData } from "@/helpers/weather/data";
 
 export default function DailyTemperatureGraph({

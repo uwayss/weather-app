@@ -1,7 +1,7 @@
 import { MMKV } from "react-native-mmkv";
 import { LocationSearchResult } from "../../types/apiTypes";
-import { LAST_LOCATION_KEY } from "../../constants/storageKeys";
 
+const LAST_LOCATION_KEY = "last_location";
 const storage = new MMKV();
 export const saveLastLocation = (location: LocationSearchResult) => {
   try {
