@@ -1,3 +1,4 @@
+import React from "react";
 import { Image } from "react-native";
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { weatherCodeToImageURL } from "@/helpers/weather";

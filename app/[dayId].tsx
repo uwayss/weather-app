@@ -7,7 +7,7 @@ import StatsView from "@/components/Day/StatsView";
 import HourlyForecast from "@/components/Day/HourlyForecast/HourlyForecast";
 import { findDayWeatherFromTime } from "@/helpers/weather";
 import CloseButton from "@/components/Day/CloseButton";
-import { dayStyles, globalStyles } from "./styles";
+import { dayStyles, globalStyles } from "../styles";
 export default function DayDetailsScreen() {
   const router = useRouter();
   const { dayId } = useLocalSearchParams<{ dayId: string }>();

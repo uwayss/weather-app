@@ -3,39 +3,41 @@ import { StyleSheet } from "react-native";
 export const statsStyles = StyleSheet.create({
   container: {
     alignItems: "center",
-    paddingVertical: 12,
-    gap: 16,
-    width: "91%",
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    gap: 20,
+    width: "92%",
+    maxWidth: 500,
+    marginHorizontal: "auto",
+    borderRadius: 20,
   },
   header: {
-    fontSize: 24,
-    fontWeight: "bold",
     width: "100%",
+    textAlign: "center",
   },
   temperature: {
-    fontSize: 72,
-    fontWeight: "bold",
+    textAlign: "center",
   },
   condition: {
-    fontSize: 18,
-    lineHeight: 28,
-    letterSpacing: 0.5,
+    textAlign: "center",
   },
   statsWrapper: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
-    justifyContent: "center",
-    paddingLeft: 24,
+    gap: 16,
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 8,
   },
   statistic: {
-    width: "35%",
+    width: "45%",
     flexDirection: "row",
-    gap: 8,
+    gap: 12,
     alignItems: "center",
+    paddingVertical: 8,
   },
   statisticText: {
-    fontWeight: "light",
+    fontWeight: "300",
   },
 });
 
@@ -47,6 +49,7 @@ export const mainSectionStyles = StyleSheet.create({
     width: "100%",
   },
 });
+
 export const searchSectionStyles = StyleSheet.create({
   safeContainer: {
     width: "100%",
@@ -56,15 +59,18 @@ export const searchSectionStyles = StyleSheet.create({
     position: "absolute",
   },
 });
+
 export const searchBarStyles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
     flexDirection: "row",
     width: "auto",
-    justifyContent: "flex-end",
+    maxWidth: 600,
+    justifyContent: "space-between",
     alignItems: "center",
-    paddingLeft: 80,
-    height: 52,
+    paddingHorizontal: 16,
+    height: 56,
+    borderRadius: 28,
   },
   inputStyles: {
     fontSize: 18,
@@ -77,35 +83,39 @@ export const searchBarStyles = StyleSheet.create({
     padding: 12,
   },
 });
+
 export const searchLocationsStyles = StyleSheet.create({
   container: {
     flexDirection: "column",
     marginHorizontal: 16,
-    gap: 2,
-    alignItems: "center",
+    marginTop: 8,
+    gap: 4,
+    alignItems: "stretch",
+    maxWidth: 600,
+    alignSelf: "center",
+    width: "92%",
   },
   locationContainer: {
     width: "100%",
-    height: "100%",
     padding: 16,
+    marginVertical: 2,
   },
   locationWrapper: {
     flexDirection: "row",
     alignItems: "center",
   },
 });
+
 export const headerStyles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 16,
-    paddingHorizontal: 32,
-    marginVertical: 12,
+    gap: 8,
+    marginBottom: 8,
   },
-  title: {
-    fontSize: 20,
-    lineHeight: 28,
+  text: {
+    fontSize: 18,
     fontWeight: "bold",
   },
 });

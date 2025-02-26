@@ -8,7 +8,7 @@ import DailyTemperature from "./DailyTemperature";
 import ForecastList from "./NextDays/ForecastList";
 import { DayWeather } from "@/types/apiTypes";
 import { dailyForecastStyles } from "../styles";
-
+import React from "react";
 export default function DailyForecast() {
   const { dailyWeather } = useWeather();
   const [dailyForecast, setDailyForecast] = useState<DayWeather[] | null>(null);

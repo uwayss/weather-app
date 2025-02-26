@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <View style={headerStyles.container}>
       <AwesomeIcon name="calendar-days" size={18} />
-      <GlassyText style={headerStyles.title}>Next Days</GlassyText>
+      <GlassyText style={headerStyles.text}>Next Days</GlassyText>
     </View>
   );
 }

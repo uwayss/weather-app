@@ -1,16 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleProp, ViewStyle, TextStyle, TouchableWithoutFeedback } from "react-native";
 import { useTheme } from "@/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { glassyStyles } from "@/components/styles";
+import { Surface, Text, TouchableRipple } from "react-native-paper";
 
 type GlassyTextProps = {
   style?: StyleProp<TextStyle>;
@@ -80,14 +73,18 @@ export const GlassyView: React.FC<GlassyViewProps> = ({
       ? "red"
       : hexToRgba(theme.background, alpha);
 
-  let content = <View style={[{ backgroundColor }, baseStyles, style]}>{children}</View>;
+  let content = (
+    <Surface style={[{ backgroundColor }, baseStyles, style]} elevation={0}>
+      {children}
+    </Surface>
+  );
 
   if (safe) {
     content = <SafeAreaView>{content}</SafeAreaView>;
   }
 
   if (onPress) {
-    content = <TouchableOpacity onPress={onPress}>{content}</TouchableOpacity>;
+    content = <TouchableRipple onPress={onPress}>{content}</TouchableRipple>;
   }
 
   if (onPressNoFeedback) {

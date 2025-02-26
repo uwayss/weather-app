@@ -4,7 +4,7 @@ import { calculateMinMax, transformWeatherDataToChartData } from "@/helpers/weat
 import { GlassyText, GlassyView } from "@/components/Glassy";
 import { ReactNode } from "react";
 import { barDataItem, stackDataItem } from "react-native-gifted-charts";
-import { globalStyles } from "@/app/styles";
+import { globalStyles } from "@/styles";
 
 export default function DailyTemperatureGraph({
   data,
