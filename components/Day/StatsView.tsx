@@ -5,6 +5,7 @@ import { Image } from "react-native";
 import { AwesomeIcon } from "@/components/Icon";
 import { DayWeather } from "@/types/apiTypes";
 import { statsViewStyles } from "./styles";
+import React from "react";
 function Header({ time }: { time: string }) {
   return (
     <GlassyView style={statsViewStyles.headerContainer} isTransparent>

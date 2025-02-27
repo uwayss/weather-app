@@ -1,8 +1,8 @@
 import { View } from "react-native";
-import { weatherCodeToCondition } from "../../helpers/weather";
-import { useWeather } from "../../context/weatherContext";
 import { Surface, Text } from "react-native-paper";
-import { AwesomeIcon } from "../../components/Icon";
+import { useWeather } from "@/context/weatherContext";
+import { AwesomeIcon } from "@/components/Icon";
+import { weatherCodeToCondition } from "@/helpers/weather";
 import { statsStyles } from "./styles";
 
 function LoadingStats() {

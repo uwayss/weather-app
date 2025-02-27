@@ -1,10 +1,10 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import themes from "./theme";
-import { ThemeContextValue } from "@/types/themeTypes";
+import { lightTheme, darkTheme } from "@/theme/theme.config";
+import { ThemeContextValue, Theme, ThemeName } from "@/theme/theme.types";
 import { readTheme, storeTheme } from "@/helpers/storage";
 
 export const themeContext = createContext<ThemeContextValue>({
-  theme: themes.dark,
+  theme: darkTheme,
   toggleTheme: () => {},
   themeName: "dark",
 });
@@ -43,17 +43,16 @@ export default function ThemeProvider({ children }: ProviderProps) {
     saveTheme();
   }, [themeName]);
 
-  if (themeName) {
-    const theme = themes[themeName];
-    const toggleTheme = () => {
-      setThemeName(themeName === "light" ? "dark" : "light"); // State update will trigger useEffect to save
-    };
-    return (
-      <themeContext.Provider value={{ theme, themeName, toggleTheme }}>
-        {children}
-      </themeContext.Provider>
-    );
-  }
+  const theme: Theme = themeName === "light" ? lightTheme : darkTheme;
+  const toggleTheme = () => {
+    setThemeName(themeName === "light" ? "dark" : "light"); // State update will trigger useEffect to save
+  };
+
+  return (
+    <themeContext.Provider value={{ theme, themeName, toggleTheme }}>
+      {children}
+    </themeContext.Provider>
+  );
 }
 
 // Custom hook to easily use the theme context in components
